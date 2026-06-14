@@ -125,6 +125,33 @@
 
   /* FOOTER */
   .footer{padding:18px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
+
+  /* AGENT FILTER BUTTONS */
+  .agent-filter-btn{background:var(--border);color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.15s;}
+  .agent-filter-btn:hover{color:var(--text);border-color:var(--muted);}
+  .agent-filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
+
+  /* DISPOSITION REPORT */
+  .disp-agent-block{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;}
+  .disp-agent-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;cursor:pointer;}
+  .disp-agent-name{font-size:14px;font-weight:600;color:var(--bright);}
+  .disp-agent-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+  .disp-agent-stats{display:flex;gap:20px;align-items:center;}
+  .disp-stat{text-align:right;}
+  .disp-stat .val{font-family:'DM Mono',monospace;font-weight:700;font-size:15px;}
+  .disp-stat .lbl{font-size:10px;color:var(--muted);}
+  .disp-toggle{font-size:18px;color:var(--muted);transition:transform 0.2s;user-select:none;}
+  .disp-body{overflow:hidden;}
+  .disp-body.collapsed{display:none;}
+  .disp-category-bar{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+  .disp-cat-label{font-size:12px;color:var(--text);width:220px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .disp-cat-track{flex:1;background:var(--border);border-radius:4px;height:7px;}
+  .disp-cat-fill{height:100%;border-radius:4px;}
+  .disp-cat-count{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);width:36px;text-align:right;}
+  .disp-cat-pct{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);width:38px;text-align:right;}
+  .disp-summary-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .disp-sum-pill{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;}
+
 </style>
 </head>
 <body>
@@ -160,6 +187,7 @@
   <button class="tab-btn active" onclick="showTab('campaign',this)">📊 Campaign Overview</button>
   <button class="tab-btn" onclick="showTab('daily',this)">📅 Daily View</button>
   <button class="tab-btn" onclick="showTab('agents',this)">👥 Agent Dashboard</button>
+  <button class="tab-btn" onclick="showTab('dispositions',this)">📋 Disposition Report</button>
 </div>
 
 <!-- ══ TAB 1: CAMPAIGN OVERVIEW ══ -->
@@ -262,6 +290,29 @@
     </table>
   </div>
 
+  <div class="section-label">Disposition Summary by Agent</div>
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>Outcome Categories — All Agents</div>
+    <div style="overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr>
+          <th>Agent</th>
+          <th style="color:var(--green);">Sales</th>
+          <th style="color:var(--amber);">Callbacks</th>
+          <th style="color:var(--blue);">Not Interested</th>
+          <th style="color:var(--muted);">Voicemail</th>
+          <th style="color:var(--muted);">No Answer</th>
+          <th style="color:var(--muted);">3rd Party</th>
+          <th style="color:var(--red);">Hung Up</th>
+          <th style="color:var(--muted);">Other</th>
+          <th>Total Leads</th>
+        </tr></thead>
+        <tbody id="agent-disp-summary-tbody"></tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted);">See the Disposition Report tab for a full per-agent breakdown of every disposition code.</div>
+  </div>
+
   <div class="section-label">All Agents — Full Stats</div>
   <div class="card">
     <table class="data-table">
@@ -269,6 +320,23 @@
       <tbody id="full-agent-tbody"></tbody>
     </table>
   </div>
+</div>
+
+<!-- ══ TAB 4: DISPOSITION REPORT ══ -->
+<div id="view-dispositions" class="view">
+
+  <div class="section-label">Disposition Report — Agent Level</div>
+  <div class="kpi-grid" id="kpi-disp"></div>
+
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-title"><span class="dot"></span>Filter by Agent</div>
+    <div id="agent-selector" style="display:flex;flex-wrap:wrap;gap:8px;">
+      <button class="agent-filter-btn active" onclick="filterAgent('ALL',this)">All Agents</button>
+    </div>
+  </div>
+
+  <div id="disp-report-all"></div>
+
 </div>
 
 <div class="footer">
@@ -285,6 +353,23 @@ const CSV_URL = 'https://raw.githubusercontent.com/I50N/Voda_Dashboard/refs/head
 // ════════════════════════════════════════════════
 // TAB SWITCHING
 // ════════════════════════════════════════════════
+
+function filterAgent(name, btn) {
+  document.querySelectorAll('.agent-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.disp-agent-block').forEach(block => {
+    block.style.display = (name === 'ALL' || block.dataset.agent === name) ? 'block' : 'none';
+  });
+}
+
+function toggleDispBlock(header) {
+  const body   = header.nextElementSibling;
+  const toggle = header.querySelector('.disp-toggle');
+  const isOpen = !body.classList.contains('collapsed');
+  body.classList.toggle('collapsed', isOpen);
+  toggle.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
 function showTab(id, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -755,6 +840,166 @@ function render(rows) {
       <td class="num">${a.cr.toFixed(1)}%</td><td class="num">${a.rr.toFixed(1)}%</td>
       <td class="num" style="color:${convColor(a.conv)};font-weight:700;">${a.conv.toFixed(1)}%</td>
       <td>${tier}</td>
+    </tr>`;
+  }).join('');
+
+
+  // ════════════════════════════════════════════════
+  // RENDER — DISPOSITION REPORT
+  // ════════════════════════════════════════════════
+
+  // Aggregate dispositions per agent
+  const agentDispMap = {}; // { agentName: { dispCode: count } }
+  rows.forEach(r => {
+    const a    = (r['Agent Display'] || '').trim();
+    const disp = (r['Disposition']   || 'Unknown').trim();
+    if (!a || a === '\\N' || a === '' || a === 'Unassigned' || a === 'N/A') return;
+    const lead = n(r['Lead']);
+    if (lead === 0) return;
+    if (!agentDispMap[a]) agentDispMap[a] = {};
+    agentDispMap[a][disp] = (agentDispMap[a][disp] || 0) + lead;
+  });
+
+  // Categorise dispositions
+  function categoriseDisp(disp) {
+    const d = disp.toLowerCase();
+    if (d.includes('sale') || d.includes('sold'))                                          return 'sale';
+    if (d.includes('callback') || d.includes('call back') || d.includes('interested later')) return 'callback';
+    if (d.includes('not interested'))                                                       return 'not_interested';
+    if (d.includes('voice mail') || d.includes('voicemail'))                               return 'voicemail';
+    if (d.includes('no answer'))                                                            return 'no_answer';
+    if (d.includes('third party') || d.includes('3rd party'))                              return 'third_party';
+    if (d.includes('hung up') || d.includes('hung-up') || d.includes('hungup'))           return 'hung_up';
+    return 'other';
+  }
+
+  const CAT_META = {
+    sale:         { label:'Sales',        color:'var(--green)',  bg:'rgba(34,197,94,0.15)'  },
+    callback:     { label:'Callbacks',    color:'var(--amber)',  bg:'rgba(245,158,11,0.15)' },
+    not_interested:{ label:'Not Interested', color:'var(--blue)', bg:'rgba(59,130,246,0.15)'},
+    voicemail:    { label:'Voicemail',    color:'var(--muted)',  bg:'rgba(90,90,114,0.2)'   },
+    no_answer:    { label:'No Answer',    color:'var(--muted)',  bg:'rgba(90,90,114,0.2)'   },
+    third_party:  { label:'3rd Party',    color:'var(--muted)',  bg:'rgba(90,90,114,0.2)'   },
+    hung_up:      { label:'Hung Up',      color:'var(--red)',    bg:'rgba(226,0,26,0.15)'   },
+    other:        { label:'Other',        color:'var(--border)', bg:'rgba(46,46,58,0.5)'    },
+  };
+
+  // Build per-agent category summary
+  const agentDispCats = {}; // { agentName: { cat: count } }
+  Object.entries(agentDispMap).forEach(([agent, disps]) => {
+    agentDispCats[agent] = { sale:0, callback:0, not_interested:0, voicemail:0, no_answer:0, third_party:0, hung_up:0, other:0 };
+    Object.entries(disps).forEach(([disp, count]) => {
+      const cat = categoriseDisp(disp);
+      agentDispCats[agent][cat] += count;
+    });
+  });
+
+  // ── KPI for disposition tab ──
+  const totalUniq = Object.keys(agentDispMap).length;
+  const allDispCodes = new Set(rows.map(r => (r['Disposition']||'').trim()).filter(Boolean));
+  const mostCommonDisp = dispSorted[0] ? dispSorted[0][0] : '—';
+  document.getElementById('kpi-disp').innerHTML =
+    kpiCard('Agents with Data',   totalUniq,              'In disposition report',           'var(--blue)')   +
+    kpiCard('Unique Dispositions',allDispCodes.size,      'Across all agents',               'var(--purple)') +
+    kpiCard('Top Disposition',    mostCommonDisp.length > 18 ? mostCommonDisp.slice(0,16)+'…' : mostCommonDisp, `${fmt(dispSorted[0]?.[1]||0)} occurrences`, 'var(--amber)') +
+    kpiCard('Team Sales',         fmt(totTS),             'Via disposition flag',            'var(--green)');
+
+  // ── Agent selector buttons ──
+  const selectorEl = document.getElementById('agent-selector');
+  selectorEl.innerHTML = '<button class="agent-filter-btn active" onclick="filterAgent(\'ALL\',this)">All Agents</button>';
+  agentList.forEach(a => {
+    const btn = document.createElement('button');
+    btn.className = 'agent-filter-btn';
+    btn.textContent = a.name.split(' ')[0]; // first name for brevity
+    btn.title = a.name;
+    btn.onclick = function(){ filterAgent(a.name, this); };
+    selectorEl.appendChild(btn);
+  });
+
+  // ── Build all agent disposition blocks ──
+  const dispReportEl = document.getElementById('disp-report-all');
+  dispReportEl.innerHTML = agentList.map(a => {
+    const disps = agentDispMap[a.name] || {};
+    const cats  = agentDispCats[a.name] || {};
+    const totalLeads = Object.values(disps).reduce((s,v)=>s+v,0);
+    const dispEntries = Object.entries(disps).sort((x,y)=>y[1]-x[1]);
+    const maxCount = dispEntries[0]?.[1] || 1;
+
+    // Summary pills
+    const pillsHtml = Object.entries(CAT_META).map(([cat, meta]) => {
+      const count = cats[cat] || 0;
+      if (count === 0) return '';
+      return `<div class="disp-sum-pill" style="background:${meta.bg};color:${meta.color};">${meta.label}: <b>${fmt(count)}</b></div>`;
+    }).join('');
+
+    // Full disposition bars
+    const barsHtml = dispEntries.map(([disp, count]) => {
+      const cat   = categoriseDisp(disp);
+      const meta  = CAT_META[cat];
+      const barPct = (count / maxCount * 100).toFixed(1);
+      const pctOfTotal = (count / totalLeads * 100).toFixed(1);
+      return `<div class="disp-category-bar">
+        <div class="disp-cat-label" title="${disp}">${disp}</div>
+        <div class="disp-cat-track"><div class="disp-cat-fill" style="width:${barPct}%;background:${meta.color};opacity:0.8;"></div></div>
+        <div class="disp-cat-count">${fmt(count)}</div>
+        <div class="disp-cat-pct">${pctOfTotal}%</div>
+      </div>`;
+    }).join('');
+
+    const convC = convColor(a.conv);
+
+    return `<div class="disp-agent-block" data-agent="${a.name}">
+      <div class="disp-agent-header" onclick="toggleDispBlock(this)">
+        <div>
+          <div class="disp-agent-name">${a.name}</div>
+          <div class="disp-agent-meta">${fmt(totalLeads)} leads · ${dispEntries.length} disposition codes used</div>
+        </div>
+        <div class="disp-agent-stats">
+          <div class="disp-stat">
+            <div class="val" style="color:var(--green);">${fmt(cats.sale||0)}</div>
+            <div class="lbl">Sales</div>
+          </div>
+          <div class="disp-stat">
+            <div class="val" style="color:var(--amber);">${fmt(cats.callback||0)}</div>
+            <div class="lbl">Callbacks</div>
+          </div>
+          <div class="disp-stat">
+            <div class="val" style="color:${convC};">${a.conv.toFixed(1)}%</div>
+            <div class="lbl">Conv Rate</div>
+          </div>
+          <div class="disp-toggle">▼</div>
+        </div>
+      </div>
+      <div class="disp-body collapsed">
+        <div class="disp-summary-pills">${pillsHtml}</div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;padding:0 2px;">
+          <span>Disposition Code</span>
+          <span style="display:flex;gap:10px;"><span style="width:36px;text-align:right;">Count</span><span style="width:38px;text-align:right;">% Share</span></span>
+        </div>
+        ${barsHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  // ── Disposition summary table in Agent tab ──
+  document.getElementById('agent-disp-summary-tbody').innerHTML = agentList.map(a => {
+    const cats = agentDispCats[a.name] || {};
+    const total = a.leads;
+    function catCell(cat, color) {
+      const v = cats[cat] || 0;
+      return `<td class="num" style="color:${color};">${v > 0 ? fmt(v) : '<span style=\'color:var(--border);\'>—</span>'}</td>`;
+    }
+    return `<tr>
+      <td class="name-cell">${a.name}</td>
+      ${catCell('sale','var(--green)')}
+      ${catCell('callback','var(--amber)')}
+      ${catCell('not_interested','var(--blue)')}
+      ${catCell('voicemail','var(--muted)')}
+      ${catCell('no_answer','var(--muted)')}
+      ${catCell('third_party','var(--muted)')}
+      ${catCell('hung_up','var(--red)')}
+      ${catCell('other','var(--muted)')}
+      <td class="num">${fmt(total)}</td>
     </tr>`;
   }).join('');
 
