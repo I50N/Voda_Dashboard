@@ -457,7 +457,7 @@ function render(rows) {
   });
 
   const agentList = Object.entries(byAgent)
-    .filter(([name]) => name !== 'Unassigned')
+    .filter(([name]) => name !== 'Unassigned' && name !== '\\N' && name !== '' && name !== 'N/A')
     .map(([name, s]) => ({
       name,
       leads:s.leads, contact:s.contact, rpc:s.rpc, sale:s.sale, ts:s.ts,
