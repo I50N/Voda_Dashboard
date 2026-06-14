@@ -3,115 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vodacom Campaign Dashboard – June 2026</title>
+<title>Vodacom Campaign Dashboard</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
   :root {
-    --red:#E2001A; --red-dim:#B8001A; --red-pale:#FFF0F2;
-    --dark:#0F0F12; --mid:#1C1C22; --panel:#242430; --border:#2E2E3A;
-    --muted:#5A5A72; --text:#D8D8E8; --bright:#FFFFFF;
+    --red:#E2001A; --dark:#0F0F12; --mid:#1C1C22; --panel:#242430;
+    --border:#2E2E3A; --muted:#5A5A72; --text:#D8D8E8; --bright:#FFFFFF;
     --green:#22C55E; --amber:#F59E0B; --blue:#3B82F6; --purple:#8B5CF6;
     --new-conn:#3B82F6; --upgrade:#8B5CF6;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;}
 
-  .header{background:var(--mid);border-bottom:2px solid var(--red);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  /* HEADER */
+  .header{background:var(--mid);border-bottom:2px solid var(--red);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
   .header-brand{display:flex;align-items:center;gap:14px;}
-  .voda-mark{width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:white;}
-  .header-title{font-size:17px;font-weight:600;color:var(--bright);}
-  .header-sub{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;}
-  .header-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);}
+  .voda-mark{width:42px;height:42px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;}
+  .header-title{font-size:16px;font-weight:600;color:var(--bright);}
+  .header-sub{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;}
+  .header-right{display:flex;align-items:center;gap:14px;}
+  .last-updated{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+  .reload-btn{background:var(--red);color:white;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity 0.2s;}
+  .reload-btn:hover{opacity:0.85;}
+  .reload-btn:disabled{opacity:0.4;cursor:not-allowed;}
 
-  .tabs{background:var(--mid);padding:0 32px;display:flex;gap:4px;border-bottom:1px solid var(--border);}
-  .tab-btn{padding:12px 20px;border:none;background:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  /* LOADING OVERLAY */
+  #loading-overlay{position:fixed;inset:0;background:rgba(15,15,18,0.92);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+  #loading-overlay.hidden{display:none;}
+  .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .loading-text{font-size:13px;color:var(--muted);}
+
+  /* ERROR BANNER */
+  #error-banner{background:rgba(226,0,26,0.12);border:1px solid rgba(226,0,26,0.3);border-radius:8px;padding:14px 20px;margin:20px 28px;font-size:13px;color:#ff6b7a;display:none;align-items:center;gap:10px;}
+
+  /* TABS */
+  .tabs{background:var(--mid);padding:0 28px;display:flex;gap:4px;border-bottom:1px solid var(--border);}
+  .tab-btn{padding:11px 18px;border:none;background:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);}
   .tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
 
-  .view{display:none;padding:28px 32px;}
+  /* VIEWS */
+  .view{display:none;padding:24px 28px;}
   .view.active{display:block;}
 
-  .section-label{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  /* SECTION LABEL */
+  .section-label{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;margin-top:8px;display:flex;align-items:center;gap:10px;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-bottom:28px;}
-  .kpi-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 16px;position:relative;overflow:hidden;}
+  /* KPI GRID */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
+  .kpi-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;}
   .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--red));}
-  .kpi-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:8px;}
-  .kpi-value{font-size:26px;font-weight:700;color:var(--bright);line-height:1;font-family:'DM Mono',monospace;}
-  .kpi-sub{font-size:11px;color:var(--muted);margin-top:6px;}
-  .kpi-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,0.15);color:var(--green);border-radius:4px;padding:2px 7px;font-size:11px;font-weight:600;margin-top:6px;}
-  .kpi-badge.warn{background:rgba(245,158,11,0.15);color:var(--amber);}
-  .kpi-badge.danger{background:rgba(226,0,26,0.15);color:var(--red);}
+  .kpi-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:7px;}
+  .kpi-value{font-size:24px;font-weight:700;color:var(--bright);line-height:1;font-family:'DM Mono',monospace;}
+  .kpi-sub{font-size:11px;color:var(--muted);margin-top:5px;}
 
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:20px;}
-  .card-title{font-size:13px;font-weight:600;color:var(--bright);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
-  .card-title .dot{width:8px;height:8px;border-radius:50%;background:var(--red);}
+  /* CARDS */
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:18px;}
+  .card-title{font-size:13px;font-weight:600;color:var(--bright);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .card-title .dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;}
 
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  @media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+  /* LAYOUT */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:860px){.two-col{grid-template-columns:1fr;}}
 
-  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-  .bar-label{font-size:12px;color:var(--text);width:180px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  /* BAR CHART */
+  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+  .bar-label{font-size:12px;color:var(--text);width:190px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .bar-track{flex:1;background:var(--border);border-radius:4px;height:8px;}
-  .bar-fill{height:100%;border-radius:4px;}
+  .bar-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
   .bar-val{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);width:48px;text-align:right;}
 
-  .data-table{width:100%;border-collapse:collapse;font-size:13px;}
-  .data-table th{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
-  .data-table td{padding:10px 12px;border-bottom:1px solid rgba(46,46,58,0.5);}
+  /* TABLE */
+  .data-table{width:100%;border-collapse:collapse;font-size:12px;}
+  .data-table th{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+  .data-table td{padding:9px 10px;border-bottom:1px solid rgba(46,46,58,0.5);}
   .data-table tr:last-child td{border-bottom:none;}
   .data-table tr:hover td{background:rgba(255,255,255,0.02);}
-  .data-table .num{font-family:'DM Mono',monospace;color:var(--bright);}
-  .data-table .name{font-weight:500;color:var(--bright);}
+  .num{font-family:'DM Mono',monospace;color:var(--bright);}
+  .name-cell{font-weight:500;color:var(--bright);}
 
-  .split-bar{height:20px;border-radius:6px;overflow:hidden;display:flex;margin:10px 0;}
+  /* SPLIT BAR */
+  .split-bar{height:18px;border-radius:5px;overflow:hidden;display:flex;margin:10px 0;}
   .split-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;}
-  .split-legend{display:flex;gap:16px;font-size:12px;}
-  .split-dot{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;}
+  .split-legend{display:flex;gap:14px;font-size:12px;}
+  .split-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px;}
 
-  .mini-metric{text-align:center;}
-  .mini-metric .val{font-size:32px;font-weight:700;color:var(--bright);font-family:'DM Mono',monospace;}
-  .mini-metric .lbl{font-size:11px;color:var(--muted);font-weight:500;margin-top:4px;}
-
-  .disp-pill{display:inline-flex;align-items:center;gap:6px;background:var(--border);border-radius:20px;padding:4px 10px;font-size:11px;margin:3px;}
-  .disp-count{font-weight:700;color:var(--bright);font-family:'DM Mono',monospace;}
-
-  .rank-badge{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-  .rank-1{background:#FFD700;color:#0F0F12;}
-  .rank-2{background:#C0C0C0;color:#0F0F12;}
-  .rank-3{background:#CD7F32;color:white;}
-  .rank-other{background:var(--border);color:var(--muted);}
-  .rank-bottom{background:rgba(226,0,26,0.2);color:var(--red);}
-
-  .week-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  .week-block{background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:14px;}
-  .week-block .wk-head{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:10px;}
-  .week-block .wk-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+  /* WEEK BLOCKS */
+  .week-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .week-block{background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:13px;}
+  .week-block .wk-head{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:9px;}
+  .week-block .wk-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
   .week-block .wk-key{color:var(--muted);}
   .week-block .wk-val{font-family:'DM Mono',monospace;color:var(--bright);font-weight:500;}
 
-  .daily-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-  .daily-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:52px;}
-  .daily-bar-wrap{flex:1;}
-  .daily-bar-track{background:var(--border);border-radius:4px;height:10px;position:relative;}
-  .daily-bar-nc{position:absolute;left:0;top:0;height:100%;background:var(--new-conn);border-radius:4px;}
-  .daily-bar-up{position:absolute;top:0;height:100%;background:var(--upgrade);border-radius:4px;}
-  .daily-stats{display:flex;gap:16px;font-size:11px;font-family:'DM Mono',monospace;}
+  /* DAILY BARS */
+  .daily-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+  .daily-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:50px;flex-shrink:0;}
+  .daily-bar-outer{flex:1;background:var(--border);border-radius:4px;height:10px;position:relative;overflow:hidden;}
+  .daily-bar-nc{position:absolute;left:0;top:0;height:100%;background:var(--new-conn);}
+  .daily-bar-up{position:absolute;top:0;height:100%;background:var(--upgrade);}
+  .daily-stats{display:flex;gap:12px;font-size:11px;font-family:'DM Mono',monospace;width:200px;flex-shrink:0;}
   .daily-stats span{color:var(--muted);}
-  .daily-stats span b{color:var(--bright);}
 
-  .agent-tier-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;}
-  .agent-tier-label.top{color:var(--green);}
-  .agent-tier-label.bottom{color:var(--red);}
+  /* AGENT CARDS */
+  .agent-card{display:flex;align-items:center;gap:11px;margin-bottom:10px;padding:10px;border-radius:8px;}
+  .agent-card.top{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);}
+  .agent-card.bottom{background:rgba(226,0,26,0.04);border:1px solid rgba(226,0,26,0.15);}
+  .rank-badge{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+  .r1{background:#FFD700;color:#0F0F12;} .r2{background:#C0C0C0;color:#0F0F12;} .r3{background:#CD7F32;color:white;}
+  .r-other{background:var(--border);color:var(--muted);}
+  .r-bot{background:rgba(226,0,26,0.2);color:var(--red);}
 
+  /* DISP PILLS */
+  .disp-pill{display:inline-flex;align-items:center;gap:5px;background:var(--border);border-radius:20px;padding:3px 9px;font-size:11px;margin:3px;}
+  .disp-count{font-weight:700;color:var(--bright);font-family:'DM Mono',monospace;}
+
+  /* PENDING ROW */
   .pending-row td{color:var(--muted)!important;font-style:italic;}
 
-  .footer{padding:20px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);}
+  /* FOOTER */
+  .footer{padding:18px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
 </style>
 </head>
 <body>
 
+<!-- LOADING -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text">Fetching latest data from GitHub…</div>
+</div>
+
+<!-- HEADER -->
 <div class="header">
   <div class="header-brand">
     <div class="voda-mark">V</div>
@@ -120,209 +144,54 @@
       <div class="header-sub">Ison Xperiences · CVM Outbound</div>
     </div>
   </div>
-  <div class="header-date">June 2026 &nbsp;·&nbsp; 14 Jun 2026</div>
+  <div class="header-right">
+    <div class="last-updated" id="last-updated">—</div>
+    <button class="reload-btn" id="reload-btn" onclick="loadData()">↻ Refresh Data</button>
+  </div>
 </div>
 
+<!-- ERROR -->
+<div id="error-banner">
+  ⚠ <span id="error-msg">Could not load data.</span>
+</div>
+
+<!-- TABS -->
 <div class="tabs">
   <button class="tab-btn active" onclick="showTab('campaign',this)">📊 Campaign Overview</button>
   <button class="tab-btn" onclick="showTab('daily',this)">📅 Daily View</button>
   <button class="tab-btn" onclick="showTab('agents',this)">👥 Agent Dashboard</button>
 </div>
 
-<!-- ══════════════════════════════════════════
-     TAB 1 — CAMPAIGN OVERVIEW
-══════════════════════════════════════════ -->
+<!-- ══ TAB 1: CAMPAIGN OVERVIEW ══ -->
 <div id="view-campaign" class="view active">
-
   <div class="section-label">MTD Campaign Snapshot</div>
-  <div class="kpi-grid">
-    <div class="kpi-card" style="--accent:#E2001A">
-      <div class="kpi-label">Total Leads</div>
-      <div class="kpi-value">5,101</div>
-      <div class="kpi-sub">MTD Dialled: 5,101</div>
-    </div>
-    <div class="kpi-card" style="--accent:#06B6D4">
-      <div class="kpi-label">% Dialable</div>
-      <div class="kpi-value">75.1%</div>
-      <div class="kpi-sub">3,831 workable of 5,101</div>
-    </div>
-    <div class="kpi-card" style="--accent:#3B82F6">
-      <div class="kpi-label">Successful Contact</div>
-      <div class="kpi-value">3,651</div>
-      <div class="kpi-sub">Contact Rate: 71.6%</div>
-    </div>
-    <div class="kpi-card" style="--accent:#8B5CF6">
-      <div class="kpi-label">True Contact (RPC)</div>
-      <div class="kpi-value">2,735</div>
-      <div class="kpi-sub">RPC Rate: 74.9%</div>
-    </div>
-    <div class="kpi-card" style="--accent:#22C55E">
-      <div class="kpi-label">MTD Sales</div>
-      <div class="kpi-value">313</div>
-      <div class="kpi-sub">Total incl. rework: 357</div>
-    </div>
-    <div class="kpi-card" style="--accent:#F59E0B">
-      <div class="kpi-label">Conversion Rate</div>
-      <div class="kpi-value">7.0%</div>
-      <div class="kpi-sub">Sale vs Lead: 6.1%</div>
-    </div>
-  </div>
+  <div class="kpi-grid" id="kpi-campaign"></div>
 
-  <!-- CONNECTION TYPE SPLIT -->
   <div class="section-label">Connection Type Split</div>
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot"></span>Lead Volume by Type</div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
-        <span style="color:var(--new-conn);font-weight:600;">● New Connections</span>
-        <span style="font-family:'DM Mono',monospace;color:var(--bright);">1,531 leads</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:12px;">
-        <span style="color:var(--upgrade);font-weight:600;">● Upgrade</span>
-        <span style="font-family:'DM Mono',monospace;color:var(--bright);">3,570 leads</span>
-      </div>
-      <div class="split-bar">
-        <div class="split-seg" style="width:30%;background:var(--new-conn);">NC 30%</div>
-        <div class="split-seg" style="width:70%;background:var(--upgrade);">UPG 70%</div>
-      </div>
-      <div class="split-legend" style="margin-top:8px;">
-        <span><span class="split-dot" style="background:var(--new-conn);"></span>New Connection</span>
-        <span><span class="split-dot" style="background:var(--upgrade);"></span>Upgrade</span>
-      </div>
-      <div style="margin-top:20px;">
-        <table class="data-table">
-          <thead><tr><th>Type</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span style="color:var(--new-conn);font-weight:600;">New Conn</span></td>
-              <td class="num">1,531</td><td class="num">1,225</td><td class="num">898</td><td class="num">247</td>
-              <td><span style="color:var(--green);font-weight:700;font-family:'DM Mono',monospace;">16.1%</span></td>
-            </tr>
-            <tr>
-              <td><span style="color:var(--upgrade);font-weight:600;">Upgrade</span></td>
-              <td class="num">3,570</td><td class="num">2,426</td><td class="num">1,837</td><td class="num">110</td>
-              <td><span style="color:var(--amber);font-weight:700;font-family:'DM Mono',monospace;">3.1%</span></td>
-            </tr>
-            <tr style="border-top:1px solid var(--border);">
-              <td><span style="font-weight:600;color:var(--text);">Total</span></td>
-              <td class="num">5,101</td><td class="num">3,651</td><td class="num">2,735</td>
-              <td class="num"><b>357</b></td>
-              <td><span style="font-weight:700;font-family:'DM Mono',monospace;">7.0%</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div id="conn-split-vol"></div>
+      <div style="margin-top:18px;"><table class="data-table"><thead><tr><th>Type</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead><tbody id="conn-split-table"></tbody></table></div>
     </div>
-
     <div class="card">
       <div class="card-title"><span class="dot"></span>Performance Metrics by Type</div>
-      <div style="margin-bottom:20px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Contact Rate</div>
-        <div class="bar-row">
-          <div class="bar-label" style="color:var(--new-conn);">New Connection</div>
-          <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--new-conn);"></div></div>
-          <div class="bar-val">80.0%</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label" style="color:var(--upgrade);">Upgrade</div>
-          <div class="bar-track"><div class="bar-fill" style="width:68%;background:var(--upgrade);"></div></div>
-          <div class="bar-val">68.0%</div>
-        </div>
-      </div>
-      <div style="margin-bottom:20px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">RPC Rate (of contacts)</div>
-        <div class="bar-row">
-          <div class="bar-label" style="color:var(--new-conn);">New Connection</div>
-          <div class="bar-track"><div class="bar-fill" style="width:73.3%;background:var(--new-conn);"></div></div>
-          <div class="bar-val">73.3%</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label" style="color:var(--upgrade);">Upgrade</div>
-          <div class="bar-track"><div class="bar-fill" style="width:75.7%;background:var(--upgrade);"></div></div>
-          <div class="bar-val">75.7%</div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Sale vs Lead (Conversion)</div>
-        <div class="bar-row">
-          <div class="bar-label" style="color:var(--new-conn);">New Connection</div>
-          <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
-          <div class="bar-val" style="color:var(--green);">16.1%</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label" style="color:var(--upgrade);">Upgrade</div>
-          <div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--amber);"></div></div>
-          <div class="bar-val" style="color:var(--amber);">3.1%</div>
-        </div>
-      </div>
+      <div id="conn-perf-bars"></div>
     </div>
   </div>
 
-  <!-- WEEKLY COMPARISON -->
   <div class="section-label">Weekly Comparison</div>
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--new-conn);"></span>New Connections — Week on Week</div>
-      <div class="week-compare">
-        <div class="week-block">
-          <div class="wk-head">WEEK 1 · NC</div>
-          <div class="wk-row"><span class="wk-key">Leads</span><span class="wk-val">1,051</span></div>
-          <div class="wk-row"><span class="wk-key">Contact</span><span class="wk-val">865</span></div>
-          <div class="wk-row"><span class="wk-key">RPC</span><span class="wk-val">637</span></div>
-          <div class="wk-row"><span class="wk-key">Sales</span><span class="wk-val" style="color:var(--green);">166</span></div>
-          <div class="wk-row"><span class="wk-key">Contact%</span><span class="wk-val">82.3%</span></div>
-          <div class="wk-row"><span class="wk-key">Conv%</span><span class="wk-val" style="color:var(--green);">13.5%</span></div>
-        </div>
-        <div class="week-block">
-          <div class="wk-head">WEEK 2 · NC</div>
-          <div class="wk-row"><span class="wk-key">Leads</span><span class="wk-val">480</span></div>
-          <div class="wk-row"><span class="wk-key">Contact</span><span class="wk-val">360</span></div>
-          <div class="wk-row"><span class="wk-key">RPC</span><span class="wk-val">261</span></div>
-          <div class="wk-row"><span class="wk-key">Sales</span><span class="wk-val" style="color:var(--green);">81</span></div>
-          <div class="wk-row"><span class="wk-key">Contact%</span><span class="wk-val">75.0%</span></div>
-          <div class="wk-row"><span class="wk-key">Conv%</span><span class="wk-val" style="color:var(--amber);">14.6%</span></div>
-        </div>
-      </div>
+      <div class="week-compare" id="wk-nc"></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--upgrade);"></span>Upgrade — Week on Week</div>
-      <div class="week-compare">
-        <div class="week-block">
-          <div class="wk-head">WEEK 1 · UPG</div>
-          <div class="wk-row"><span class="wk-key">Leads</span><span class="wk-val">3,234</span></div>
-          <div class="wk-row"><span class="wk-key">Contact</span><span class="wk-val">2,222</span></div>
-          <div class="wk-row"><span class="wk-key">RPC</span><span class="wk-val">1,689</span></div>
-          <div class="wk-row"><span class="wk-key">Sales</span><span class="wk-val" style="color:var(--amber);">98</span></div>
-          <div class="wk-row"><span class="wk-key">Contact%</span><span class="wk-val">68.7%</span></div>
-          <div class="wk-row"><span class="wk-key">Conv%</span><span class="wk-val" style="color:var(--amber);">2.8%</span></div>
-        </div>
-        <div class="week-block">
-          <div class="wk-head">WEEK 2 · UPG</div>
-          <div class="wk-row"><span class="wk-key">Leads</span><span class="wk-val">336</span></div>
-          <div class="wk-row"><span class="wk-key">Contact</span><span class="wk-val">204</span></div>
-          <div class="wk-row"><span class="wk-key">RPC</span><span class="wk-val">148</span></div>
-          <div class="wk-row"><span class="wk-key">Sales</span><span class="wk-val" style="color:var(--amber);">12</span></div>
-          <div class="wk-row"><span class="wk-key">Contact%</span><span class="wk-val">60.7%</span></div>
-          <div class="wk-row"><span class="wk-key">Conv%</span><span class="wk-val" style="color:var(--red);">3.3%</span></div>
-        </div>
-      </div>
+      <div class="week-compare" id="wk-upg"></div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title"><span class="dot"></span>Week 1 vs Week 2 — Sales Volume</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center;">
-      <div class="mini-metric"><div class="val" style="color:var(--new-conn);">166</div><div class="lbl">Wk1 · NC Sales</div></div>
-      <div class="mini-metric"><div class="val" style="color:var(--new-conn);opacity:0.6;">81</div><div class="lbl">Wk2 · NC Sales</div></div>
-      <div class="mini-metric"><div class="val" style="color:var(--upgrade);">98</div><div class="lbl">Wk1 · UPG Sales</div></div>
-      <div class="mini-metric"><div class="val" style="color:var(--upgrade);opacity:0.6;">12</div><div class="lbl">Wk2 · UPG Sales</div></div>
-    </div>
-    <div style="margin-top:16px;padding:10px 14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:6px;font-size:12px;color:var(--amber);">
-      ⚠ Week 2 volume significantly lower — fewer leads loaded in the second week of the month
-    </div>
-  </div>
-
-  <!-- DISPOSITION ANALYSIS -->
   <div class="section-label">Disposition Analysis</div>
   <div class="two-col">
     <div class="card">
@@ -331,219 +200,91 @@
     </div>
     <div class="card">
       <div class="card-title"><span class="dot"></span>Disposition Category Breakdown</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;margin-bottom:16px;">
-        <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px;">
-          <div style="font-size:22px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace;">357</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:4px;">SALE outcomes</div>
-        </div>
-        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:14px;">
-          <div style="font-size:22px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace;">278</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:4px;">Callbacks</div>
-        </div>
-        <div style="background:rgba(226,0,26,0.08);border:1px solid rgba(226,0,26,0.2);border-radius:8px;padding:14px;">
-          <div style="font-size:22px;font-weight:700;color:var(--red);font-family:'DM Mono',monospace;">1,450</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:4px;">Unsuccessful</div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Notable Flags</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        <div class="disp-pill"><span class="disp-count">750</span> Third Party Contact</div>
-        <div class="disp-pill"><span class="disp-count">714</span> Voice Mail</div>
-        <div class="disp-pill"><span class="disp-count">588</span> Client HungUp – Not Pitched</div>
-        <div class="disp-pill"><span class="disp-count">548</span> No Answer</div>
-        <div class="disp-pill"><span class="disp-count">367</span> Not Interested (no pitch)</div>
-        <div class="disp-pill"><span class="disp-count">278</span> Callback</div>
-        <div class="disp-pill"><span class="disp-count">242</span> Insured at another co.</div>
-        <div class="disp-pill"><span class="disp-count">185</span> Not Interested (pitched)</div>
-        <div class="disp-pill"><span class="disp-count">136</span> AI Voice</div>
-        <div class="disp-pill"><span class="disp-count">101</span> Household Insurance</div>
-        <div class="disp-pill"><span class="disp-count">82</span> Wrong Number</div>
-      </div>
+      <div id="disp-summary"></div>
+      <div style="margin-top:14px;font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Notable Flags</div>
+      <div id="disp-pills"></div>
     </div>
   </div>
-
-  <!-- HISTORICAL TREND -->
-  <div class="section-label">Historical Monthly Trend</div>
-  <div class="card">
-    <div class="card-title"><span class="dot"></span>Conversion Rate (Sale vs Lead) — Apr 2025 to Jun 2026</div>
-    <div id="monthly-trend" style="overflow-x:auto;"></div>
-  </div>
-
 </div>
 
-<!-- ══════════════════════════════════════════
-     TAB 2 — DAILY VIEW
-══════════════════════════════════════════ -->
+<!-- ══ TAB 2: DAILY VIEW ══ -->
 <div id="view-daily" class="view">
-
   <div class="section-label">Daily Lead Performance</div>
-  <div class="kpi-grid">
-    <div class="kpi-card" style="--accent:#3B82F6">
-      <div class="kpi-label">Days Tracked</div>
-      <div class="kpi-value">7</div>
-      <div class="kpi-sub">Active dialling days in Jun</div>
-    </div>
-    <div class="kpi-card" style="--accent:#8B5CF6">
-      <div class="kpi-label">Avg Daily Leads</div>
-      <div class="kpi-value">728</div>
-      <div class="kpi-sub">NC + Upgrade combined</div>
-    </div>
-    <div class="kpi-card" style="--accent:#22C55E">
-      <div class="kpi-label">Best Day – Sales</div>
-      <div class="kpi-value">Tue 3</div>
-      <div class="kpi-sub">54 NC sales on 370 leads</div>
-    </div>
-    <div class="kpi-card" style="--accent:#F59E0B">
-      <div class="kpi-label">Best NC Conv Day</div>
-      <div class="kpi-value">Sat 7</div>
-      <div class="kpi-sub">23.1% sale vs lead</div>
-    </div>
-  </div>
+  <div class="kpi-grid" id="kpi-daily"></div>
 
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--upgrade);"></span>Upgrade — Daily Breakdown</div>
-      <table class="data-table">
-        <thead><tr><th>Date</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead>
-        <tbody>
-          <tr><td class="num">Mon 2</td><td class="num">1,539</td><td class="num">1,038</td><td class="num">809</td><td class="num" style="color:var(--green);">45</td><td class="num">2.9%</td></tr>
-          <tr><td class="num">Tue 3</td><td class="num">792</td><td class="num">540</td><td class="num">400</td><td class="num">24</td><td class="num">3.0%</td></tr>
-          <tr><td class="num">Wed 4</td><td class="num">456</td><td class="num">331</td><td class="num">245</td><td class="num">16</td><td class="num">3.5%</td></tr>
-          <tr><td class="num">Thu 5</td><td class="num">245</td><td class="num">180</td><td class="num">132</td><td class="num">9</td><td class="num">3.7%</td></tr>
-          <tr><td class="num">Fri 6</td><td class="num">202</td><td class="num">133</td><td class="num">103</td><td class="num">4</td><td class="num">2.0%</td></tr>
-          <tr><td class="num">Sat 7</td><td class="num">146</td><td class="num">100</td><td class="num">72</td><td class="num">5</td><td class="num">3.4%</td></tr>
-          <tr><td class="num">Mon 9</td><td class="num">190</td><td class="num">104</td><td class="num">76</td><td class="num">7</td><td class="num">3.7%</td></tr>
-          <tr style="background:rgba(139,92,246,0.08);font-weight:600;">
-            <td>TOTAL</td><td class="num">3,570</td><td class="num">2,426</td><td class="num">1,837</td>
-            <td class="num" style="color:var(--upgrade);">110</td><td class="num" style="color:var(--upgrade);">3.1%</td>
-          </tr>
-        </tbody>
-      </table>
+      <table class="data-table"><thead><tr><th>Date</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead>
+      <tbody id="daily-upg-table"></tbody></table>
     </div>
-
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--new-conn);"></span>New Connections — Daily Breakdown</div>
-      <table class="data-table">
-        <thead><tr><th>Date</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead>
-        <tbody>
-          <tr><td class="num">Mon 2</td><td class="num">194</td><td class="num">153</td><td class="num">112</td><td class="num" style="color:var(--green);">21</td><td class="num" style="color:var(--green);">10.8%</td></tr>
-          <tr><td class="num">Tue 3</td><td class="num">370</td><td class="num">309</td><td class="num">214</td><td class="num" style="color:var(--green);">54</td><td class="num" style="color:var(--green);">14.6%</td></tr>
-          <tr><td class="num">Wed 4</td><td class="num">157</td><td class="num">131</td><td class="num">99</td><td class="num">21</td><td class="num">13.4%</td></tr>
-          <tr><td class="num">Thu 5</td><td class="num">132</td><td class="num">105</td><td class="num">78</td><td class="num">25</td><td class="num" style="color:var(--green);">18.9%</td></tr>
-          <tr><td class="num">Fri 6</td><td class="num">198</td><td class="num">167</td><td class="num">134</td><td class="num">45</td><td class="num" style="color:var(--green);">22.7%</td></tr>
-          <tr><td class="num">Sat 7</td><td class="num">195</td><td class="num">148</td><td class="num">109</td><td class="num">45</td><td class="num" style="color:var(--green);">23.1%</td></tr>
-          <tr><td class="num">Mon 9</td><td class="num">285</td><td class="num">212</td><td class="num">152</td><td class="num">36</td><td class="num">12.6%</td></tr>
-          <tr style="background:rgba(59,130,246,0.08);font-weight:600;">
-            <td>TOTAL</td><td class="num">1,531</td><td class="num">1,225</td><td class="num">898</td>
-            <td class="num" style="color:var(--new-conn);">247</td><td class="num" style="color:var(--new-conn);">16.1%</td>
-          </tr>
-        </tbody>
-      </table>
+      <table class="data-table"><thead><tr><th>Date</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead>
+      <tbody id="daily-nc-table"></tbody></table>
     </div>
   </div>
 
   <div class="card">
     <div class="card-title"><span class="dot"></span>Daily Lead Volume — NC vs Upgrade</div>
     <div id="daily-visual"></div>
-    <div class="split-legend" style="margin-top:12px;">
+    <div class="split-legend" style="margin-top:10px;">
       <span><span class="split-dot" style="background:var(--new-conn);"></span>New Connection</span>
       <span><span class="split-dot" style="background:var(--upgrade);"></span>Upgrade</span>
     </div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════════
-     TAB 3 — AGENT DASHBOARD
-══════════════════════════════════════════ -->
+<!-- ══ TAB 3: AGENT DASHBOARD ══ -->
 <div id="view-agents" class="view">
+  <div class="section-label">Agent Performance</div>
+  <div class="kpi-grid" id="kpi-agents"></div>
 
-  <div class="section-label">Agent Performance — June 2026</div>
-  <div class="kpi-grid">
-    <div class="kpi-card" style="--accent:#22C55E">
-      <div class="kpi-label">Total Agents</div>
-      <div class="kpi-value">19</div>
-      <div class="kpi-sub">11 fully tracked · 8 pending update</div>
-    </div>
-    <div class="kpi-card" style="--accent:#E2001A">
-      <div class="kpi-label">Team Sales (tracked)</div>
-      <div class="kpi-value">194</div>
-      <div class="kpi-sub">11 agents · 2,576 leads</div>
-    </div>
-    <div class="kpi-card" style="--accent:#3B82F6">
-      <div class="kpi-label">Team Conv Rate</div>
-      <div class="kpi-value">7.5%</div>
-      <div class="kpi-sub">172 sales / 2,576 leads</div>
-    </div>
-    <div class="kpi-card" style="--accent:#8B5CF6">
-      <div class="kpi-label">Team Contact Rate</div>
-      <div class="kpi-value">69.2%</div>
-      <div class="kpi-sub">1,783 contacts / 2,576 leads</div>
-    </div>
-    <div class="kpi-card" style="--accent:#F59E0B">
-      <div class="kpi-label">Top Agent Conv</div>
-      <div class="kpi-value">11.4%</div>
-      <div class="kpi-sub">Thando Ndlovu</div>
-    </div>
-    <div class="kpi-card" style="--accent:#666">
-      <div class="kpi-label">Untracked Leads</div>
-      <div class="kpi-value">2,525</div>
-      <div class="kpi-sub">8 agents — Agent tab not updated</div>
-    </div>
-  </div>
-
-  <!-- TOP 5 & BOTTOM 5 -->
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--green);"></span>Top 5 Agents — Conversion Rate</div>
-      <div class="agent-tier-label top">▲ TOP PERFORMERS</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">▲ TOP PERFORMERS</div>
       <div id="top5-agents"></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--red);"></span>Bottom 5 Agents — Conversion Rate</div>
-      <div class="agent-tier-label bottom">▼ NEEDS COACHING</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px;">▼ NEEDS COACHING</div>
       <div id="bot5-agents"></div>
     </div>
   </div>
 
-  <!-- NC vs UPGRADE SPLIT PER AGENT -->
   <div class="section-label">NC vs Upgrade Lead Split by Agent</div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Conversion by Lead Type — Fully Tracked Agents</div>
+    <div class="card-title"><span class="dot"></span>Conversion by Lead Type — All Agents</div>
     <table class="data-table">
-      <thead><tr>
-        <th>Agent</th>
-        <th>NC Leads</th><th>NC Conv%</th>
-        <th>UPG Leads</th><th>UPG Conv%</th>
-        <th>Strong On</th>
-      </tr></thead>
+      <thead><tr><th>Agent</th><th>NC Leads</th><th>NC Sales</th><th>NC Conv%</th><th>UPG Leads</th><th>UPG Sales</th><th>UPG Conv%</th><th>Stronger On</th></tr></thead>
       <tbody id="split-tbody"></tbody>
     </table>
-    <div style="margin-top:12px;padding:10px 14px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:6px;font-size:12px;color:var(--blue);">
-      ℹ NC vs UPG split is estimated from campaign proportions (30% NC / 70% UPG) for agents without raw data breakdown. Agents with full raw data cross-reference show actual split.
-    </div>
   </div>
 
-  <!-- FULL AGENT TABLE -->
   <div class="section-label">All Agents — Full Stats</div>
   <div class="card">
     <table class="data-table">
-      <thead><tr>
-        <th>#</th><th>Agent</th><th>Leads</th><th>Contact</th><th>RPC</th>
-        <th>Sales</th><th>Total Sales</th><th>Contact%</th><th>RPC%</th><th>Conv%</th><th>Status</th>
-      </tr></thead>
+      <thead><tr><th>#</th><th>Agent</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Total Sales</th><th>Contact%</th><th>RPC%</th><th>Conv%</th><th>Status</th></tr></thead>
       <tbody id="full-agent-tbody"></tbody>
     </table>
   </div>
-
 </div>
 
 <div class="footer">
-  <div>Vodacom CVM Campaign · Ison Xperiences · June 2026</div>
-  <div>Source: Voda_Dashboard_June-2026.xlsx · Generated 14 Jun 2026</div>
+  <div>Vodacom CVM Campaign · Ison Xperiences</div>
+  <div id="footer-source">Source: raw.githubusercontent.com/I50N/Voda_Dashboard</div>
 </div>
 
 <script>
+// ════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════
+const CSV_URL = 'https://raw.githubusercontent.com/I50N/Voda_Dashboard/refs/heads/main/voda_dashboard.csv';
+
+// ════════════════════════════════════════════════
+// TAB SWITCHING
+// ════════════════════════════════════════════════
 function showTab(id, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -551,207 +292,510 @@ function showTab(id, btn) {
   btn.classList.add('active');
 }
 
-// ── AGENT DATA (fully tracked — Agent Dashboard sheet) ──
-const agentsFull = [
-  { name:"Thando Ndlovu",            leads:79,  contact:31,  rpc:23,  sale:8,  ts:9,  cr:39.2, rr:74.2, conv:11.4 },
-  { name:"Shirley Maluleka",         leads:240, contact:160, rpc:127, sale:20, ts:27, cr:66.7, rr:79.4, conv:11.3 },
-  { name:"Nelisa Xaba",              leads:278, contact:183, rpc:152, sale:22, ts:29, cr:65.8, rr:83.1, conv:10.4 },
-  { name:"Portia Bojang",            leads:246, contact:155, rpc:137, sale:21, ts:23, cr:63.0, rr:88.4, conv:9.3  },
-  { name:"Ntombenhle Hlatshwayo",    leads:171, contact:160, rpc:122, sale:15, ts:15, cr:93.6, rr:76.3, conv:8.8  },
-  { name:"Andiswa Xana",             leads:345, contact:285, rpc:183, sale:27, ts:29, cr:82.6, rr:64.2, conv:8.4  },
-  { name:"Nomthandazo Simayile",     leads:226, contact:136, rpc:94,  sale:19, ts:18, cr:60.2, rr:69.1, conv:8.0  },
-  { name:"Lerato Letsoela",          leads:146, contact:92,  rpc:68,  sale:11, ts:11, cr:63.0, rr:73.9, conv:7.5  },
-  { name:"Boipelo Magagane",         leads:341, contact:251, rpc:183, sale:12, ts:16, cr:73.6, rr:72.9, conv:4.7  },
-  { name:"Sanele Precious Khanyile", leads:258, contact:174, rpc:127, sale:11, ts:11, cr:67.4, rr:73.0, conv:4.3  },
-  { name:"Tshepang Khoali",          leads:246, contact:156, rpc:119, sale:6,  ts:6,  cr:63.4, rr:76.3, conv:2.4  },
-];
+// ════════════════════════════════════════════════
+// CSV PARSER
+// ════════════════════════════════════════════════
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    // handle quoted commas
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let c of line) {
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else cur += c;
+    }
+    cols.push(cur.trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/^"|"$/g, '').trim());
+    return obj;
+  }).filter(r => r['Lead'] || r['Agent Display']); // skip truly empty rows
+}
 
-// Agents identified from raw data — Agent Dashboard tab not yet updated
-const agentsPending = [
-  "Gugulethu Hlongwane",
-  "Tholakele Mvelase",
-  "Phumla Siko",
-  "Bridget Raophala",
-  "Thabo Dlamini",
-  "Nosihle Kkurata",
-  "Mihlelikazi Zuke",
-  "Penny Sindy Matlou",
-];
+// ════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════
+const n   = v => parseInt(v) || 0;
+const pct = (a, b) => b > 0 ? (a / b * 100).toFixed(1) : '0.0';
+const fmt = v => v.toLocaleString();
 
-const sorted = [...agentsFull].sort((a,b) => b.conv - a.conv);
-const top5   = sorted.slice(0, 5);
-const bot5   = sorted.slice(-5);
+function convColor(c) {
+  c = parseFloat(c);
+  return c >= 9 ? 'var(--green)' : c >= 5 ? 'var(--amber)' : 'var(--red)';
+}
 
-// TOP 5
-const t5el = document.getElementById('top5-agents');
-top5.forEach((a, i) => {
-  const rc = ['rank-1','rank-2','rank-3','rank-other','rank-other'][i];
-  const div = document.createElement('div');
-  div.style.cssText = 'display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:10px;background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:8px;';
-  div.innerHTML = `
-    <div class="rank-badge ${rc}">${i+1}</div>
-    <div style="flex:1">
-      <div style="font-weight:600;color:var(--bright);font-size:13px;">${a.name}</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:2px;">${a.leads} leads · ${a.contact} contacts · ${a.ts} sales</div>
+function kpiCard(label, value, sub, accent) {
+  return `<div class="kpi-card" style="--accent:${accent}">
+    <div class="kpi-label">${label}</div>
+    <div class="kpi-value">${value}</div>
+    <div class="kpi-sub">${sub}</div>
+  </div>`;
+}
+
+function barRow(label, pctVal, color, valLabel) {
+  return `<div class="bar-row">
+    <div class="bar-label" title="${label}">${label}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:${Math.min(pctVal,100)}%;background:${color};"></div></div>
+    <div class="bar-val">${valLabel}</div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════
+// PARSE DATE LABEL from date_created
+// ════════════════════════════════════════════════
+function dayLabel(row) {
+  const d = row['date_created'] || row['Last'] || '';
+  if (!d) return 'Unknown';
+  const dt = new Date(d);
+  if (isNaN(dt)) return d;
+  return dt.toLocaleDateString('en-ZA', { weekday:'short', day:'numeric' });
+}
+
+// ════════════════════════════════════════════════
+// MAIN RENDER
+// ════════════════════════════════════════════════
+function render(rows) {
+
+  // ── COLUMN MAP (normalise headers) ──
+  // Accepted header variants → canonical name
+  const colMap = {
+    'Lead':'Lead','lead':'Lead',
+    'Contact':'Contact','contact':'Contact',
+    'RPC':'RPC','rpc':'RPC',
+    'Sale':'Sale','sale':'Sale',
+    'Total Sales':'Total Sales','total_sales':'Total Sales','total sales':'Total Sales',
+    'Dialable Contacts':'Dialable Contacts','dialable_contacts':'Dialable Contacts','dialable contacts':'Dialable Contacts',
+    'connection_type':'connection_type','Connection Type':'connection_type','connection type':'connection_type',
+    'Agent Display':'Agent Display','agent_display':'Agent Display','agent display':'Agent Display',
+    'Week':'Week','week':'Week',
+    'Disposition':'Disposition','disposition':'Disposition',
+    'Contact Description':'Contact Description','contact_description':'Contact Description',
+    'date_created':'date_created','Date Created':'date_created',
+    'month_created':'month_created','Month Created':'month_created',
+  };
+  // Re-key every row
+  rows = rows.map(r => {
+    const nr = {};
+    Object.keys(r).forEach(k => { const c = colMap[k]; if(c) nr[c] = r[k]; else nr[k] = r[k]; });
+    return nr;
+  });
+
+  // ── TOTALS ──
+  let totLeads=0, totContact=0, totRPC=0, totSale=0, totTS=0, totDial=0;
+  rows.forEach(r => {
+    totLeads   += n(r['Lead']);
+    totContact += n(r['Contact']);
+    totRPC     += n(r['RPC']);
+    totSale    += n(r['Sale']);
+    totTS      += n(r['Total Sales']);
+    totDial    += n(r['Dialable Contacts']);
+  });
+
+  // ── CONNECTION TYPE AGGREGATION ──
+  const byConn = {};
+  rows.forEach(r => {
+    const ct = (r['connection_type'] || 'Unknown').trim();
+    if (!byConn[ct]) byConn[ct] = {leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byConn[ct].leads   += n(r['Lead']);
+    byConn[ct].contact += n(r['Contact']);
+    byConn[ct].rpc     += n(r['RPC']);
+    byConn[ct].sale    += n(r['Sale']);
+    byConn[ct].ts      += n(r['Total Sales']);
+  });
+
+  const NC  = byConn['New_connection'] || byConn['New Connection'] || byConn['new_connection'] || {leads:0,contact:0,rpc:0,sale:0,ts:0};
+  const UPG = byConn['Upgrade'] || byConn['upgrade'] || {leads:0,contact:0,rpc:0,sale:0,ts:0};
+
+  // ── WEEKLY AGGREGATION ──
+  const byWeekConn = {};
+  rows.forEach(r => {
+    const w  = (r['Week'] || '?').toString().trim();
+    const ct = (r['connection_type'] || '').includes('New') ? 'NC' : 'UPG';
+    const key = `${w}|${ct}`;
+    if (!byWeekConn[key]) byWeekConn[key] = {leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byWeekConn[key].leads   += n(r['Lead']);
+    byWeekConn[key].contact += n(r['Contact']);
+    byWeekConn[key].rpc     += n(r['RPC']);
+    byWeekConn[key].sale    += n(r['Sale']);
+    byWeekConn[key].ts      += n(r['Total Sales']);
+  });
+
+  const weeks = [...new Set(rows.map(r => (r['Week']||'').toString().trim()))].filter(Boolean).sort();
+
+  // ── DAILY AGGREGATION (by date_created) ──
+  const byDateConn = {};
+  rows.forEach(r => {
+    const d = r['date_created'] || '';
+    if (!d) return;
+    const ct = (r['connection_type']||'').includes('New') ? 'NC' : 'UPG';
+    const key = `${d}|${ct}`;
+    if (!byDateConn[key]) byDateConn[key] = {date:d,type:ct,leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byDateConn[key].leads   += n(r['Lead']);
+    byDateConn[key].contact += n(r['Contact']);
+    byDateConn[key].rpc     += n(r['RPC']);
+    byDateConn[key].sale    += n(r['Sale']);
+    byDateConn[key].ts      += n(r['Total Sales']);
+  });
+
+  const dailyDates = [...new Set(Object.values(byDateConn).map(v => v.date))].sort();
+
+  // ── AGENT AGGREGATION ──
+  const byAgent = {};
+  rows.forEach(r => {
+    const a  = (r['Agent Display'] || 'Unassigned').trim();
+    const ct = (r['connection_type']||'').includes('New') ? 'NC' : 'UPG';
+    if (!byAgent[a]) byAgent[a] = {leads:0,contact:0,rpc:0,sale:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
+    byAgent[a].leads   += n(r['Lead']);
+    byAgent[a].contact += n(r['Contact']);
+    byAgent[a].rpc     += n(r['RPC']);
+    byAgent[a].sale    += n(r['Sale']);
+    byAgent[a].ts      += n(r['Total Sales']);
+    if (ct==='NC')  { byAgent[a].nc_leads  += n(r['Lead']); byAgent[a].nc_ts  += n(r['Total Sales']); }
+    else            { byAgent[a].upg_leads += n(r['Lead']); byAgent[a].upg_ts += n(r['Total Sales']); }
+  });
+
+  const agentList = Object.entries(byAgent)
+    .filter(([name]) => name !== 'Unassigned')
+    .map(([name, s]) => ({
+      name,
+      leads:s.leads, contact:s.contact, rpc:s.rpc, sale:s.sale, ts:s.ts,
+      cr:  parseFloat(pct(s.contact, s.leads)),
+      rr:  parseFloat(pct(s.rpc, s.contact)),
+      conv:parseFloat(pct(s.ts, s.leads)),
+      nc_leads:s.nc_leads, nc_ts:s.nc_ts,
+      upg_leads:s.upg_leads, upg_ts:s.upg_ts,
+      nc_conv:  parseFloat(pct(s.nc_ts, s.nc_leads)),
+      upg_conv: parseFloat(pct(s.upg_ts, s.upg_leads)),
+    }))
+    .sort((a,b) => b.conv - a.conv);
+
+  // ── DISPOSITION AGGREGATION ──
+  const byDisp = {};
+  rows.forEach(r => {
+    const d = (r['Disposition'] || 'Unknown').trim();
+    byDisp[d] = (byDisp[d]||0) + n(r['Lead']);
+  });
+  const byDispCat = {};
+  rows.forEach(r => {
+    const cat = (r['Contact Description'] || 'Other').trim();
+    byDispCat[cat] = (byDispCat[cat]||0) + n(r['Lead']);
+  });
+
+  const dispSorted = Object.entries(byDisp).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const saleCat    = byDispCat['True Contact']  || byDispCat['Sale'] || totTS;
+  const cbCat      = byDispCat['Callback']      || 0;
+  const failCat    = byDispCat['Unsuccessful Contact'] || byDispCat['Unsuccessful'] || 0;
+
+  // ════════════════════════════════════════════════
+  // RENDER — CAMPAIGN OVERVIEW
+  // ════════════════════════════════════════════════
+  document.getElementById('kpi-campaign').innerHTML =
+    kpiCard('Total Leads',        fmt(totLeads),    `Dialable: ${fmt(totDial)}`,                       'var(--red)')   +
+    kpiCard('% Dialable',         pct(totDial,totLeads)+'%', `${fmt(totDial)} of ${fmt(totLeads)} workable`, 'var(--blue)')  +
+    kpiCard('Successful Contact', fmt(totContact),  `Contact Rate: ${pct(totContact,totLeads)}%`,      'var(--blue)')  +
+    kpiCard('True Contact (RPC)', fmt(totRPC),      `RPC Rate: ${pct(totRPC,totContact)}%`,            'var(--purple)')+
+    kpiCard('MTD Sales',          fmt(totTS),       `Direct Sales: ${fmt(totSale)}`,                   'var(--green)') +
+    kpiCard('Conversion Rate',    pct(totTS,totLeads)+'%', `Sale vs Lead`,                             'var(--amber)');
+
+  // Conn split vol
+  const ncPctOfTotal  = pct(NC.leads, totLeads);
+  const upgPctOfTotal = pct(UPG.leads, totLeads);
+  document.getElementById('conn-split-vol').innerHTML = `
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
+      <span style="color:var(--new-conn);font-weight:600;">● New Connections</span>
+      <span class="num">${fmt(NC.leads)} leads</span>
     </div>
-    <div style="text-align:right">
-      <div style="font-family:'DM Mono',monospace;font-weight:700;color:var(--green);font-size:16px;">${a.conv}%</div>
-      <div style="font-size:10px;color:var(--muted);">Conv Rate</div>
-    </div>`;
-  t5el.appendChild(div);
-});
-
-// BOTTOM 5
-const b5el = document.getElementById('bot5-agents');
-[...bot5].reverse().forEach((a, i) => {
-  const rank = bot5.length - i;
-  const div = document.createElement('div');
-  div.style.cssText = 'display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:10px;background:rgba(226,0,26,0.04);border:1px solid rgba(226,0,26,0.15);border-radius:8px;';
-  div.innerHTML = `
-    <div class="rank-badge rank-bottom">B${rank}</div>
-    <div style="flex:1">
-      <div style="font-weight:600;color:var(--bright);font-size:13px;">${a.name}</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:2px;">${a.leads} leads · ${a.contact} contacts · ${a.ts} sales</div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:11px;">
+      <span style="color:var(--upgrade);font-weight:600;">● Upgrade</span>
+      <span class="num">${fmt(UPG.leads)} leads</span>
     </div>
-    <div style="text-align:right">
-      <div style="font-family:'DM Mono',monospace;font-weight:700;color:var(--red);font-size:16px;">${a.conv}%</div>
-      <div style="font-size:10px;color:var(--muted);">Conv Rate</div>
+    <div class="split-bar">
+      <div class="split-seg" style="width:${ncPctOfTotal}%;background:var(--new-conn);">NC ${ncPctOfTotal}%</div>
+      <div class="split-seg" style="width:${upgPctOfTotal}%;background:var(--upgrade);">UPG ${upgPctOfTotal}%</div>
+    </div>
+    <div class="split-legend" style="margin-top:8px;">
+      <span><span class="split-dot" style="background:var(--new-conn);"></span>New Connection</span>
+      <span><span class="split-dot" style="background:var(--upgrade);"></span>Upgrade</span>
     </div>`;
-  b5el.appendChild(div);
-});
 
-// NC vs UPG SPLIT — estimated from 30/70 campaign ratio
-const splitTbody = document.getElementById('split-tbody');
-agentsFull.forEach(a => {
-  const ncLeads  = Math.round(a.leads * 0.30);
-  const upgLeads = a.leads - ncLeads;
-  const ncSales  = Math.round(a.ts * 0.71);   // NC yields ~71% of total sales proportionally
-  const upgSales = a.ts - ncSales;
-  const ncConv   = ncLeads  > 0 ? (ncSales /ncLeads *100).toFixed(1)  : '—';
-  const upgConv  = upgLeads > 0 ? (upgSales/upgLeads*100).toFixed(1) : '—';
-  const strong   = parseFloat(ncConv) > parseFloat(upgConv) ? '<span style="color:var(--new-conn);font-weight:600;">New Connection</span>' : '<span style="color:var(--upgrade);font-weight:600;">Upgrade</span>';
-  splitTbody.innerHTML += `
+  document.getElementById('conn-split-table').innerHTML = `
     <tr>
-      <td class="name">${a.name}</td>
-      <td class="num">${ncLeads}</td>
-      <td class="num" style="color:var(--green);">${ncConv}%</td>
-      <td class="num">${upgLeads}</td>
-      <td class="num" style="color:var(--amber);">${upgConv}%</td>
-      <td>${strong}</td>
-    </tr>`;
-});
-
-// FULL AGENT TABLE
-const fullTbody = document.getElementById('full-agent-tbody');
-sorted.forEach((a, i) => {
-  const convColor = a.conv >= 9 ? 'var(--green)' : a.conv >= 5 ? 'var(--amber)' : 'var(--red)';
-  const tier = i < 5
-    ? '<span style="color:var(--green);font-size:11px;font-weight:600;">▲ Top</span>'
-    : '<span style="color:var(--red);font-size:11px;font-weight:600;">▼ Low</span>';
-  fullTbody.innerHTML += `
+      <td><span style="color:var(--new-conn);font-weight:600;">New Conn</span></td>
+      <td class="num">${fmt(NC.leads)}</td><td class="num">${fmt(NC.contact)}</td><td class="num">${fmt(NC.rpc)}</td>
+      <td class="num">${fmt(NC.ts)}</td>
+      <td><span style="color:var(--green);font-weight:700;font-family:'DM Mono',monospace;">${pct(NC.ts,NC.leads)}%</span></td>
+    </tr>
     <tr>
-      <td class="num" style="color:var(--muted);">${i+1}</td>
-      <td class="name">${a.name}</td>
-      <td class="num">${a.leads}</td><td class="num">${a.contact}</td><td class="num">${a.rpc}</td>
-      <td class="num">${a.sale}</td><td class="num">${a.ts}</td>
-      <td class="num">${a.cr}%</td><td class="num">${a.rr}%</td>
-      <td class="num" style="color:${convColor};font-weight:700;">${a.conv}%</td>
-      <td>${tier}</td>
+      <td><span style="color:var(--upgrade);font-weight:600;">Upgrade</span></td>
+      <td class="num">${fmt(UPG.leads)}</td><td class="num">${fmt(UPG.contact)}</td><td class="num">${fmt(UPG.rpc)}</td>
+      <td class="num">${fmt(UPG.ts)}</td>
+      <td><span style="color:var(--amber);font-weight:700;font-family:'DM Mono',monospace;">${pct(UPG.ts,UPG.leads)}%</span></td>
+    </tr>
+    <tr style="border-top:1px solid var(--border);font-weight:600;">
+      <td style="color:var(--text);">Total</td>
+      <td class="num">${fmt(totLeads)}</td><td class="num">${fmt(totContact)}</td><td class="num">${fmt(totRPC)}</td>
+      <td class="num">${fmt(totTS)}</td>
+      <td style="font-family:'DM Mono',monospace;font-weight:700;">${pct(totTS,totLeads)}%</td>
     </tr>`;
-});
 
-// PENDING AGENTS
-agentsPending.forEach(name => {
-  fullTbody.innerHTML += `
-    <tr class="pending-row">
-      <td class="num" style="color:var(--muted);">—</td>
-      <td style="color:var(--muted);font-style:italic;">${name}</td>
-      <td colspan="8" style="color:var(--muted);font-size:11px;font-style:italic;">Agent Dashboard tab not yet updated — leads counted in campaign total (2,525 combined)</td>
-      <td><span style="color:var(--amber);font-size:11px;font-weight:600;">⏳ Pending</span></td>
-    </tr>`;
-});
+  // Perf bars
+  const ncCR  = parseFloat(pct(NC.contact,  NC.leads));
+  const upgCR = parseFloat(pct(UPG.contact, UPG.leads));
+  const ncRR  = parseFloat(pct(NC.rpc,  NC.contact));
+  const upgRR = parseFloat(pct(UPG.rpc, UPG.contact));
+  const ncCV  = parseFloat(pct(NC.ts,  NC.leads));
+  const upgCV = parseFloat(pct(UPG.ts, UPG.leads));
+  const maxCR = Math.max(ncCR, upgCR, 1);
+  const maxRR = Math.max(ncRR, upgRR, 1);
+  const maxCV = Math.max(ncCV, upgCV, 1);
+  document.getElementById('conn-perf-bars').innerHTML = `
+    <div style="font-size:11px;color:var(--muted);margin-bottom:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Contact Rate</div>
+    ${barRow('New Connection', ncCR/maxCR*100,  'var(--new-conn)', ncCR+'%')}
+    ${barRow('Upgrade',        upgCR/maxCR*100, 'var(--upgrade)',  upgCR+'%')}
+    <div style="font-size:11px;color:var(--muted);margin:16px 0 9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">RPC Rate (of contacts)</div>
+    ${barRow('New Connection', ncRR/maxRR*100,  'var(--new-conn)', ncRR+'%')}
+    ${barRow('Upgrade',        upgRR/maxRR*100, 'var(--upgrade)',  upgRR+'%')}
+    <div style="font-size:11px;color:var(--muted);margin:16px 0 9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Sale vs Lead (Conversion)</div>
+    ${barRow('New Connection', ncCV/maxCV*100,  'var(--green)', ncCV+'%')}
+    ${barRow('Upgrade',        upgCV/maxCV*100, 'var(--amber)', upgCV+'%')}`;
 
-// ── DISPOSITION BARS ──
-const dispositions = [
-  { name:"Third Party Contact",          count:750, color:'var(--red)'   },
-  { name:"Voice Mail",                   count:714, color:'var(--muted)' },
-  { name:"Client HungUp – Not Pitched",  count:588, color:'var(--red)'   },
-  { name:"No Answer",                    count:548, color:'var(--muted)' },
-  { name:"Not Interested – No Pitch",    count:367, color:'var(--amber)' },
-  { name:"Callback",                     count:278, color:'var(--amber)' },
-  { name:"Insured at Another Co.",       count:242, color:'var(--amber)' },
-  { name:"SALE",                         count:224, color:'var(--green)' },
-  { name:"Not Interested – Pitched",     count:185, color:'var(--amber)' },
-  { name:"AI Voice",                     count:136, color:'var(--muted)' },
-];
-const maxD = 750;
-const dispEl = document.getElementById('disp-bars');
-dispositions.forEach(d => {
-  dispEl.innerHTML += `
-    <div class="bar-row">
-      <div class="bar-label" title="${d.name}">${d.name}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(d.count/maxD*100).toFixed(1)}%;background:${d.color};"></div></div>
-      <div class="bar-val">${d.count}</div>
+  // Weekly blocks
+  function wkBlock(label, s) {
+    if (!s) return `<div class="week-block"><div class="wk-head">${label}</div><div style="color:var(--muted);font-size:11px;">No data</div></div>`;
+    return `<div class="week-block">
+      <div class="wk-head">${label}</div>
+      <div class="wk-row"><span class="wk-key">Leads</span><span class="wk-val">${fmt(s.leads)}</span></div>
+      <div class="wk-row"><span class="wk-key">Contact</span><span class="wk-val">${fmt(s.contact)}</span></div>
+      <div class="wk-row"><span class="wk-key">RPC</span><span class="wk-val">${fmt(s.rpc)}</span></div>
+      <div class="wk-row"><span class="wk-key">Sales</span><span class="wk-val" style="color:var(--green);">${fmt(s.ts)}</span></div>
+      <div class="wk-row"><span class="wk-key">Contact%</span><span class="wk-val">${pct(s.contact,s.leads)}%</span></div>
+      <div class="wk-row"><span class="wk-key">Conv%</span><span class="wk-val" style="color:var(--amber);">${pct(s.ts,s.leads)}%</span></div>
     </div>`;
-});
+  }
+  let wkNcHtml='', wkUpgHtml='';
+  weeks.forEach(w => {
+    wkNcHtml  += wkBlock(`WEEK ${w} · NC`,  byWeekConn[`${w}|NC`]);
+    wkUpgHtml += wkBlock(`WEEK ${w} · UPG`, byWeekConn[`${w}|UPG`]);
+  });
+  document.getElementById('wk-nc').innerHTML  = wkNcHtml  || '<div style="color:var(--muted);font-size:12px;">No week data found</div>';
+  document.getElementById('wk-upg').innerHTML = wkUpgHtml || '<div style="color:var(--muted);font-size:12px;">No week data found</div>';
 
-// ── DAILY VISUAL ──
-const dailyData = [
-  { date:"Mon 2", nc:194,  upg:1539 },
-  { date:"Tue 3", nc:370,  upg:792  },
-  { date:"Wed 4", nc:157,  upg:456  },
-  { date:"Thu 5", nc:132,  upg:245  },
-  { date:"Fri 6", nc:198,  upg:202  },
-  { date:"Sat 7", nc:195,  upg:146  },
-  { date:"Mon 9", nc:285,  upg:190  },
-];
-const maxD2 = Math.max(...dailyData.map(d => d.nc + d.upg));
-const dailyEl = document.getElementById('daily-visual');
-dailyData.forEach(d => {
-  const total = d.nc + d.upg;
-  const trackW = (total / maxD2 * 100).toFixed(1);
-  const ncPct  = (d.nc  / total * 100).toFixed(1);
-  const upgPct = (d.upg / total * 100).toFixed(1);
-  dailyEl.innerHTML += `
-    <div class="daily-row">
-      <div class="daily-date">${d.date}</div>
-      <div class="daily-bar-wrap" style="width:${trackW}%">
-        <div class="daily-bar-track">
-          <div class="daily-bar-nc" style="width:${ncPct}%;"></div>
-          <div class="daily-bar-up" style="left:${ncPct}%;width:${upgPct}%;"></div>
+  // Dispositions
+  const maxDisp = dispSorted[0]?.[1] || 1;
+  document.getElementById('disp-bars').innerHTML = dispSorted.map(([name, count]) => {
+    const isGood = name.toLowerCase().includes('sale');
+    const isCb   = name.toLowerCase().includes('callback') || name.toLowerCase().includes('call back');
+    const col    = isGood ? 'var(--green)' : isCb ? 'var(--amber)' : 'var(--red)';
+    return barRow(name, count/maxDisp*100, col, count.toLocaleString());
+  }).join('');
+
+  document.getElementById('disp-summary').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
+      <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:13px;">
+        <div style="font-size:20px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace;">${fmt(totTS)}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">SALE outcomes</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:13px;">
+        <div style="font-size:20px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace;">${fmt(cbCat||byDisp['Callback']||byDisp['Call Back']||0)}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Callbacks</div>
+      </div>
+      <div style="background:rgba(226,0,26,0.08);border:1px solid rgba(226,0,26,0.2);border-radius:8px;padding:13px;">
+        <div style="font-size:20px;font-weight:700;color:var(--red);font-family:'DM Mono',monospace;">${fmt(totLeads - totContact)}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Unsuccessful</div>
+      </div>
+    </div>`;
+
+  document.getElementById('disp-pills').innerHTML = dispSorted.slice(0,10).map(([name,count]) =>
+    `<div class="disp-pill"><span class="disp-count">${fmt(count)}</span>${name}</div>`
+  ).join('');
+
+  // ════════════════════════════════════════════════
+  // RENDER — DAILY VIEW
+  // ════════════════════════════════════════════════
+  const bestNcDay   = dailyDates.map(d => byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>b.ts-a.ts)[0];
+  const bestNcConv  = dailyDates.map(d => byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>parseFloat(pct(b.ts,b.leads))-parseFloat(pct(a.ts,a.leads)))[0];
+  const avgLeads    = dailyDates.length ? Math.round((NC.leads+UPG.leads)/dailyDates.length) : 0;
+
+  const bestNcDayLabel  = bestNcDay   ? new Date(bestNcDay.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}) : '—';
+  const bestNcConvLabel = bestNcConv  ? new Date(bestNcConv.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}) : '—';
+
+  document.getElementById('kpi-daily').innerHTML =
+    kpiCard('Days Tracked',      dailyDates.length,    'Active dialling days',              'var(--blue)')  +
+    kpiCard('Avg Daily Leads',   fmt(avgLeads),         'NC + Upgrade combined',             'var(--purple)')+
+    kpiCard('Best Day – NC Sales', bestNcDayLabel,      bestNcDay ? `${fmt(bestNcDay.ts)} NC sales` : '—', 'var(--green)') +
+    kpiCard('Best NC Conv Day',  bestNcConvLabel, bestNcConv ? `${pct(bestNcConv.ts,bestNcConv.leads)}% sale vs lead` : '—', 'var(--amber)');
+
+  function dailyTableRows(type) {
+    let html='', tot={leads:0,contact:0,rpc:0,ts:0};
+    dailyDates.forEach(d => {
+      const s = byDateConn[`${d}|${type}`];
+      if (!s) return;
+      const lbl = new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
+      const cv  = pct(s.ts, s.leads);
+      const col = type==='NC' ? 'var(--new-conn)' : 'var(--upgrade)';
+      html += `<tr>
+        <td class="num">${lbl}</td>
+        <td class="num">${fmt(s.leads)}</td><td class="num">${fmt(s.contact)}</td><td class="num">${fmt(s.rpc)}</td>
+        <td class="num" style="color:var(--green);">${fmt(s.ts)}</td>
+        <td class="num" style="color:${convColor(cv)};">${cv}%</td>
+      </tr>`;
+      tot.leads+=s.leads; tot.contact+=s.contact; tot.rpc+=s.rpc; tot.ts+=s.ts;
+    });
+    html += `<tr style="background:rgba(59,130,246,0.06);font-weight:600;">
+      <td>TOTAL</td>
+      <td class="num">${fmt(tot.leads)}</td><td class="num">${fmt(tot.contact)}</td><td class="num">${fmt(tot.rpc)}</td>
+      <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${fmt(tot.ts)}</td>
+      <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${pct(tot.ts,tot.leads)}%</td>
+    </tr>`;
+    return html;
+  }
+  document.getElementById('daily-upg-table').innerHTML = dailyTableRows('UPG');
+  document.getElementById('daily-nc-table').innerHTML  = dailyTableRows('NC');
+
+  // Daily visual bars
+  const maxDailyVol = Math.max(...dailyDates.map(d => {
+    const nc  = byDateConn[`${d}|NC`]?.leads  || 0;
+    const upg = byDateConn[`${d}|UPG`]?.leads || 0;
+    return nc + upg;
+  }), 1);
+  document.getElementById('daily-visual').innerHTML = dailyDates.map(d => {
+    const nc   = byDateConn[`${d}|NC`]?.leads  || 0;
+    const upg  = byDateConn[`${d}|UPG`]?.leads || 0;
+    const tot  = nc + upg;
+    const lbl  = new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
+    const tW   = (tot / maxDailyVol * 100).toFixed(1);
+    const ncP  = tot > 0 ? (nc  / tot * 100).toFixed(1) : 0;
+    const upgP = tot > 0 ? (upg / tot * 100).toFixed(1) : 0;
+    return `<div class="daily-row">
+      <div class="daily-date">${lbl}</div>
+      <div style="flex:1;padding-right:10px;">
+        <div class="daily-bar-outer" style="width:${tW}%">
+          <div class="daily-bar-nc"  style="width:${ncP}%;"></div>
+          <div class="daily-bar-up"  style="left:${ncP}%;width:${upgP}%;"></div>
         </div>
       </div>
       <div class="daily-stats">
-        <span><b>${total}</b> total</span>
-        <span><b style="color:var(--new-conn);">${d.nc}</b> NC</span>
-        <span><b style="color:var(--upgrade);">${d.upg}</b> UPG</span>
+        <span><b style="color:var(--bright);">${fmt(tot)}</b> total</span>
+        <span><b style="color:var(--new-conn);">${fmt(nc)}</b> NC</span>
+        <span><b style="color:var(--upgrade);">${fmt(upg)}</b> UPG</span>
       </div>
     </div>`;
-});
+  }).join('');
 
-// ── MONTHLY TREND ──
-const months = [
-  { m:"Apr'25", conv:10.0 },{ m:"May'25", conv:10.6 },{ m:"Jun'25", conv:10.6 },
-  { m:"Jul'25", conv:23.9 },{ m:"Aug'25", conv:10.7 },{ m:"Sep'25", conv:10.7 },
-  { m:"Oct'25", conv:9.4  },{ m:"Nov'25", conv:10.5 },{ m:"Dec'25", conv:10.0 },
-  { m:"Jan'26", conv:13.1 },{ m:"Feb'26", conv:15.4 },{ m:"Mar'26", conv:15.5 },
-  { m:"Apr'26", conv:13.7 },{ m:"May'26", conv:16.1 },{ m:"Jun'26", conv:7.0, current:true },
-];
-const maxC = Math.max(...months.map(m => m.conv));
-let html = '<div style="display:flex;align-items:flex-end;gap:6px;height:130px;padding-bottom:8px;">';
-months.forEach(m => {
-  const h = (m.conv / maxC * 100).toFixed(1);
-  const col = m.current ? 'var(--red)' : 'rgba(90,90,114,0.6)';
-  const lbl = m.current ? 'var(--red)' : 'var(--muted)';
-  html += `
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:48px;">
-      <div style="font-family:'DM Mono',monospace;font-size:10px;color:${lbl};">${m.conv}%</div>
-      <div style="width:100%;background:${col};height:${h}%;border-radius:3px 3px 0 0;${m.current?'box-shadow:0 0 8px rgba(226,0,26,0.4);':''}"></div>
-      <div style="font-size:9px;color:var(--muted);text-align:center;white-space:nowrap;">${m.m}</div>
+  // ════════════════════════════════════════════════
+  // RENDER — AGENT DASHBOARD
+  // ════════════════════════════════════════════════
+  const teamLeads   = agentList.reduce((s,a)=>s+a.leads,0);
+  const teamSales   = agentList.reduce((s,a)=>s+a.ts,0);
+  const teamContact = agentList.reduce((s,a)=>s+a.contact,0);
+  const top5  = agentList.slice(0,5);
+  const bot5  = agentList.slice(-5);
+
+  document.getElementById('kpi-agents').innerHTML =
+    kpiCard('Total Agents',       agentList.length,                  'Identified in data',                 'var(--green)') +
+    kpiCard('Team Total Sales',   fmt(teamSales),                    `${agentList.length} agents tracked`,  'var(--red)')   +
+    kpiCard('Team Conv Rate',     pct(teamSales,teamLeads)+'%',      `${fmt(teamSales)} sales / ${fmt(teamLeads)} leads`, 'var(--blue)') +
+    kpiCard('Team Contact Rate',  pct(teamContact,teamLeads)+'%',    `${fmt(teamContact)} / ${fmt(teamLeads)}`,           'var(--purple)') +
+    kpiCard('Top Agent Conv',     (agentList[0]?.conv||0)+'%',       agentList[0]?.name||'—',               'var(--amber)') +
+    kpiCard('Lowest Agent Conv',  (agentList[agentList.length-1]?.conv||0)+'%', agentList[agentList.length-1]?.name||'—', '#666');
+
+  function agentCard(a, i, isTop) {
+    const rankLabels = isTop ? ['r1','r2','r3','r-other','r-other'] : ['r-bot','r-bot','r-bot','r-bot','r-bot'];
+    const rankText   = isTop ? (i+1) : `B${i+1}`;
+    const col        = isTop ? 'var(--green)' : 'var(--red)';
+    return `<div class="agent-card ${isTop?'top':'bottom'}">
+      <div class="rank-badge ${rankLabels[i]}">${rankText}</div>
+      <div style="flex:1">
+        <div style="font-weight:600;color:var(--bright);font-size:13px;">${a.name}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">${fmt(a.leads)} leads · ${fmt(a.contact)} contacts · ${fmt(a.ts)} sales</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:'DM Mono',monospace;font-weight:700;color:${col};font-size:16px;">${a.conv}%</div>
+        <div style="font-size:10px;color:var(--muted);">Conv Rate</div>
+      </div>
     </div>`;
-});
-html += '</div>';
-document.getElementById('monthly-trend').innerHTML = html;
+  }
+
+  document.getElementById('top5-agents').innerHTML = top5.map((a,i) => agentCard(a,i,true)).join('');
+  document.getElementById('bot5-agents').innerHTML = [...bot5].reverse().map((a,i) => agentCard(a,i,false)).join('');
+
+  // Split table
+  document.getElementById('split-tbody').innerHTML = agentList.map(a => {
+    const ncC   = a.nc_conv.toFixed(1);
+    const upgC  = a.upg_conv.toFixed(1);
+    const strong = a.nc_conv > a.upg_conv
+      ? '<span style="color:var(--new-conn);font-weight:600;">New Connection</span>'
+      : a.upg_conv > a.nc_conv
+        ? '<span style="color:var(--upgrade);font-weight:600;">Upgrade</span>'
+        : '<span style="color:var(--muted);">Equal</span>';
+    return `<tr>
+      <td class="name-cell">${a.name}</td>
+      <td class="num">${fmt(a.nc_leads)}</td>
+      <td class="num">${fmt(a.nc_ts)}</td>
+      <td class="num" style="color:var(--green);">${ncC}%</td>
+      <td class="num">${fmt(a.upg_leads)}</td>
+      <td class="num">${fmt(a.upg_ts)}</td>
+      <td class="num" style="color:var(--amber);">${upgC}%</td>
+      <td>${strong}</td>
+    </tr>`;
+  }).join('');
+
+  // Full table
+  document.getElementById('full-agent-tbody').innerHTML = agentList.map((a,i) => {
+    const tier = i < 5
+      ? '<span style="color:var(--green);font-size:11px;font-weight:600;">▲ Top</span>'
+      : '<span style="color:var(--red);font-size:11px;font-weight:600;">▼ Low</span>';
+    return `<tr>
+      <td class="num" style="color:var(--muted);">${i+1}</td>
+      <td class="name-cell">${a.name}</td>
+      <td class="num">${fmt(a.leads)}</td><td class="num">${fmt(a.contact)}</td><td class="num">${fmt(a.rpc)}</td>
+      <td class="num">${fmt(a.sale)}</td><td class="num">${fmt(a.ts)}</td>
+      <td class="num">${a.cr.toFixed(1)}%</td><td class="num">${a.rr.toFixed(1)}%</td>
+      <td class="num" style="color:${convColor(a.conv)};font-weight:700;">${a.conv.toFixed(1)}%</td>
+      <td>${tier}</td>
+    </tr>`;
+  }).join('');
+
+  // ── UPDATE STATUS ──
+  const now = new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-updated').textContent = `Last loaded: ${now}`;
+  document.getElementById('footer-source').textContent = `Source: I50N/Voda_Dashboard · ${now}`;
+}
+
+// ════════════════════════════════════════════════
+// FETCH + LOAD
+// ════════════════════════════════════════════════
+async function loadData() {
+  const overlay = document.getElementById('loading-overlay');
+  const errBanner = document.getElementById('error-banner');
+  const reloadBtn = document.getElementById('reload-btn');
+
+  overlay.classList.remove('hidden');
+  errBanner.style.display = 'none';
+  reloadBtn.disabled = true;
+
+  try {
+    const res = await fetch(CSV_URL + '?t=' + Date.now()); // cache bust
+    if (!res.ok) throw new Error(`HTTP ${res.status} — Could not fetch CSV from GitHub. Check that the file exists at the configured path.`);
+    const text = await res.text();
+    if (!text.trim()) throw new Error('CSV file is empty.');
+    const rows = parseCSV(text);
+    if (!rows.length) throw new Error('CSV parsed but returned no rows. Check column headers match expected format.');
+    render(rows);
+  } catch (err) {
+    document.getElementById('error-msg').textContent = err.message;
+    errBanner.style.display = 'flex';
+    document.getElementById('last-updated').textContent = 'Failed to load data';
+  } finally {
+    overlay.classList.add('hidden');
+    reloadBtn.disabled = false;
+  }
+}
+
+// Auto-load on open
+loadData();
 </script>
 </body>
 </html>
