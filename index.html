@@ -36,6 +36,15 @@
   .tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
   .view{display:none;padding:24px 28px;}
   .view.active{display:block;}
+  /* MONTH FILTER BAR */
+  .month-filter-bar{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .month-filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);white-space:nowrap;}
+  .month-pills{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+  .month-pill{background:var(--border);color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+  .month-pill:hover{color:var(--text);border-color:var(--muted);}
+  .month-pill.active{background:var(--red);color:white;border-color:var(--red);}
+  .month-pill.all{background:rgba(59,130,246,0.15);color:var(--blue);border-color:rgba(59,130,246,0.3);}
+  .month-pill.all.active{background:var(--blue);color:white;border-color:var(--blue);}
   .section-label{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;margin-top:8px;display:flex;align-items:center;gap:10px;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
@@ -65,14 +74,14 @@
   .split-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;}
   .split-legend{display:flex;gap:14px;font-size:12px;}
   .split-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px;}
-  .week-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .week-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex-wrap:wrap;}
   .week-block{background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:13px;}
   .week-block .wk-head{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:9px;}
   .week-block .wk-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
   .week-block .wk-key{color:var(--muted);}
   .week-block .wk-val{font-family:'DM Mono',monospace;color:var(--bright);font-weight:500;}
   .daily-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
-  .daily-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:50px;flex-shrink:0;}
+  .daily-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:60px;flex-shrink:0;}
   .daily-bar-outer{flex:1;background:var(--border);border-radius:4px;height:10px;position:relative;overflow:hidden;}
   .daily-bar-nc{position:absolute;left:0;top:0;height:100%;background:var(--new-conn);}
   .daily-bar-up{position:absolute;top:0;height:100%;background:var(--upgrade);}
@@ -82,7 +91,7 @@
   .agent-card.top{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);}
   .agent-card.bottom{background:rgba(226,0,26,0.04);border:1px solid rgba(226,0,26,0.15);}
   .rank-badge{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
-  .r1{background:#FFD700;color:#0F0F12;} .r2{background:#C0C0C0;color:#0F0F12;} .r3{background:#CD7F32;color:white;}
+  .r1{background:#FFD700;color:#0F0F12;}.r2{background:#C0C0C0;color:#0F0F12;}.r3{background:#CD7F32;color:white;}
   .r-other{background:var(--border);color:var(--muted);}
   .r-bot{background:rgba(226,0,26,0.2);color:var(--red);}
   .disp-pill{display:inline-flex;align-items:center;gap:5px;background:var(--border);border-radius:20px;padding:3px 9px;font-size:11px;margin:3px;}
@@ -110,15 +119,10 @@
   .disp-cat-pct{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);width:38px;text-align:right;}
   .disp-summary-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
   .disp-sum-pill{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;}
-  /* MONTH ON MONTH */
-  .mom-table-wrap{overflow-x:auto;}
-  .mom-bar{display:inline-block;height:10px;border-radius:3px;vertical-align:middle;margin-right:6px;}
+  /* MOM */
   .trend-up{color:var(--green);font-weight:700;}
   .trend-down{color:var(--red);font-weight:700;}
   .trend-flat{color:var(--muted);}
-  .month-filter-btn{background:var(--border);color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.15s;margin:3px;}
-  .month-filter-btn:hover{color:var(--text);border-color:var(--muted);}
-  .month-filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
   .mom-highlight{background:rgba(226,0,26,0.06);border-left:3px solid var(--red);}
 </style>
 </head>
@@ -155,6 +159,10 @@
 
 <!-- TAB 1: CAMPAIGN OVERVIEW -->
 <div id="view-campaign" class="view active">
+  <div class="month-filter-bar">
+    <span class="month-filter-label">📅 Filter Month:</span>
+    <div class="month-pills" id="mf-campaign"></div>
+  </div>
   <div class="section-label">Campaign Snapshot</div>
   <div class="kpi-grid" id="kpi-campaign"></div>
   <div class="section-label">Connection Type Split</div>
@@ -162,7 +170,10 @@
     <div class="card">
       <div class="card-title"><span class="dot"></span>Lead Volume by Type</div>
       <div id="conn-split-vol"></div>
-      <div style="margin-top:18px;"><table class="data-table"><thead><tr><th>Type</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead><tbody id="conn-split-table"></tbody></table></div>
+      <div style="margin-top:18px;">
+        <table class="data-table"><thead><tr><th>Type</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Conv%</th></tr></thead>
+        <tbody id="conn-split-table"></tbody></table>
+      </div>
     </div>
     <div class="card">
       <div class="card-title"><span class="dot"></span>Performance Metrics by Type</div>
@@ -199,69 +210,43 @@
 <div id="view-monthly" class="view">
   <div class="section-label">Month on Month Performance</div>
   <div class="kpi-grid" id="kpi-monthly"></div>
-
   <div class="card">
     <div class="card-title"><span class="dot"></span>Monthly Summary — All Metrics</div>
-    <div class="mom-table-wrap">
+    <div style="overflow-x:auto;">
       <table class="data-table">
-        <thead><tr>
-          <th>Month</th>
-          <th>Leads</th>
-          <th>Contact</th>
-          <th>RPC</th>
-          <th>Sales</th>
-          <th>Contact%</th>
-          <th>RPC%</th>
-          <th>Conv%</th>
-          <th>MoM Sales</th>
-          <th>MoM Conv</th>
-        </tr></thead>
+        <thead><tr><th>Month</th><th>Leads</th><th>Contact</th><th>RPC</th><th>Sales</th><th>Contact%</th><th>RPC%</th><th>Conv%</th><th>MoM Sales</th><th>MoM Conv</th></tr></thead>
         <tbody id="mom-summary-tbody"></tbody>
       </table>
     </div>
   </div>
-
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--new-conn);"></span>New Connections — Monthly</div>
-      <table class="data-table">
-        <thead><tr><th>Month</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>MoM</th></tr></thead>
-        <tbody id="mom-nc-tbody"></tbody>
-      </table>
+      <table class="data-table"><thead><tr><th>Month</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>MoM</th></tr></thead>
+      <tbody id="mom-nc-tbody"></tbody></table>
     </div>
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--upgrade);"></span>Upgrade — Monthly</div>
-      <table class="data-table">
-        <thead><tr><th>Month</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>MoM</th></tr></thead>
-        <tbody id="mom-upg-tbody"></tbody>
-      </table>
+      <table class="data-table"><thead><tr><th>Month</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>MoM</th></tr></thead>
+      <tbody id="mom-upg-tbody"></tbody></table>
     </div>
   </div>
-
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Sales Volume Visual — Month by Month</div>
+    <div class="card-title"><span class="dot"></span>Sales Volume — Month by Month</div>
     <div id="mom-bars-visual"></div>
     <div class="split-legend" style="margin-top:12px;">
       <span><span class="split-dot" style="background:var(--new-conn);"></span>New Connection</span>
       <span><span class="split-dot" style="background:var(--upgrade);"></span>Upgrade</span>
     </div>
   </div>
-
-  <div class="section-label">Agent Performance by Month</div>
-  <div class="card">
-    <div class="card-title"><span class="dot"></span>Filter Month</div>
-    <div id="month-agent-selector" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
-    <div style="overflow-x:auto;">
-      <table class="data-table">
-        <thead><tr><th>#</th><th>Agent</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>NC Sales</th><th>UPG Sales</th></tr></thead>
-        <tbody id="mom-agent-tbody"></tbody>
-      </table>
-    </div>
-  </div>
 </div>
 
 <!-- TAB 3: DAILY VIEW -->
 <div id="view-daily" class="view">
+  <div class="month-filter-bar">
+    <span class="month-filter-label">📅 Filter Month:</span>
+    <div class="month-pills" id="mf-daily"></div>
+  </div>
   <div class="section-label">Daily Lead Performance</div>
   <div class="kpi-grid" id="kpi-daily"></div>
   <div class="two-col">
@@ -288,6 +273,10 @@
 
 <!-- TAB 4: AGENT DASHBOARD -->
 <div id="view-agents" class="view">
+  <div class="month-filter-bar">
+    <span class="month-filter-label">📅 Filter Month:</span>
+    <div class="month-pills" id="mf-agents"></div>
+  </div>
   <div class="section-label">Agent Performance</div>
   <div class="kpi-grid" id="kpi-agents"></div>
   <div class="two-col">
@@ -302,7 +291,7 @@
       <div id="bot5-agents"></div>
     </div>
   </div>
-  <div class="section-label">NC vs Upgrade Lead Split by Agent</div>
+  <div class="section-label">NC vs Upgrade Split by Agent</div>
   <div class="card">
     <div class="card-title"><span class="dot"></span>Conversion by Lead Type — All Agents</div>
     <table class="data-table">
@@ -315,22 +304,10 @@
     <div class="card-title"><span class="dot"></span>Outcome Categories — All Agents</div>
     <div style="overflow-x:auto;">
       <table class="data-table">
-        <thead><tr>
-          <th>Agent</th>
-          <th style="color:var(--green);">Sales</th>
-          <th style="color:var(--amber);">Callbacks</th>
-          <th style="color:var(--blue);">Not Interested</th>
-          <th style="color:var(--muted);">Voicemail</th>
-          <th style="color:var(--muted);">No Answer</th>
-          <th style="color:var(--muted);">3rd Party</th>
-          <th style="color:var(--red);">Hung Up</th>
-          <th style="color:var(--muted);">Other</th>
-          <th>Total Leads</th>
-        </tr></thead>
+        <thead><tr><th>Agent</th><th style="color:var(--green);">Sales</th><th style="color:var(--amber);">Callbacks</th><th style="color:var(--blue);">Not Interested</th><th style="color:var(--muted);">Voicemail</th><th style="color:var(--muted);">No Answer</th><th style="color:var(--muted);">3rd Party</th><th style="color:var(--red);">Hung Up</th><th style="color:var(--muted);">Other</th><th>Total Leads</th></tr></thead>
         <tbody id="agent-disp-summary-tbody"></tbody>
       </table>
     </div>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted);">See the Disposition Report tab for a full per-agent breakdown.</div>
   </div>
   <div class="section-label">All Agents — Full Stats</div>
   <div class="card">
@@ -343,6 +320,10 @@
 
 <!-- TAB 5: DISPOSITION REPORT -->
 <div id="view-dispositions" class="view">
+  <div class="month-filter-bar">
+    <span class="month-filter-label">📅 Filter Month:</span>
+    <div class="month-pills" id="mf-dispositions"></div>
+  </div>
   <div class="section-label">Disposition Report — Agent Level</div>
   <div class="kpi-grid" id="kpi-disp"></div>
   <div class="card" style="margin-bottom:18px;">
@@ -362,13 +343,19 @@
 <script>
 const CSV_URL = 'https://raw.githubusercontent.com/I50N/Voda_Dashboard/refs/heads/main/voda_dashboard.csv';
 
-// ── INVALID AGENT NAMES ──
 const INVALID_AGENTS = new Set(['','unassigned','n/a','\\n','\\0','/0','0']);
 function isValidAgent(name) {
   if (!name) return false;
-  const n = name.trim().toLowerCase();
-  return !INVALID_AGENTS.has(n) && !name.startsWith('\\') && !name.startsWith('/0');
+  const low = name.trim().toLowerCase();
+  return !INVALID_AGENTS.has(low) && !name.startsWith('\\') && !name.startsWith('/');
 }
+
+// ── GLOBAL DATA ──
+let G_ROWS = [];
+let G_MONTHS = [];
+
+// Active month selections per tab (null = All)
+const activeMonth = { campaign: null, daily: null, agents: null, dispositions: null };
 
 function filterAgent(name, btn) {
   document.querySelectorAll('.agent-filter-btn').forEach(b => b.classList.remove('active'));
@@ -377,7 +364,6 @@ function filterAgent(name, btn) {
     block.style.display = (name === 'ALL' || block.dataset.agent === name) ? 'block' : 'none';
   });
 }
-
 function toggleDispBlock(header) {
   const body = header.nextElementSibling;
   const toggle = header.querySelector('.disp-toggle');
@@ -385,7 +371,6 @@ function toggleDispBlock(header) {
   body.classList.toggle('collapsed', isOpen);
   toggle.style.transform = isOpen ? '' : 'rotate(180deg)';
 }
-
 function showTab(id, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -397,8 +382,7 @@ function parseCSV(text) {
   const lines = text.trim().split('\n');
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
   return lines.slice(1).map(line => {
-    const cols = [];
-    let cur = '', inQ = false;
+    const cols = []; let cur = '', inQ = false;
     for (let c of line) {
       if (c === '"') { inQ = !inQ; }
       else if (c === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
@@ -411,204 +395,101 @@ function parseCSV(text) {
   }).filter(r => r['Lead'] || r['Agent Display']);
 }
 
-const n   = v => parseInt(v) || 0;
+const ni = v => parseInt(v) || 0;
 const pct = (a, b) => b > 0 ? (a / b * 100).toFixed(1) : '0.0';
-const fmt = v => (typeof v === 'number' ? v : parseInt(v)||0).toLocaleString();
-
-function convColor(c) {
-  c = parseFloat(c);
-  return c >= 9 ? 'var(--green)' : c >= 5 ? 'var(--amber)' : 'var(--red)';
-}
-
+const fmt = v => (typeof v === 'number' ? v : parseInt(v) || 0).toLocaleString();
+function convColor(c) { c = parseFloat(c); return c >= 9 ? 'var(--green)' : c >= 5 ? 'var(--amber)' : 'var(--red)'; }
 function kpiCard(label, value, sub, accent) {
-  return `<div class="kpi-card" style="--accent:${accent}">
-    <div class="kpi-label">${label}</div>
-    <div class="kpi-value">${value}</div>
-    <div class="kpi-sub">${sub}</div>
-  </div>`;
+  return `<div class="kpi-card" style="--accent:${accent}"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub}</div></div>`;
 }
-
 function barRow(label, pctVal, color, valLabel) {
-  return `<div class="bar-row">
-    <div class="bar-label" title="${label}">${label}</div>
-    <div class="bar-track"><div class="bar-fill" style="width:${Math.min(pctVal,100)}%;background:${color};"></div></div>
-    <div class="bar-val">${valLabel}</div>
-  </div>`;
+  return `<div class="bar-row"><div class="bar-label" title="${label}">${label}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.min(pctVal,100)}%;background:${color};"></div></div><div class="bar-val">${valLabel}</div></div>`;
 }
-
 function monthLabel(m) {
-  if (!m) return '—';
+  if (!m) return 'All';
   const [y, mo] = m.split('-');
-  const names = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${names[parseInt(mo)]} ${y}`;
+  return ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(mo)] + ' ' + y;
 }
-
 function trendArrow(curr, prev) {
   if (prev === null || prev === undefined) return '<span class="trend-flat">—</span>';
   const diff = curr - prev;
-  if (diff > 0) return `<span class="trend-up">▲ +${diff.toFixed(1)}</span>`;
-  if (diff < 0) return `<span class="trend-down">▼ ${diff.toFixed(1)}</span>`;
+  if (diff > 0) return `<span class="trend-up">▲ +${typeof diff === 'number' && diff % 1 !== 0 ? diff.toFixed(1) : fmt(diff)}</span>`;
+  if (diff < 0) return `<span class="trend-down">▼ ${typeof diff === 'number' && diff % 1 !== 0 ? diff.toFixed(1) : fmt(diff)}</span>`;
   return '<span class="trend-flat">—</span>';
 }
 
-// ── GLOBAL for month-agent filter ──
-let g_monthAgentData = {};
-let g_months = [];
-
-function renderMonthAgentTable(selectedMonth) {
-  const data = g_monthAgentData[selectedMonth] || {};
-  const agents = Object.entries(data)
-    .filter(([name]) => isValidAgent(name))
-    .map(([name, s]) => ({
-      name, ...s,
-      conv: parseFloat(pct(s.ts, s.leads))
-    }))
-    .sort((a, b) => b.conv - a.conv);
-
-  document.getElementById('mom-agent-tbody').innerHTML = agents.map((a, i) => `<tr>
-    <td class="num" style="color:var(--muted);">${i+1}</td>
-    <td class="name-cell">${a.name}</td>
-    <td class="num">${fmt(a.leads)}</td>
-    <td class="num" style="color:var(--green);">${fmt(a.ts)}</td>
-    <td class="num" style="color:${convColor(a.conv)};">${a.conv.toFixed(1)}%</td>
-    <td class="num" style="color:var(--new-conn);">${fmt(a.nc_ts)}</td>
-    <td class="num" style="color:var(--upgrade);">${fmt(a.upg_ts)}</td>
-  </tr>`).join('');
+// ── MONTH FILTER PILLS BUILDER ──
+function buildMonthPills(containerId, tabKey) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  // All pill
+  const allBtn = document.createElement('button');
+  allBtn.className = 'month-pill all' + (!activeMonth[tabKey] ? ' active' : '');
+  allBtn.textContent = 'All Months';
+  allBtn.onclick = () => { activeMonth[tabKey] = null; refreshTab(tabKey); buildMonthPills(containerId, tabKey); };
+  container.appendChild(allBtn);
+  // Month pills
+  G_MONTHS.forEach(m => {
+    const btn = document.createElement('button');
+    btn.className = 'month-pill' + (activeMonth[tabKey] === m ? ' active' : '');
+    btn.textContent = monthLabel(m);
+    btn.onclick = () => { activeMonth[tabKey] = m; refreshTab(tabKey); buildMonthPills(containerId, tabKey); };
+    container.appendChild(btn);
+  });
 }
 
-function render(rows) {
-  // ── COLUMN MAP ──
-  const colMap = {
-    'Lead':'Lead','lead':'Lead',
-    'Contact':'Contact','contact':'Contact',
-    'RPC':'RPC','rpc':'RPC',
-    'Sale':'Sale','sale':'Sale',
-    'Total Sales':'Total Sales','total_sales':'Total Sales','total sales':'Total Sales',
-    'Dialable Contacts':'Dialable Contacts','dialable_contacts':'Dialable Contacts',
-    'connection_type':'connection_type','Connection Type':'connection_type','connection type':'connection_type',
-    'Agent Display':'Agent Display','agent_display':'Agent Display','agent display':'Agent Display',
-    'Week':'Week','week':'Week',
-    'Disposition':'Disposition','disposition':'Disposition',
-    'Contact Description':'Contact Description','contact_description':'Contact Description',
-    'date_created':'date_created','Date Created':'date_created',
-    'month_created':'month_created','Month Created':'month_created',
-  };
-  rows = rows.map(r => {
-    const nr = {};
-    Object.keys(r).forEach(k => { const c = colMap[k]; if(c) nr[c] = r[k]; else nr[k] = r[k]; });
-    return nr;
-  });
+// ── FILTER ROWS BY MONTH ──
+function getRows(tabKey) {
+  const m = activeMonth[tabKey];
+  if (!m) return G_ROWS;
+  return G_ROWS.filter(r => (r['month_created'] || '').trim() === m);
+}
 
-  // ── TOTALS ──
+// ── REFRESH TAB ──
+function refreshTab(tabKey) {
+  const rows = getRows(tabKey);
+  if (tabKey === 'campaign')    renderCampaign(rows);
+  if (tabKey === 'daily')       renderDaily(rows);
+  if (tabKey === 'agents')      renderAgents(rows);
+  if (tabKey === 'dispositions') renderDispositions(rows);
+}
+
+// ══════════════════════════════
+// RENDER CAMPAIGN OVERVIEW
+// ══════════════════════════════
+function renderCampaign(rows) {
   let totLeads=0,totContact=0,totRPC=0,totSale=0,totTS=0,totDial=0;
-  rows.forEach(r => {
-    totLeads+=n(r['Lead']); totContact+=n(r['Contact']); totRPC+=n(r['RPC']);
-    totSale+=n(r['Sale']); totTS+=n(r['Total Sales']); totDial+=n(r['Dialable Contacts']);
-  });
+  rows.forEach(r=>{totLeads+=ni(r['Lead']);totContact+=ni(r['Contact']);totRPC+=ni(r['RPC']);totSale+=ni(r['Sale']);totTS+=ni(r['Total Sales']);totDial+=ni(r['Dialable Contacts']);});
 
-  // ── CONNECTION TYPE ──
-  const byConn = {};
-  rows.forEach(r => {
-    const ct = (r['connection_type']||'Unknown').trim();
-    if (!byConn[ct]) byConn[ct]={leads:0,contact:0,rpc:0,sale:0,ts:0};
-    byConn[ct].leads+=n(r['Lead']); byConn[ct].contact+=n(r['Contact']);
-    byConn[ct].rpc+=n(r['RPC']); byConn[ct].sale+=n(r['Sale']); byConn[ct].ts+=n(r['Total Sales']);
+  const byConn={};
+  rows.forEach(r=>{
+    const ct=(r['connection_type']||'Unknown').trim();
+    if(!byConn[ct]) byConn[ct]={leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byConn[ct].leads+=ni(r['Lead']);byConn[ct].contact+=ni(r['Contact']);byConn[ct].rpc+=ni(r['RPC']);byConn[ct].sale+=ni(r['Sale']);byConn[ct].ts+=ni(r['Total Sales']);
   });
-  const NC  = byConn['New_connection']||byConn['New Connection']||byConn['new_connection']||{leads:0,contact:0,rpc:0,sale:0,ts:0};
-  const UPG = byConn['Upgrade']||byConn['upgrade']||{leads:0,contact:0,rpc:0,sale:0,ts:0};
+  const NC=byConn['New_connection']||byConn['New Connection']||byConn['new_connection']||{leads:0,contact:0,rpc:0,sale:0,ts:0};
+  const UPG=byConn['Upgrade']||byConn['upgrade']||{leads:0,contact:0,rpc:0,sale:0,ts:0};
 
-  // ── WEEKLY ──
-  const byWeekConn = {};
-  rows.forEach(r => {
+  const byWeekConn={};
+  rows.forEach(r=>{
     const w=(r['Week']||'?').toString().trim();
     const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
     const key=`${w}|${ct}`;
     if(!byWeekConn[key]) byWeekConn[key]={leads:0,contact:0,rpc:0,sale:0,ts:0};
-    byWeekConn[key].leads+=n(r['Lead']); byWeekConn[key].contact+=n(r['Contact']);
-    byWeekConn[key].rpc+=n(r['RPC']); byWeekConn[key].sale+=n(r['Sale']); byWeekConn[key].ts+=n(r['Total Sales']);
+    byWeekConn[key].leads+=ni(r['Lead']);byWeekConn[key].contact+=ni(r['Contact']);byWeekConn[key].rpc+=ni(r['RPC']);byWeekConn[key].sale+=ni(r['Sale']);byWeekConn[key].ts+=ni(r['Total Sales']);
   });
   const weeks=[...new Set(rows.map(r=>(r['Week']||'').toString().trim()))].filter(Boolean).sort();
 
-  // ── MONTHLY AGGREGATION ──
-  const byMonth = {};
-  const byMonthConn = {};
-  g_monthAgentData = {};
-
-  rows.forEach(r => {
-    const m = (r['month_created']||'').trim();
-    if (!m) return;
-    const ct = (r['connection_type']||'').includes('New') ? 'NC' : 'UPG';
-    const agent = (r['Agent Display']||'').trim();
-
-    if (!byMonth[m]) byMonth[m]={leads:0,contact:0,rpc:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
-    byMonth[m].leads+=n(r['Lead']); byMonth[m].contact+=n(r['Contact']);
-    byMonth[m].rpc+=n(r['RPC']); byMonth[m].ts+=n(r['Total Sales']);
-    if(ct==='NC'){byMonth[m].nc_leads+=n(r['Lead']);byMonth[m].nc_ts+=n(r['Total Sales']);}
-    else{byMonth[m].upg_leads+=n(r['Lead']);byMonth[m].upg_ts+=n(r['Total Sales']);}
-
-    const mKey=`${m}|${ct}`;
-    if(!byMonthConn[mKey]) byMonthConn[mKey]={leads:0,ts:0};
-    byMonthConn[mKey].leads+=n(r['Lead']); byMonthConn[mKey].ts+=n(r['Total Sales']);
-
-    // Per-month agent breakdown
-    if (isValidAgent(agent)) {
-      if (!g_monthAgentData[m]) g_monthAgentData[m]={};
-      if (!g_monthAgentData[m][agent]) g_monthAgentData[m][agent]={leads:0,ts:0,nc_ts:0,upg_ts:0};
-      g_monthAgentData[m][agent].leads+=n(r['Lead']);
-      g_monthAgentData[m][agent].ts+=n(r['Total Sales']);
-      if(ct==='NC') g_monthAgentData[m][agent].nc_ts+=n(r['Total Sales']);
-      else g_monthAgentData[m][agent].upg_ts+=n(r['Total Sales']);
-    }
-  });
-
-  g_months = Object.keys(byMonth).sort();
-
-  // ── DAILY ──
-  const byDateConn={};
-  rows.forEach(r=>{
-    const d=r['date_created']||''; if(!d)return;
-    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
-    const key=`${d}|${ct}`;
-    if(!byDateConn[key]) byDateConn[key]={date:d,type:ct,leads:0,contact:0,rpc:0,sale:0,ts:0};
-    byDateConn[key].leads+=n(r['Lead']); byDateConn[key].contact+=n(r['Contact']);
-    byDateConn[key].rpc+=n(r['RPC']); byDateConn[key].sale+=n(r['Sale']); byDateConn[key].ts+=n(r['Total Sales']);
-  });
-  const dailyDates=[...new Set(Object.values(byDateConn).map(v=>v.date))].sort();
-
-  // ── AGENTS ──
-  const byAgent={};
-  rows.forEach(r=>{
-    const a=(r['Agent Display']||'').trim();
-    if(!isValidAgent(a)) return;
-    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
-    if(!byAgent[a]) byAgent[a]={leads:0,contact:0,rpc:0,sale:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
-    byAgent[a].leads+=n(r['Lead']); byAgent[a].contact+=n(r['Contact']);
-    byAgent[a].rpc+=n(r['RPC']); byAgent[a].sale+=n(r['Sale']); byAgent[a].ts+=n(r['Total Sales']);
-    if(ct==='NC'){byAgent[a].nc_leads+=n(r['Lead']);byAgent[a].nc_ts+=n(r['Total Sales']);}
-    else{byAgent[a].upg_leads+=n(r['Lead']);byAgent[a].upg_ts+=n(r['Total Sales']);}
-  });
-
-  const agentList=Object.entries(byAgent).map(([name,s])=>({
-    name,leads:s.leads,contact:s.contact,rpc:s.rpc,sale:s.sale,ts:s.ts,
-    cr:parseFloat(pct(s.contact,s.leads)),rr:parseFloat(pct(s.rpc,s.contact)),
-    conv:parseFloat(pct(s.ts,s.leads)),
-    nc_leads:s.nc_leads,nc_ts:s.nc_ts,upg_leads:s.upg_leads,upg_ts:s.upg_ts,
-    nc_conv:parseFloat(pct(s.nc_ts,s.nc_leads)),upg_conv:parseFloat(pct(s.upg_ts,s.upg_leads)),
-  })).sort((a,b)=>b.conv-a.conv);
-
-  // ── DISPOSITIONS ──
   const byDisp={};
-  rows.forEach(r=>{const d=(r['Disposition']||'Unknown').trim();byDisp[d]=(byDisp[d]||0)+n(r['Lead']);});
+  rows.forEach(r=>{const d=(r['Disposition']||'Unknown').trim();byDisp[d]=(byDisp[d]||0)+ni(r['Lead']);});
   const byDispCat={};
-  rows.forEach(r=>{const cat=(r['Contact Description']||'Other').trim();byDispCat[cat]=(byDispCat[cat]||0)+n(r['Lead']);});
+  rows.forEach(r=>{const cat=(r['Contact Description']||'Other').trim();byDispCat[cat]=(byDispCat[cat]||0)+ni(r['Lead']);});
   const dispSorted=Object.entries(byDisp).sort((a,b)=>b[1]-a[1]).slice(0,12);
   const cbCat=byDispCat['Callback']||0;
 
-  // ══════════════════════════════
-  // RENDER CAMPAIGN OVERVIEW
-  // ══════════════════════════════
+  const selLabel = activeMonth['campaign'] ? monthLabel(activeMonth['campaign']) : 'All Months';
   document.getElementById('kpi-campaign').innerHTML=
-    kpiCard('Total Leads',fmt(totLeads),`Dialable: ${fmt(totDial)}`,'var(--red)')+
+    kpiCard('Total Leads',fmt(totLeads),`${selLabel} · Dialable: ${fmt(totDial)}`,'var(--red)')+
     kpiCard('% Dialable',pct(totDial,totLeads)+'%',`${fmt(totDial)} of ${fmt(totLeads)} workable`,'var(--blue)')+
     kpiCard('Successful Contact',fmt(totContact),`Contact Rate: ${pct(totContact,totLeads)}%`,'var(--blue)')+
     kpiCard('True Contact (RPC)',fmt(totRPC),`RPC Rate: ${pct(totRPC,totContact)}%`,'var(--purple)')+
@@ -617,25 +498,13 @@ function render(rows) {
 
   const ncP=pct(NC.leads,totLeads),upgP=pct(UPG.leads,totLeads);
   document.getElementById('conn-split-vol').innerHTML=`
-    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
-      <span style="color:var(--new-conn);font-weight:600;">● New Connections</span><span class="num">${fmt(NC.leads)} leads</span></div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:11px;">
-      <span style="color:var(--upgrade);font-weight:600;">● Upgrade</span><span class="num">${fmt(UPG.leads)} leads</span></div>
-    <div class="split-bar">
-      <div class="split-seg" style="width:${ncP}%;background:var(--new-conn);">NC ${ncP}%</div>
-      <div class="split-seg" style="width:${upgP}%;background:var(--upgrade);">UPG ${upgP}%</div>
-    </div>`;
-
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:var(--new-conn);font-weight:600;">● New Connections</span><span class="num">${fmt(NC.leads)} leads</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:11px;"><span style="color:var(--upgrade);font-weight:600;">● Upgrade</span><span class="num">${fmt(UPG.leads)} leads</span></div>
+    <div class="split-bar"><div class="split-seg" style="width:${ncP}%;background:var(--new-conn);">NC ${ncP}%</div><div class="split-seg" style="width:${upgP}%;background:var(--upgrade);">UPG ${upgP}%</div></div>`;
   document.getElementById('conn-split-table').innerHTML=`
-    <tr><td><span style="color:var(--new-conn);font-weight:600;">New Conn</span></td>
-      <td class="num">${fmt(NC.leads)}</td><td class="num">${fmt(NC.contact)}</td><td class="num">${fmt(NC.rpc)}</td>
-      <td class="num">${fmt(NC.ts)}</td><td><span style="color:var(--green);font-weight:700;font-family:'DM Mono',monospace;">${pct(NC.ts,NC.leads)}%</span></td></tr>
-    <tr><td><span style="color:var(--upgrade);font-weight:600;">Upgrade</span></td>
-      <td class="num">${fmt(UPG.leads)}</td><td class="num">${fmt(UPG.contact)}</td><td class="num">${fmt(UPG.rpc)}</td>
-      <td class="num">${fmt(UPG.ts)}</td><td><span style="color:var(--amber);font-weight:700;font-family:'DM Mono',monospace;">${pct(UPG.ts,UPG.leads)}%</span></td></tr>
-    <tr style="border-top:1px solid var(--border);font-weight:600;"><td>Total</td>
-      <td class="num">${fmt(totLeads)}</td><td class="num">${fmt(totContact)}</td><td class="num">${fmt(totRPC)}</td>
-      <td class="num">${fmt(totTS)}</td><td style="font-family:'DM Mono',monospace;font-weight:700;">${pct(totTS,totLeads)}%</td></tr>`;
+    <tr><td><span style="color:var(--new-conn);font-weight:600;">New Conn</span></td><td class="num">${fmt(NC.leads)}</td><td class="num">${fmt(NC.contact)}</td><td class="num">${fmt(NC.rpc)}</td><td class="num">${fmt(NC.ts)}</td><td><span style="color:var(--green);font-weight:700;font-family:'DM Mono',monospace;">${pct(NC.ts,NC.leads)}%</span></td></tr>
+    <tr><td><span style="color:var(--upgrade);font-weight:600;">Upgrade</span></td><td class="num">${fmt(UPG.leads)}</td><td class="num">${fmt(UPG.contact)}</td><td class="num">${fmt(UPG.rpc)}</td><td class="num">${fmt(UPG.ts)}</td><td><span style="color:var(--amber);font-weight:700;font-family:'DM Mono',monospace;">${pct(UPG.ts,UPG.leads)}%</span></td></tr>
+    <tr style="border-top:1px solid var(--border);font-weight:600;"><td>Total</td><td class="num">${fmt(totLeads)}</td><td class="num">${fmt(totContact)}</td><td class="num">${fmt(totRPC)}</td><td class="num">${fmt(totTS)}</td><td style="font-family:'DM Mono',monospace;font-weight:700;">${pct(totTS,totLeads)}%</td></tr>`;
 
   const ncCR=parseFloat(pct(NC.contact,NC.leads)),upgCR=parseFloat(pct(UPG.contact,UPG.leads));
   const ncRR=parseFloat(pct(NC.rpc,NC.contact)),upgRR=parseFloat(pct(UPG.rpc,UPG.contact));
@@ -671,200 +540,103 @@ function render(rows) {
     const isCb=name.toLowerCase().includes('callback')||name.toLowerCase().includes('call back');
     return barRow(name,count/maxDisp*100,isGood?'var(--green)':isCb?'var(--amber)':'var(--red)',count.toLocaleString());
   }).join('');
-
   document.getElementById('disp-summary').innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
-      <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:13px;">
-        <div style="font-size:20px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace;">${fmt(totTS)}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">SALE outcomes</div></div>
-      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:13px;">
-        <div style="font-size:20px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace;">${fmt(cbCat||byDisp['Callback']||byDisp['Call Back']||0)}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Callbacks</div></div>
-      <div style="background:rgba(226,0,26,0.08);border:1px solid rgba(226,0,26,0.2);border-radius:8px;padding:13px;">
-        <div style="font-size:20px;font-weight:700;color:var(--red);font-family:'DM Mono',monospace;">${fmt(totLeads-totContact)}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Unsuccessful</div></div>
+      <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:13px;"><div style="font-size:20px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace;">${fmt(totTS)}</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">SALE outcomes</div></div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:13px;"><div style="font-size:20px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace;">${fmt(cbCat||byDisp['Callback']||byDisp['Call Back']||0)}</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Callbacks</div></div>
+      <div style="background:rgba(226,0,26,0.08);border:1px solid rgba(226,0,26,0.2);border-radius:8px;padding:13px;"><div style="font-size:20px;font-weight:700;color:var(--red);font-family:'DM Mono',monospace;">${fmt(totLeads-totContact)}</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Unsuccessful</div></div>
     </div>`;
-  document.getElementById('disp-pills').innerHTML=dispSorted.slice(0,10).map(([name,count])=>
-    `<div class="disp-pill"><span class="disp-count">${fmt(count)}</span>${name}</div>`).join('');
+  document.getElementById('disp-pills').innerHTML=dispSorted.slice(0,10).map(([name,count])=>`<div class="disp-pill"><span class="disp-count">${fmt(count)}</span>${name}</div>`).join('');
+}
 
-  // ══════════════════════════════
-  // RENDER MONTH ON MONTH
-  // ══════════════════════════════
-  const bestMonth = g_months.reduce((best,m)=>(!best||byMonth[m].ts>byMonth[best].ts)?m:best, null);
-  const bestConvMonth = g_months.reduce((best,m)=>{
-    const c=parseFloat(pct(byMonth[m].ts,byMonth[m].leads));
-    const bc=best?parseFloat(pct(byMonth[best].ts,byMonth[best].leads)):0;
-    return c>bc?m:best;
-  },null);
-  const totalMoMSales = g_months.reduce((s,m)=>s+byMonth[m].ts,0);
-  const avgMonthlySales = g_months.length ? Math.round(totalMoMSales/g_months.length) : 0;
-
-  document.getElementById('kpi-monthly').innerHTML=
-    kpiCard('Months Tracked', g_months.length, `${monthLabel(g_months[0])} → ${monthLabel(g_months[g_months.length-1])}`,'var(--blue)')+
-    kpiCard('Total Sales (All Months)', fmt(totalMoMSales), `Avg ${fmt(avgMonthlySales)}/month`,'var(--green)')+
-    kpiCard('Best Month — Sales', monthLabel(bestMonth), bestMonth?`${fmt(byMonth[bestMonth].ts)} sales`:'—','var(--amber)')+
-    kpiCard('Best Month — Conv%', monthLabel(bestConvMonth), bestConvMonth?`${pct(byMonth[bestConvMonth].ts,byMonth[bestConvMonth].leads)}% conv`:'—','var(--purple)');
-
-  // Monthly summary table
-  document.getElementById('mom-summary-tbody').innerHTML = g_months.map((m, i) => {
-    const s = byMonth[m];
-    const prev = i > 0 ? byMonth[g_months[i-1]] : null;
-    const conv = parseFloat(pct(s.ts, s.leads));
-    const prevConv = prev ? parseFloat(pct(prev.ts, prev.leads)) : null;
-    const salesDiff = prev ? s.ts - prev.ts : null;
-    const salesTrend = salesDiff === null ? '<span class="trend-flat">—</span>'
-      : salesDiff > 0 ? `<span class="trend-up">▲ +${fmt(salesDiff)}</span>`
-      : salesDiff < 0 ? `<span class="trend-down">▼ ${fmt(salesDiff)}</span>`
-      : '<span class="trend-flat">—</span>';
-    const isLatest = i === g_months.length - 1;
-    return `<tr class="${isLatest?'mom-highlight':''}">
-      <td class="name-cell">${monthLabel(m)}${isLatest?' <span style="font-size:10px;color:var(--amber);font-weight:600;">MTD</span>':''}</td>
-      <td class="num">${fmt(s.leads)}</td>
-      <td class="num">${fmt(s.contact)}</td>
-      <td class="num">${fmt(s.rpc)}</td>
-      <td class="num" style="color:var(--green);">${fmt(s.ts)}</td>
-      <td class="num">${pct(s.contact,s.leads)}%</td>
-      <td class="num">${pct(s.rpc,s.contact)}%</td>
-      <td class="num" style="color:${convColor(conv)};font-weight:700;">${conv.toFixed(1)}%</td>
-      <td>${salesTrend}</td>
-      <td>${trendArrow(conv, prevConv)}</td>
-    </tr>`;
-  }).join('');
-
-  // NC monthly
-  document.getElementById('mom-nc-tbody').innerHTML = g_months.map((m,i) => {
-    const s = byMonthConn[`${m}|NC`]||{leads:0,ts:0};
-    const prev = i>0 ? byMonthConn[`${g_months[i-1]}|NC`]||{leads:0,ts:0} : null;
-    const conv = parseFloat(pct(s.ts,s.leads));
-    const prevConv = prev ? parseFloat(pct(prev.ts,prev.leads)) : null;
-    return `<tr>
-      <td class="name-cell">${monthLabel(m)}</td>
-      <td class="num">${fmt(s.leads)}</td>
-      <td class="num" style="color:var(--new-conn);">${fmt(s.ts)}</td>
-      <td class="num" style="color:${convColor(conv)};">${conv.toFixed(1)}%</td>
-      <td>${trendArrow(conv,prevConv)}</td>
-    </tr>`;
-  }).join('');
-
-  // UPG monthly
-  document.getElementById('mom-upg-tbody').innerHTML = g_months.map((m,i) => {
-    const s = byMonthConn[`${m}|UPG`]||{leads:0,ts:0};
-    const prev = i>0 ? byMonthConn[`${g_months[i-1]}|UPG`]||{leads:0,ts:0} : null;
-    const conv = parseFloat(pct(s.ts,s.leads));
-    const prevConv = prev ? parseFloat(pct(prev.ts,prev.leads)) : null;
-    return `<tr>
-      <td class="name-cell">${monthLabel(m)}</td>
-      <td class="num">${fmt(s.leads)}</td>
-      <td class="num" style="color:var(--upgrade);">${fmt(s.ts)}</td>
-      <td class="num" style="color:${convColor(conv)};">${conv.toFixed(1)}%</td>
-      <td>${trendArrow(conv,prevConv)}</td>
-    </tr>`;
-  }).join('');
-
-  // Sales visual bars
-  const maxMomSales = Math.max(...g_months.map(m=>byMonth[m].ts), 1);
-  document.getElementById('mom-bars-visual').innerHTML = g_months.map(m => {
-    const s = byMonth[m];
-    const nc = byMonthConn[`${m}|NC`]||{ts:0};
-    const upg = byMonthConn[`${m}|UPG`]||{ts:0};
-    const barW = (s.ts/maxMomSales*100).toFixed(1);
-    const ncP = s.ts>0?(nc.ts/s.ts*100).toFixed(1):0;
-    const upgP = s.ts>0?(upg.ts/s.ts*100).toFixed(1):0;
-    return `<div class="daily-row">
-      <div class="daily-date" style="width:70px;">${monthLabel(m)}</div>
-      <div style="flex:1;padding-right:10px;">
-        <div class="daily-bar-outer" style="width:${barW}%">
-          <div class="daily-bar-nc" style="width:${ncP}%;"></div>
-          <div class="daily-bar-up" style="left:${ncP}%;width:${upgP}%;"></div>
-        </div>
-      </div>
-      <div class="daily-stats" style="width:240px;">
-        <span><b style="color:var(--bright);">${fmt(s.ts)}</b> total</span>
-        <span><b style="color:var(--new-conn);">${fmt(nc.ts)}</b> NC</span>
-        <span><b style="color:var(--upgrade);">${fmt(upg.ts)}</b> UPG</span>
-      </div>
-    </div>`;
-  }).join('');
-
-  // Month-agent filter buttons
-  const maSelector = document.getElementById('month-agent-selector');
-  maSelector.innerHTML = '';
-  g_months.forEach((m, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'month-filter-btn' + (i === g_months.length-1 ? ' active' : '');
-    btn.textContent = monthLabel(m);
-    btn.onclick = function() {
-      document.querySelectorAll('.month-filter-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      renderMonthAgentTable(m);
-    };
-    maSelector.appendChild(btn);
+// ══════════════════════════════
+// RENDER DAILY
+// ══════════════════════════════
+function renderDaily(rows) {
+  const byDateConn={};
+  rows.forEach(r=>{
+    const d=r['date_created']||''; if(!d)return;
+    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
+    const key=`${d}|${ct}`;
+    if(!byDateConn[key]) byDateConn[key]={date:d,leads:0,contact:0,rpc:0,ts:0};
+    byDateConn[key].leads+=ni(r['Lead']);byDateConn[key].contact+=ni(r['Contact']);byDateConn[key].rpc+=ni(r['RPC']);byDateConn[key].ts+=ni(r['Total Sales']);
   });
-  renderMonthAgentTable(g_months[g_months.length-1]); // default to latest month
+  const dailyDates=[...new Set(Object.values(byDateConn).map(v=>v.date))].sort();
 
-  // ══════════════════════════════
-  // RENDER DAILY
-  // ══════════════════════════════
+  let totNC={leads:0,contact:0,rpc:0,ts:0},totUPG={leads:0,contact:0,rpc:0,ts:0};
+  dailyDates.forEach(d=>{
+    const nc=byDateConn[`${d}|NC`]; if(nc){totNC.leads+=nc.leads;totNC.contact+=nc.contact;totNC.rpc+=nc.rpc;totNC.ts+=nc.ts;}
+    const upg=byDateConn[`${d}|UPG`]; if(upg){totUPG.leads+=upg.leads;totUPG.contact+=upg.contact;totUPG.rpc+=upg.rpc;totUPG.ts+=upg.ts;}
+  });
+
+  const selLabel = activeMonth['daily'] ? monthLabel(activeMonth['daily']) : 'All Months';
   const bestNcDay=dailyDates.map(d=>byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>b.ts-a.ts)[0];
   const bestNcConv=dailyDates.map(d=>byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>parseFloat(pct(b.ts,b.leads))-parseFloat(pct(a.ts,a.leads)))[0];
-  const avgLeads=dailyDates.length?Math.round((NC.leads+UPG.leads)/dailyDates.length):0;
-  document.getElementById('kpi-daily').innerHTML=
-    kpiCard('Days Tracked',dailyDates.length,'Active dialling days','var(--blue)')+
-    kpiCard('Avg Daily Leads',fmt(avgLeads),'NC + Upgrade combined','var(--purple)')+
-    kpiCard('Best Day – NC Sales',bestNcDay?new Date(bestNcDay.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}):'—',bestNcDay?`${fmt(bestNcDay.ts)} NC sales`:'—','var(--green)')+
-    kpiCard('Best NC Conv Day',bestNcConv?new Date(bestNcConv.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}):'—',bestNcConv?`${pct(bestNcConv.ts,bestNcConv.leads)}% conv`:'—','var(--amber)');
+  const avgLeads=dailyDates.length?Math.round((totNC.leads+totUPG.leads)/dailyDates.length):0;
 
-  function dailyTableRows(type){
-    let html='',tot={leads:0,contact:0,rpc:0,ts:0};
+  document.getElementById('kpi-daily').innerHTML=
+    kpiCard('Days Tracked',dailyDates.length,`${selLabel} — Active dialling days`,'var(--blue)')+
+    kpiCard('Avg Daily Leads',fmt(avgLeads),'NC + Upgrade combined','var(--purple)')+
+    kpiCard('Best Day – NC Sales',bestNcDay?new Date(bestNcDay.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'}):'—',bestNcDay?`${fmt(bestNcDay.ts)} NC sales`:'—','var(--green)')+
+    kpiCard('Best NC Conv Day',bestNcConv?new Date(bestNcConv.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'}):'—',bestNcConv?`${pct(bestNcConv.ts,bestNcConv.leads)}% conv`:'—','var(--amber)');
+
+  function dailyTableRows(type,tot){
+    let html='';
     dailyDates.forEach(d=>{
       const s=byDateConn[`${d}|${type}`]; if(!s)return;
-      const lbl=new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
+      const lbl=new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'});
       const cv=pct(s.ts,s.leads);
-      html+=`<tr><td class="num">${lbl}</td><td class="num">${fmt(s.leads)}</td><td class="num">${fmt(s.contact)}</td><td class="num">${fmt(s.rpc)}</td>
-        <td class="num" style="color:var(--green);">${fmt(s.ts)}</td><td class="num" style="color:${convColor(cv)};">${cv}%</td></tr>`;
-      tot.leads+=s.leads;tot.contact+=s.contact;tot.rpc+=s.rpc;tot.ts+=s.ts;
+      html+=`<tr><td class="num">${lbl}</td><td class="num">${fmt(s.leads)}</td><td class="num">${fmt(s.contact)}</td><td class="num">${fmt(s.rpc)}</td><td class="num" style="color:var(--green);">${fmt(s.ts)}</td><td class="num" style="color:${convColor(cv)};">${cv}%</td></tr>`;
     });
-    html+=`<tr style="background:rgba(59,130,246,0.06);font-weight:600;"><td>TOTAL</td>
-      <td class="num">${fmt(tot.leads)}</td><td class="num">${fmt(tot.contact)}</td><td class="num">${fmt(tot.rpc)}</td>
-      <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${fmt(tot.ts)}</td>
-      <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${pct(tot.ts,tot.leads)}%</td></tr>`;
+    html+=`<tr style="background:rgba(59,130,246,0.06);font-weight:600;"><td>TOTAL</td><td class="num">${fmt(tot.leads)}</td><td class="num">${fmt(tot.contact)}</td><td class="num">${fmt(tot.rpc)}</td><td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${fmt(tot.ts)}</td><td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${pct(tot.ts,tot.leads)}%</td></tr>`;
     return html;
   }
-  document.getElementById('daily-upg-table').innerHTML=dailyTableRows('UPG');
-  document.getElementById('daily-nc-table').innerHTML=dailyTableRows('NC');
+  document.getElementById('daily-upg-table').innerHTML=dailyTableRows('UPG',totUPG);
+  document.getElementById('daily-nc-table').innerHTML=dailyTableRows('NC',totNC);
 
   const maxDV=Math.max(...dailyDates.map(d=>(byDateConn[`${d}|NC`]?.leads||0)+(byDateConn[`${d}|UPG`]?.leads||0)),1);
   document.getElementById('daily-visual').innerHTML=dailyDates.map(d=>{
     const nc=byDateConn[`${d}|NC`]?.leads||0,upg=byDateConn[`${d}|UPG`]?.leads||0,tot=nc+upg;
-    const lbl=new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
+    const lbl=new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'});
     const tW=(tot/maxDV*100).toFixed(1);
     const ncP=tot>0?(nc/tot*100).toFixed(1):0,upgP=tot>0?(upg/tot*100).toFixed(1):0;
     return `<div class="daily-row">
       <div class="daily-date">${lbl}</div>
-      <div style="flex:1;padding-right:10px;">
-        <div class="daily-bar-outer" style="width:${tW}%">
-          <div class="daily-bar-nc" style="width:${ncP}%;"></div>
-          <div class="daily-bar-up" style="left:${ncP}%;width:${upgP}%;"></div>
-        </div>
-      </div>
-      <div class="daily-stats">
-        <span><b style="color:var(--bright);">${fmt(tot)}</b> total</span>
-        <span><b style="color:var(--new-conn);">${fmt(nc)}</b> NC</span>
-        <span><b style="color:var(--upgrade);">${fmt(upg)}</b> UPG</span>
-      </div>
+      <div style="flex:1;padding-right:10px;"><div class="daily-bar-outer" style="width:${tW}%"><div class="daily-bar-nc" style="width:${ncP}%;"></div><div class="daily-bar-up" style="left:${ncP}%;width:${upgP}%;"></div></div></div>
+      <div class="daily-stats"><span><b style="color:var(--bright);">${fmt(tot)}</b> total</span><span><b style="color:var(--new-conn);">${fmt(nc)}</b> NC</span><span><b style="color:var(--upgrade);">${fmt(upg)}</b> UPG</span></div>
     </div>`;
   }).join('');
+}
 
-  // ══════════════════════════════
-  // RENDER AGENTS
-  // ══════════════════════════════
+// ══════════════════════════════
+// RENDER AGENTS
+// ══════════════════════════════
+function renderAgents(rows) {
+  const byAgent={};
+  rows.forEach(r=>{
+    const a=(r['Agent Display']||'').trim();
+    if(!isValidAgent(a)) return;
+    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
+    if(!byAgent[a]) byAgent[a]={leads:0,contact:0,rpc:0,sale:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
+    byAgent[a].leads+=ni(r['Lead']);byAgent[a].contact+=ni(r['Contact']);byAgent[a].rpc+=ni(r['RPC']);byAgent[a].sale+=ni(r['Sale']);byAgent[a].ts+=ni(r['Total Sales']);
+    if(ct==='NC'){byAgent[a].nc_leads+=ni(r['Lead']);byAgent[a].nc_ts+=ni(r['Total Sales']);}
+    else{byAgent[a].upg_leads+=ni(r['Lead']);byAgent[a].upg_ts+=ni(r['Total Sales']);}
+  });
+  const agentList=Object.entries(byAgent).map(([name,s])=>({
+    name,leads:s.leads,contact:s.contact,rpc:s.rpc,sale:s.sale,ts:s.ts,
+    cr:parseFloat(pct(s.contact,s.leads)),rr:parseFloat(pct(s.rpc,s.contact)),conv:parseFloat(pct(s.ts,s.leads)),
+    nc_leads:s.nc_leads,nc_ts:s.nc_ts,upg_leads:s.upg_leads,upg_ts:s.upg_ts,
+    nc_conv:parseFloat(pct(s.nc_ts,s.nc_leads)),upg_conv:parseFloat(pct(s.upg_ts,s.upg_leads)),
+  })).filter(a=>a.leads>0).sort((a,b)=>b.conv-a.conv);
+
   const teamLeads=agentList.reduce((s,a)=>s+a.leads,0);
   const teamSales=agentList.reduce((s,a)=>s+a.ts,0);
   const teamContact=agentList.reduce((s,a)=>s+a.contact,0);
+  const selLabel = activeMonth['agents'] ? monthLabel(activeMonth['agents']) : 'All Months';
   const top5=agentList.slice(0,5),bot5=agentList.slice(-5);
 
   document.getElementById('kpi-agents').innerHTML=
-    kpiCard('Total Agents',agentList.length,'Identified in data','var(--green)')+
+    kpiCard('Total Agents',agentList.length,`${selLabel}`,'var(--green)')+
     kpiCard('Team Total Sales',fmt(teamSales),`${agentList.length} agents tracked`,'var(--red)')+
     kpiCard('Team Conv Rate',pct(teamSales,teamLeads)+'%',`${fmt(teamSales)} sales / ${fmt(teamLeads)} leads`,'var(--blue)')+
     kpiCard('Team Contact Rate',pct(teamContact,teamLeads)+'%',`${fmt(teamContact)} / ${fmt(teamLeads)}`,'var(--purple)')+
@@ -873,53 +645,72 @@ function render(rows) {
 
   function agentCard(a,i,isTop){
     const rl=isTop?['r1','r2','r3','r-other','r-other']:['r-bot','r-bot','r-bot','r-bot','r-bot'];
-    const rt=isTop?(i+1):`B${i+1}`;
     const col=isTop?'var(--green)':'var(--red)';
     return `<div class="agent-card ${isTop?'top':'bottom'}">
-      <div class="rank-badge ${rl[i]}">${rt}</div>
-      <div style="flex:1">
-        <div style="font-weight:600;color:var(--bright);font-size:13px;">${a.name}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px;">${fmt(a.leads)} leads · ${fmt(a.contact)} contacts · ${fmt(a.ts)} sales</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-family:'DM Mono',monospace;font-weight:700;color:${col};font-size:16px;">${a.conv}%</div>
-        <div style="font-size:10px;color:var(--muted);">Conv Rate</div>
-      </div>
+      <div class="rank-badge ${rl[i]}">${isTop?(i+1):`B${i+1}`}</div>
+      <div style="flex:1"><div style="font-weight:600;color:var(--bright);font-size:13px;">${a.name}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px;">${fmt(a.leads)} leads · ${fmt(a.ts)} sales</div></div>
+      <div style="text-align:right"><div style="font-family:'DM Mono',monospace;font-weight:700;color:${col};font-size:16px;">${a.conv}%</div><div style="font-size:10px;color:var(--muted);">Conv Rate</div></div>
     </div>`;
   }
   document.getElementById('top5-agents').innerHTML=top5.map((a,i)=>agentCard(a,i,true)).join('');
   document.getElementById('bot5-agents').innerHTML=[...bot5].reverse().map((a,i)=>agentCard(a,i,false)).join('');
 
   document.getElementById('split-tbody').innerHTML=agentList.map(a=>{
-    const ncC=a.nc_conv.toFixed(1),upgC=a.upg_conv.toFixed(1);
     const strong=a.nc_conv>a.upg_conv?'<span style="color:var(--new-conn);font-weight:600;">New Connection</span>':a.upg_conv>a.nc_conv?'<span style="color:var(--upgrade);font-weight:600;">Upgrade</span>':'<span style="color:var(--muted);">Equal</span>';
-    return `<tr><td class="name-cell">${a.name}</td><td class="num">${fmt(a.nc_leads)}</td><td class="num">${fmt(a.nc_ts)}</td>
-      <td class="num" style="color:var(--green);">${ncC}%</td><td class="num">${fmt(a.upg_leads)}</td><td class="num">${fmt(a.upg_ts)}</td>
-      <td class="num" style="color:var(--amber);">${upgC}%</td><td>${strong}</td></tr>`;
+    return `<tr><td class="name-cell">${a.name}</td><td class="num">${fmt(a.nc_leads)}</td><td class="num">${fmt(a.nc_ts)}</td><td class="num" style="color:var(--green);">${a.nc_conv.toFixed(1)}%</td><td class="num">${fmt(a.upg_leads)}</td><td class="num">${fmt(a.upg_ts)}</td><td class="num" style="color:var(--amber);">${a.upg_conv.toFixed(1)}%</td><td>${strong}</td></tr>`;
+  }).join('');
+
+  // Disposition summary per agent
+  const agentDispMap={};
+  rows.forEach(r=>{
+    const a=(r['Agent Display']||'').trim(); if(!isValidAgent(a)) return;
+    const disp=(r['Disposition']||'Unknown').trim();
+    const lead=ni(r['Lead']); if(lead===0) return;
+    if(!agentDispMap[a]) agentDispMap[a]={};
+    agentDispMap[a][disp]=(agentDispMap[a][disp]||0)+lead;
+  });
+  function categoriseDisp(disp){
+    const d=disp.toLowerCase();
+    if(d.includes('sale')||d.includes('sold')) return 'sale';
+    if(d.includes('callback')||d.includes('call back')||d.includes('interested later')) return 'callback';
+    if(d.includes('not interested')) return 'not_interested';
+    if(d.includes('voice mail')||d.includes('voicemail')) return 'voicemail';
+    if(d.includes('no answer')) return 'no_answer';
+    if(d.includes('third party')||d.includes('3rd party')) return 'third_party';
+    if(d.includes('hung up')||d.includes('hung-up')||d.includes('hungup')) return 'hung_up';
+    return 'other';
+  }
+  const agentDispCats={};
+  Object.entries(agentDispMap).forEach(([agent,disps])=>{
+    agentDispCats[agent]={sale:0,callback:0,not_interested:0,voicemail:0,no_answer:0,third_party:0,hung_up:0,other:0};
+    Object.entries(disps).forEach(([disp,count])=>{agentDispCats[agent][categoriseDisp(disp)]+=count;});
+  });
+  document.getElementById('agent-disp-summary-tbody').innerHTML=agentList.map(a=>{
+    const cats=agentDispCats[a.name]||{};
+    function catCell(cat,color){const v=cats[cat]||0;return `<td class="num" style="color:${color};">${v>0?fmt(v):'<span style="color:var(--border);">—</span>'}</td>`;}
+    return `<tr><td class="name-cell">${a.name}</td>${catCell('sale','var(--green)')}${catCell('callback','var(--amber)')}${catCell('not_interested','var(--blue)')}${catCell('voicemail','var(--muted)')}${catCell('no_answer','var(--muted)')}${catCell('third_party','var(--muted)')}${catCell('hung_up','var(--red)')}${catCell('other','var(--muted)')}<td class="num">${fmt(a.leads)}</td></tr>`;
   }).join('');
 
   document.getElementById('full-agent-tbody').innerHTML=agentList.map((a,i)=>{
     const tier=i<5?'<span style="color:var(--green);font-size:11px;font-weight:600;">▲ Top</span>':'<span style="color:var(--red);font-size:11px;font-weight:600;">▼ Low</span>';
-    return `<tr><td class="num" style="color:var(--muted);">${i+1}</td><td class="name-cell">${a.name}</td>
-      <td class="num">${fmt(a.leads)}</td><td class="num">${fmt(a.contact)}</td><td class="num">${fmt(a.rpc)}</td>
-      <td class="num">${fmt(a.sale)}</td><td class="num">${fmt(a.ts)}</td>
-      <td class="num">${a.cr.toFixed(1)}%</td><td class="num">${a.rr.toFixed(1)}%</td>
-      <td class="num" style="color:${convColor(a.conv)};font-weight:700;">${a.conv.toFixed(1)}%</td><td>${tier}</td></tr>`;
+    return `<tr><td class="num" style="color:var(--muted);">${i+1}</td><td class="name-cell">${a.name}</td><td class="num">${fmt(a.leads)}</td><td class="num">${fmt(a.contact)}</td><td class="num">${fmt(a.rpc)}</td><td class="num">${fmt(a.sale)}</td><td class="num">${fmt(a.ts)}</td><td class="num">${a.cr.toFixed(1)}%</td><td class="num">${a.rr.toFixed(1)}%</td><td class="num" style="color:${convColor(a.conv)};font-weight:700;">${a.conv.toFixed(1)}%</td><td>${tier}</td></tr>`;
   }).join('');
+}
 
-  // ══════════════════════════════
-  // RENDER DISPOSITIONS
-  // ══════════════════════════════
+// ══════════════════════════════
+// RENDER DISPOSITIONS
+// ══════════════════════════════
+function renderDispositions(rows) {
   const agentDispMap={};
   rows.forEach(r=>{
-    const a=(r['Agent Display']||'').trim();
-    if(!isValidAgent(a)) return;
+    const a=(r['Agent Display']||'').trim(); if(!isValidAgent(a)) return;
     const disp=(r['Disposition']||'Unknown').trim();
-    const lead=n(r['Lead']); if(lead===0) return;
-    if(!agentDispMap[a]) agentDispMap[a]={};
-    agentDispMap[a][disp]=(agentDispMap[a][disp]||0)+lead;
+    const lead=ni(r['Lead']); if(lead===0) return;
+    if(!agentDispMap[a]) agentDispMap[a]={leads:0,disps:{}};
+    agentDispMap[a].leads+=lead;
+    agentDispMap[a].disps[disp]=(agentDispMap[a].disps[disp]||0)+lead;
   });
-
   function categoriseDisp(disp){
     const d=disp.toLowerCase();
     if(d.includes('sale')||d.includes('sold')) return 'sale';
@@ -942,15 +733,26 @@ function render(rows) {
     other:{label:'Other',color:'var(--border)',bg:'rgba(46,46,58,0.5)'},
   };
 
-  const agentDispCats={};
-  Object.entries(agentDispMap).forEach(([agent,disps])=>{
-    agentDispCats[agent]={sale:0,callback:0,not_interested:0,voicemail:0,no_answer:0,third_party:0,hung_up:0,other:0};
-    Object.entries(disps).forEach(([disp,count])=>{agentDispCats[agent][categoriseDisp(disp)]+=count;});
+  // Build agent conv list from rows for ordering
+  const byAgent={};
+  rows.forEach(r=>{
+    const a=(r['Agent Display']||'').trim(); if(!isValidAgent(a)) return;
+    if(!byAgent[a]) byAgent[a]={leads:0,ts:0};
+    byAgent[a].leads+=ni(r['Lead']); byAgent[a].ts+=ni(r['Total Sales']);
   });
+  const agentList=Object.entries(byAgent).filter(([n])=>agentDispMap[n]).map(([name,s])=>({
+    name, conv:parseFloat(pct(s.ts,s.leads))
+  })).sort((a,b)=>b.conv-a.conv);
 
+  const byDisp={};
+  rows.forEach(r=>{const d=(r['Disposition']||'Unknown').trim();byDisp[d]=(byDisp[d]||0)+ni(r['Lead']);});
+  const dispSorted=Object.entries(byDisp).sort((a,b)=>b[1]-a[1]);
   const allDispCodes=new Set(rows.map(r=>(r['Disposition']||'').trim()).filter(Boolean));
+  const totTS=rows.reduce((s,r)=>s+ni(r['Total Sales']),0);
+  const selLabel = activeMonth['dispositions'] ? monthLabel(activeMonth['dispositions']) : 'All Months';
+
   document.getElementById('kpi-disp').innerHTML=
-    kpiCard('Agents with Data',Object.keys(agentDispMap).length,'In disposition report','var(--blue)')+
+    kpiCard('Agents with Data',Object.keys(agentDispMap).length,selLabel,'var(--blue)')+
     kpiCard('Unique Dispositions',allDispCodes.size,'Across all agents','var(--purple)')+
     kpiCard('Top Disposition',dispSorted[0]?.[0]?.slice(0,18)||'—',`${fmt(dispSorted[0]?.[1]||0)} occurrences`,'var(--amber)')+
     kpiCard('Team Sales',fmt(totTS),'Via disposition flag','var(--green)');
@@ -960,82 +762,149 @@ function render(rows) {
   agentList.forEach(a=>{
     const btn=document.createElement('button');
     btn.className='agent-filter-btn'; btn.textContent=a.name.split(' ')[0]; btn.title=a.name;
-    btn.onclick=function(){filterAgent(a.name,this);};
-    selectorEl.appendChild(btn);
+    btn.onclick=function(){filterAgent(a.name,this);}; selectorEl.appendChild(btn);
   });
 
-  document.getElementById('disp-report-all').innerHTML=agentList.map(a=>{
-    const disps=agentDispMap[a.name]||{},cats=agentDispCats[a.name]||{};
-    const totalLeads=Object.values(disps).reduce((s,v)=>s+v,0);
-    const dispEntries=Object.entries(disps).sort((x,y)=>y[1]-x[1]);
+  document.getElementById('disp-report-all').innerHTML=agentList.map(({name,conv})=>{
+    const entry=agentDispMap[name]; if(!entry) return '';
+    const totalLeads=entry.leads;
+    const dispEntries=Object.entries(entry.disps).sort((x,y)=>y[1]-x[1]);
     const maxCount=dispEntries[0]?.[1]||1;
+    const cats={sale:0,callback:0,not_interested:0,voicemail:0,no_answer:0,third_party:0,hung_up:0,other:0};
+    dispEntries.forEach(([disp,count])=>{cats[categoriseDisp(disp)]+=count;});
     const pillsHtml=Object.entries(CAT_META).map(([cat,meta])=>{
-      const count=cats[cat]||0; if(count===0)return '';
+      const count=cats[cat]||0; if(!count) return '';
       return `<div class="disp-sum-pill" style="background:${meta.bg};color:${meta.color};">${meta.label}: <b>${fmt(count)}</b></div>`;
     }).join('');
     const barsHtml=dispEntries.map(([disp,count])=>{
-      const cat=categoriseDisp(disp),meta=CAT_META[cat];
-      return `<div class="disp-category-bar">
-        <div class="disp-cat-label" title="${disp}">${disp}</div>
-        <div class="disp-cat-track"><div class="disp-cat-fill" style="width:${(count/maxCount*100).toFixed(1)}%;background:${meta.color};opacity:0.8;"></div></div>
-        <div class="disp-cat-count">${fmt(count)}</div>
-        <div class="disp-cat-pct">${(count/totalLeads*100).toFixed(1)}%</div>
-      </div>`;
+      const meta=CAT_META[categoriseDisp(disp)];
+      return `<div class="disp-category-bar"><div class="disp-cat-label" title="${disp}">${disp}</div><div class="disp-cat-track"><div class="disp-cat-fill" style="width:${(count/maxCount*100).toFixed(1)}%;background:${meta.color};opacity:0.8;"></div></div><div class="disp-cat-count">${fmt(count)}</div><div class="disp-cat-pct">${(count/totalLeads*100).toFixed(1)}%</div></div>`;
     }).join('');
-    return `<div class="disp-agent-block" data-agent="${a.name}">
+    return `<div class="disp-agent-block" data-agent="${name}">
       <div class="disp-agent-header" onclick="toggleDispBlock(this)">
-        <div><div class="disp-agent-name">${a.name}</div>
-          <div class="disp-agent-meta">${fmt(totalLeads)} leads · ${dispEntries.length} codes used</div></div>
+        <div><div class="disp-agent-name">${name}</div><div class="disp-agent-meta">${fmt(totalLeads)} leads · ${dispEntries.length} codes used</div></div>
         <div class="disp-agent-stats">
-          <div class="disp-stat"><div class="val" style="color:var(--green);">${fmt(cats.sale||0)}</div><div class="lbl">Sales</div></div>
-          <div class="disp-stat"><div class="val" style="color:var(--amber);">${fmt(cats.callback||0)}</div><div class="lbl">Callbacks</div></div>
-          <div class="disp-stat"><div class="val" style="color:${convColor(a.conv)};">${a.conv.toFixed(1)}%</div><div class="lbl">Conv Rate</div></div>
+          <div class="disp-stat"><div class="val" style="color:var(--green);">${fmt(cats.sale)}</div><div class="lbl">Sales</div></div>
+          <div class="disp-stat"><div class="val" style="color:var(--amber);">${fmt(cats.callback)}</div><div class="lbl">Callbacks</div></div>
+          <div class="disp-stat"><div class="val" style="color:${convColor(conv)};">${conv.toFixed(1)}%</div><div class="lbl">Conv Rate</div></div>
           <div class="disp-toggle">▼</div>
         </div>
       </div>
-      <div class="disp-body collapsed">
-        <div class="disp-summary-pills">${pillsHtml}</div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;padding:0 2px;">
-          <span>Disposition Code</span><span style="display:flex;gap:10px;"><span style="width:36px;text-align:right;">Count</span><span style="width:38px;text-align:right;">% Share</span></span>
-        </div>
-        ${barsHtml}
-      </div>
+      <div class="disp-body collapsed"><div class="disp-summary-pills">${pillsHtml}</div>${barsHtml}</div>
     </div>`;
   }).join('');
+}
 
-  document.getElementById('agent-disp-summary-tbody').innerHTML=agentList.map(a=>{
-    const cats=agentDispCats[a.name]||{};
-    function catCell(cat,color){const v=cats[cat]||0;return `<td class="num" style="color:${color};">${v>0?fmt(v):'<span style="color:var(--border);">—</span>'}</td>`;}
-    return `<tr><td class="name-cell">${a.name}</td>
-      ${catCell('sale','var(--green)')}${catCell('callback','var(--amber)')}${catCell('not_interested','var(--blue)')}
-      ${catCell('voicemail','var(--muted)')}${catCell('no_answer','var(--muted)')}${catCell('third_party','var(--muted)')}
-      ${catCell('hung_up','var(--red)')}${catCell('other','var(--muted)')}
-      <td class="num">${fmt(a.leads)}</td></tr>`;
+// ══════════════════════════════
+// RENDER MONTH ON MONTH (no filter — always all data)
+// ══════════════════════════════
+function renderMonthly(allRows) {
+  const byMonth={},byMonthConn={};
+  allRows.forEach(r=>{
+    const m=(r['month_created']||'').trim(); if(!m) return;
+    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
+    if(!byMonth[m]) byMonth[m]={leads:0,contact:0,rpc:0,ts:0};
+    byMonth[m].leads+=ni(r['Lead']);byMonth[m].contact+=ni(r['Contact']);byMonth[m].rpc+=ni(r['RPC']);byMonth[m].ts+=ni(r['Total Sales']);
+    const mKey=`${m}|${ct}`;
+    if(!byMonthConn[mKey]) byMonthConn[mKey]={leads:0,ts:0};
+    byMonthConn[mKey].leads+=ni(r['Lead']);byMonthConn[mKey].ts+=ni(r['Total Sales']);
+  });
+  const months=Object.keys(byMonth).sort();
+  const bestM=months.reduce((b,m)=>(!b||byMonth[m].ts>byMonth[b].ts)?m:b,null);
+  const bestCM=months.reduce((b,m)=>{const c=parseFloat(pct(byMonth[m].ts,byMonth[m].leads));const bc=b?parseFloat(pct(byMonth[b].ts,byMonth[b].leads)):0;return c>bc?m:b;},null);
+  const totalSales=months.reduce((s,m)=>s+byMonth[m].ts,0);
+  document.getElementById('kpi-monthly').innerHTML=
+    kpiCard('Months Tracked',months.length,`${monthLabel(months[0])} → ${monthLabel(months[months.length-1])}`,'var(--blue)')+
+    kpiCard('Total Sales (All Months)',fmt(totalSales),`Avg ${fmt(Math.round(totalSales/months.length))}/month`,'var(--green)')+
+    kpiCard('Best Month — Sales',monthLabel(bestM),bestM?`${fmt(byMonth[bestM].ts)} sales`:'—','var(--amber)')+
+    kpiCard('Best Month — Conv%',monthLabel(bestCM),bestCM?`${pct(byMonth[bestCM].ts,byMonth[bestCM].leads)}% conv`:'—','var(--purple)');
+
+  document.getElementById('mom-summary-tbody').innerHTML=months.map((m,i)=>{
+    const s=byMonth[m],prev=i>0?byMonth[months[i-1]]:null;
+    const conv=parseFloat(pct(s.ts,s.leads)),prevConv=prev?parseFloat(pct(prev.ts,prev.leads)):null;
+    const salesDiff=prev?s.ts-prev.ts:null;
+    const salesTrend=salesDiff===null?'<span class="trend-flat">—</span>':salesDiff>0?`<span class="trend-up">▲ +${fmt(salesDiff)}</span>`:`<span class="trend-down">▼ ${fmt(salesDiff)}</span>`;
+    const isLatest=i===months.length-1;
+    return `<tr class="${isLatest?'mom-highlight':''}"><td class="name-cell">${monthLabel(m)}${isLatest?' <span style="font-size:10px;color:var(--amber);font-weight:600;">MTD</span>':''}</td><td class="num">${fmt(s.leads)}</td><td class="num">${fmt(s.contact)}</td><td class="num">${fmt(s.rpc)}</td><td class="num" style="color:var(--green);">${fmt(s.ts)}</td><td class="num">${pct(s.contact,s.leads)}%</td><td class="num">${pct(s.rpc,s.contact)}%</td><td class="num" style="color:${convColor(conv)};font-weight:700;">${conv.toFixed(1)}%</td><td>${salesTrend}</td><td>${trendArrow(conv,prevConv)}</td></tr>`;
   }).join('');
+
+  function momTypeRows(type){
+    return months.map((m,i)=>{
+      const s=byMonthConn[`${m}|${type}`]||{leads:0,ts:0};
+      const prev=i>0?byMonthConn[`${months[i-1]}|${type}`]||{leads:0,ts:0}:null;
+      const conv=parseFloat(pct(s.ts,s.leads)),prevConv=prev?parseFloat(pct(prev.ts,prev.leads)):null;
+      return `<tr><td class="name-cell">${monthLabel(m)}</td><td class="num">${fmt(s.leads)}</td><td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${fmt(s.ts)}</td><td class="num" style="color:${convColor(conv)};">${conv.toFixed(1)}%</td><td>${trendArrow(conv,prevConv)}</td></tr>`;
+    }).join('');
+  }
+  document.getElementById('mom-nc-tbody').innerHTML=momTypeRows('NC');
+  document.getElementById('mom-upg-tbody').innerHTML=momTypeRows('UPG');
+
+  const maxSales=Math.max(...months.map(m=>byMonth[m].ts),1);
+  document.getElementById('mom-bars-visual').innerHTML=months.map(m=>{
+    const s=byMonth[m],nc=byMonthConn[`${m}|NC`]||{ts:0},upg=byMonthConn[`${m}|UPG`]||{ts:0};
+    const barW=(s.ts/maxSales*100).toFixed(1);
+    const ncP=s.ts>0?(nc.ts/s.ts*100).toFixed(1):0,upgP=s.ts>0?(upg.ts/s.ts*100).toFixed(1):0;
+    return `<div class="daily-row"><div class="daily-date" style="width:72px;">${monthLabel(m)}</div>
+      <div style="flex:1;padding-right:10px;"><div class="daily-bar-outer" style="width:${barW}%"><div class="daily-bar-nc" style="width:${ncP}%;"></div><div class="daily-bar-up" style="left:${ncP}%;width:${upgP}%;"></div></div></div>
+      <div class="daily-stats" style="width:240px;"><span><b style="color:var(--bright);">${fmt(s.ts)}</b> total</span><span><b style="color:var(--new-conn);">${fmt(nc.ts)}</b> NC</span><span><b style="color:var(--upgrade);">${fmt(upg.ts)}</b> UPG</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════
+// FULL INIT — called once after CSV loads
+// ══════════════════════════════
+function init(rows) {
+  // Normalise column names
+  const colMap={'Lead':'Lead','lead':'Lead','Contact':'Contact','contact':'Contact','RPC':'RPC','rpc':'RPC','Sale':'Sale','sale':'Sale','Total Sales':'Total Sales','total_sales':'Total Sales','total sales':'Total Sales','Dialable Contacts':'Dialable Contacts','dialable_contacts':'Dialable Contacts','connection_type':'connection_type','Connection Type':'connection_type','connection type':'connection_type','Agent Display':'Agent Display','agent_display':'Agent Display','agent display':'Agent Display','Week':'Week','week':'Week','Disposition':'Disposition','disposition':'Disposition','Contact Description':'Contact Description','contact_description':'Contact Description','date_created':'date_created','Date Created':'date_created','month_created':'month_created','Month Created':'month_created'};
+  G_ROWS = rows.map(r=>{const nr={};Object.keys(r).forEach(k=>{const c=colMap[k];if(c)nr[c]=r[k];else nr[k]=r[k];});return nr;});
+
+  // Extract sorted months
+  G_MONTHS = [...new Set(G_ROWS.map(r=>(r['month_created']||'').trim()).filter(Boolean))].sort();
+
+  // Default active month = latest month for filtered tabs
+  const latestMonth = G_MONTHS[G_MONTHS.length - 1] || null;
+  activeMonth.campaign = latestMonth;
+  activeMonth.daily = latestMonth;
+  activeMonth.agents = latestMonth;
+  activeMonth.dispositions = latestMonth;
+
+  // Build month pills for each filtered tab
+  buildMonthPills('mf-campaign','campaign');
+  buildMonthPills('mf-daily','daily');
+  buildMonthPills('mf-agents','agents');
+  buildMonthPills('mf-dispositions','dispositions');
+
+  // Render all tabs
+  renderCampaign(getRows('campaign'));
+  renderMonthly(G_ROWS);
+  renderDaily(getRows('daily'));
+  renderAgents(getRows('agents'));
+  renderDispositions(getRows('dispositions'));
 
   const now=new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
   document.getElementById('last-updated').textContent=`Last loaded: ${now}`;
   document.getElementById('footer-source').textContent=`Source: I50N/Voda_Dashboard · ${now}`;
 }
 
-async function loadData(){
+async function loadData() {
   const overlay=document.getElementById('loading-overlay');
   const errBanner=document.getElementById('error-banner');
   const reloadBtn=document.getElementById('reload-btn');
   overlay.classList.remove('hidden'); errBanner.style.display='none'; reloadBtn.disabled=true;
-  try{
+  try {
     const res=await fetch(CSV_URL+'?t='+Date.now());
     if(!res.ok) throw new Error(`HTTP ${res.status} — Could not fetch CSV.`);
     const text=await res.text();
     if(!text.trim()) throw new Error('CSV file is empty.');
     const rows=parseCSV(text);
     if(!rows.length) throw new Error('CSV parsed but returned no rows.');
-    render(rows);
-  }catch(err){
+    init(rows);
+  } catch(err) {
     document.getElementById('error-msg').textContent=err.message;
     errBanner.style.display='flex';
     document.getElementById('last-updated').textContent='Failed to load data';
-  }finally{
+  } finally {
     overlay.classList.add('hidden'); reloadBtn.disabled=false;
   }
 }
