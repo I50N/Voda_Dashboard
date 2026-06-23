@@ -14,8 +14,6 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;}
-
-  /* HEADER */
   .header{background:var(--mid);border-bottom:2px solid var(--red);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
   .header-brand{display:flex;align-items:center;gap:14px;}
   .voda-mark{width:42px;height:42px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;}
@@ -26,56 +24,36 @@
   .reload-btn{background:var(--red);color:white;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity 0.2s;}
   .reload-btn:hover{opacity:0.85;}
   .reload-btn:disabled{opacity:0.4;cursor:not-allowed;}
-
-  /* LOADING OVERLAY */
   #loading-overlay{position:fixed;inset:0;background:rgba(15,15,18,0.92);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
   #loading-overlay.hidden{display:none;}
   .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin 0.8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
   .loading-text{font-size:13px;color:var(--muted);}
-
-  /* ERROR BANNER */
   #error-banner{background:rgba(226,0,26,0.12);border:1px solid rgba(226,0,26,0.3);border-radius:8px;padding:14px 20px;margin:20px 28px;font-size:13px;color:#ff6b7a;display:none;align-items:center;gap:10px;}
-
-  /* TABS */
-  .tabs{background:var(--mid);padding:0 28px;display:flex;gap:4px;border-bottom:1px solid var(--border);}
+  .tabs{background:var(--mid);padding:0 28px;display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto;}
   .tab-btn{padding:11px 18px;border:none;background:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);}
   .tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
-
-  /* VIEWS */
   .view{display:none;padding:24px 28px;}
   .view.active{display:block;}
-
-  /* SECTION LABEL */
   .section-label{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;margin-top:8px;display:flex;align-items:center;gap:10px;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-
-  /* KPI GRID */
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;}
   .kpi-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;}
   .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--red));}
   .kpi-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:7px;}
   .kpi-value{font-size:24px;font-weight:700;color:var(--bright);line-height:1;font-family:'DM Mono',monospace;}
   .kpi-sub{font-size:11px;color:var(--muted);margin-top:5px;}
-
-  /* CARDS */
   .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:18px;}
   .card-title{font-size:13px;font-weight:600;color:var(--bright);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
   .card-title .dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;}
-
-  /* LAYOUT */
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
   @media(max-width:860px){.two-col{grid-template-columns:1fr;}}
-
-  /* BAR CHART */
   .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
   .bar-label{font-size:12px;color:var(--text);width:190px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .bar-track{flex:1;background:var(--border);border-radius:4px;height:8px;}
   .bar-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
   .bar-val{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);width:48px;text-align:right;}
-
-  /* TABLE */
   .data-table{width:100%;border-collapse:collapse;font-size:12px;}
   .data-table th{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
   .data-table td{padding:9px 10px;border-bottom:1px solid rgba(46,46,58,0.5);}
@@ -83,22 +61,16 @@
   .data-table tr:hover td{background:rgba(255,255,255,0.02);}
   .num{font-family:'DM Mono',monospace;color:var(--bright);}
   .name-cell{font-weight:500;color:var(--bright);}
-
-  /* SPLIT BAR */
   .split-bar{height:18px;border-radius:5px;overflow:hidden;display:flex;margin:10px 0;}
   .split-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;}
   .split-legend{display:flex;gap:14px;font-size:12px;}
   .split-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px;}
-
-  /* WEEK BLOCKS */
   .week-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .week-block{background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:13px;}
   .week-block .wk-head{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:9px;}
   .week-block .wk-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
   .week-block .wk-key{color:var(--muted);}
   .week-block .wk-val{font-family:'DM Mono',monospace;color:var(--bright);font-weight:500;}
-
-  /* DAILY BARS */
   .daily-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
   .daily-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:50px;flex-shrink:0;}
   .daily-bar-outer{flex:1;background:var(--border);border-radius:4px;height:10px;position:relative;overflow:hidden;}
@@ -106,8 +78,6 @@
   .daily-bar-up{position:absolute;top:0;height:100%;background:var(--upgrade);}
   .daily-stats{display:flex;gap:12px;font-size:11px;font-family:'DM Mono',monospace;width:200px;flex-shrink:0;}
   .daily-stats span{color:var(--muted);}
-
-  /* AGENT CARDS */
   .agent-card{display:flex;align-items:center;gap:11px;margin-bottom:10px;padding:10px;border-radius:8px;}
   .agent-card.top{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);}
   .agent-card.bottom{background:rgba(226,0,26,0.04);border:1px solid rgba(226,0,26,0.15);}
@@ -115,23 +85,12 @@
   .r1{background:#FFD700;color:#0F0F12;} .r2{background:#C0C0C0;color:#0F0F12;} .r3{background:#CD7F32;color:white;}
   .r-other{background:var(--border);color:var(--muted);}
   .r-bot{background:rgba(226,0,26,0.2);color:var(--red);}
-
-  /* DISP PILLS */
   .disp-pill{display:inline-flex;align-items:center;gap:5px;background:var(--border);border-radius:20px;padding:3px 9px;font-size:11px;margin:3px;}
   .disp-count{font-weight:700;color:var(--bright);font-family:'DM Mono',monospace;}
-
-  /* PENDING ROW */
-  .pending-row td{color:var(--muted)!important;font-style:italic;}
-
-  /* FOOTER */
   .footer{padding:18px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
-
-  /* AGENT FILTER BUTTONS */
   .agent-filter-btn{background:var(--border);color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.15s;}
   .agent-filter-btn:hover{color:var(--text);border-color:var(--muted);}
   .agent-filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
-
-  /* DISPOSITION REPORT */
   .disp-agent-block{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;}
   .disp-agent-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;cursor:pointer;}
   .disp-agent-name{font-size:14px;font-weight:600;color:var(--bright);}
@@ -151,18 +110,25 @@
   .disp-cat-pct{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);width:38px;text-align:right;}
   .disp-summary-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
   .disp-sum-pill{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;}
-
+  /* MONTH ON MONTH */
+  .mom-table-wrap{overflow-x:auto;}
+  .mom-bar{display:inline-block;height:10px;border-radius:3px;vertical-align:middle;margin-right:6px;}
+  .trend-up{color:var(--green);font-weight:700;}
+  .trend-down{color:var(--red);font-weight:700;}
+  .trend-flat{color:var(--muted);}
+  .month-filter-btn{background:var(--border);color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.15s;margin:3px;}
+  .month-filter-btn:hover{color:var(--text);border-color:var(--muted);}
+  .month-filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
+  .mom-highlight{background:rgba(226,0,26,0.06);border-left:3px solid var(--red);}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loading-overlay">
   <div class="spinner"></div>
   <div class="loading-text">Fetching latest data from GitHub…</div>
 </div>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-brand">
     <div class="voda-mark">V</div>
@@ -177,24 +143,20 @@
   </div>
 </div>
 
-<!-- ERROR -->
-<div id="error-banner">
-  ⚠ <span id="error-msg">Could not load data.</span>
-</div>
+<div id="error-banner">⚠ <span id="error-msg">Could not load data.</span></div>
 
-<!-- TABS -->
 <div class="tabs">
   <button class="tab-btn active" onclick="showTab('campaign',this)">📊 Campaign Overview</button>
+  <button class="tab-btn" onclick="showTab('monthly',this)">📆 Month on Month</button>
   <button class="tab-btn" onclick="showTab('daily',this)">📅 Daily View</button>
   <button class="tab-btn" onclick="showTab('agents',this)">👥 Agent Dashboard</button>
   <button class="tab-btn" onclick="showTab('dispositions',this)">📋 Disposition Report</button>
 </div>
 
-<!-- ══ TAB 1: CAMPAIGN OVERVIEW ══ -->
+<!-- TAB 1: CAMPAIGN OVERVIEW -->
 <div id="view-campaign" class="view active">
-  <div class="section-label">MTD Campaign Snapshot</div>
+  <div class="section-label">Campaign Snapshot</div>
   <div class="kpi-grid" id="kpi-campaign"></div>
-
   <div class="section-label">Connection Type Split</div>
   <div class="two-col">
     <div class="card">
@@ -207,7 +169,6 @@
       <div id="conn-perf-bars"></div>
     </div>
   </div>
-
   <div class="section-label">Weekly Comparison</div>
   <div class="two-col">
     <div class="card">
@@ -219,7 +180,6 @@
       <div class="week-compare" id="wk-upg"></div>
     </div>
   </div>
-
   <div class="section-label">Disposition Analysis</div>
   <div class="two-col">
     <div class="card">
@@ -235,11 +195,75 @@
   </div>
 </div>
 
-<!-- ══ TAB 2: DAILY VIEW ══ -->
+<!-- TAB 2: MONTH ON MONTH -->
+<div id="view-monthly" class="view">
+  <div class="section-label">Month on Month Performance</div>
+  <div class="kpi-grid" id="kpi-monthly"></div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>Monthly Summary — All Metrics</div>
+    <div class="mom-table-wrap">
+      <table class="data-table">
+        <thead><tr>
+          <th>Month</th>
+          <th>Leads</th>
+          <th>Contact</th>
+          <th>RPC</th>
+          <th>Sales</th>
+          <th>Contact%</th>
+          <th>RPC%</th>
+          <th>Conv%</th>
+          <th>MoM Sales</th>
+          <th>MoM Conv</th>
+        </tr></thead>
+        <tbody id="mom-summary-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--new-conn);"></span>New Connections — Monthly</div>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>MoM</th></tr></thead>
+        <tbody id="mom-nc-tbody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--upgrade);"></span>Upgrade — Monthly</div>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>MoM</th></tr></thead>
+        <tbody id="mom-upg-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>Sales Volume Visual — Month by Month</div>
+    <div id="mom-bars-visual"></div>
+    <div class="split-legend" style="margin-top:12px;">
+      <span><span class="split-dot" style="background:var(--new-conn);"></span>New Connection</span>
+      <span><span class="split-dot" style="background:var(--upgrade);"></span>Upgrade</span>
+    </div>
+  </div>
+
+  <div class="section-label">Agent Performance by Month</div>
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>Filter Month</div>
+    <div id="month-agent-selector" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
+    <div style="overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr><th>#</th><th>Agent</th><th>Leads</th><th>Sales</th><th>Conv%</th><th>NC Sales</th><th>UPG Sales</th></tr></thead>
+        <tbody id="mom-agent-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: DAILY VIEW -->
 <div id="view-daily" class="view">
   <div class="section-label">Daily Lead Performance</div>
   <div class="kpi-grid" id="kpi-daily"></div>
-
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--upgrade);"></span>Upgrade — Daily Breakdown</div>
@@ -252,7 +276,6 @@
       <tbody id="daily-nc-table"></tbody></table>
     </div>
   </div>
-
   <div class="card">
     <div class="card-title"><span class="dot"></span>Daily Lead Volume — NC vs Upgrade</div>
     <div id="daily-visual"></div>
@@ -263,11 +286,10 @@
   </div>
 </div>
 
-<!-- ══ TAB 3: AGENT DASHBOARD ══ -->
+<!-- TAB 4: AGENT DASHBOARD -->
 <div id="view-agents" class="view">
   <div class="section-label">Agent Performance</div>
   <div class="kpi-grid" id="kpi-agents"></div>
-
   <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--green);"></span>Top 5 Agents — Conversion Rate</div>
@@ -280,7 +302,6 @@
       <div id="bot5-agents"></div>
     </div>
   </div>
-
   <div class="section-label">NC vs Upgrade Lead Split by Agent</div>
   <div class="card">
     <div class="card-title"><span class="dot"></span>Conversion by Lead Type — All Agents</div>
@@ -289,7 +310,6 @@
       <tbody id="split-tbody"></tbody>
     </table>
   </div>
-
   <div class="section-label">Disposition Summary by Agent</div>
   <div class="card">
     <div class="card-title"><span class="dot"></span>Outcome Categories — All Agents</div>
@@ -310,9 +330,8 @@
         <tbody id="agent-disp-summary-tbody"></tbody>
       </table>
     </div>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted);">See the Disposition Report tab for a full per-agent breakdown of every disposition code.</div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted);">See the Disposition Report tab for a full per-agent breakdown.</div>
   </div>
-
   <div class="section-label">All Agents — Full Stats</div>
   <div class="card">
     <table class="data-table">
@@ -322,21 +341,17 @@
   </div>
 </div>
 
-<!-- ══ TAB 4: DISPOSITION REPORT ══ -->
+<!-- TAB 5: DISPOSITION REPORT -->
 <div id="view-dispositions" class="view">
-
   <div class="section-label">Disposition Report — Agent Level</div>
   <div class="kpi-grid" id="kpi-disp"></div>
-
   <div class="card" style="margin-bottom:18px;">
     <div class="card-title"><span class="dot"></span>Filter by Agent</div>
     <div id="agent-selector" style="display:flex;flex-wrap:wrap;gap:8px;">
       <button class="agent-filter-btn active" onclick="filterAgent('ALL',this)">All Agents</button>
     </div>
   </div>
-
   <div id="disp-report-all"></div>
-
 </div>
 
 <div class="footer">
@@ -345,14 +360,15 @@
 </div>
 
 <script>
-// ════════════════════════════════════════════════
-// CONFIG
-// ════════════════════════════════════════════════
 const CSV_URL = 'https://raw.githubusercontent.com/I50N/Voda_Dashboard/refs/heads/main/voda_dashboard.csv';
 
-// ════════════════════════════════════════════════
-// TAB SWITCHING
-// ════════════════════════════════════════════════
+// ── INVALID AGENT NAMES ──
+const INVALID_AGENTS = new Set(['','unassigned','n/a','\\n','\\0','/0','0']);
+function isValidAgent(name) {
+  if (!name) return false;
+  const n = name.trim().toLowerCase();
+  return !INVALID_AGENTS.has(n) && !name.startsWith('\\') && !name.startsWith('/0');
+}
 
 function filterAgent(name, btn) {
   document.querySelectorAll('.agent-filter-btn').forEach(b => b.classList.remove('active'));
@@ -363,7 +379,7 @@ function filterAgent(name, btn) {
 }
 
 function toggleDispBlock(header) {
-  const body   = header.nextElementSibling;
+  const body = header.nextElementSibling;
   const toggle = header.querySelector('.disp-toggle');
   const isOpen = !body.classList.contains('collapsed');
   body.classList.toggle('collapsed', isOpen);
@@ -377,14 +393,10 @@ function showTab(id, btn) {
   btn.classList.add('active');
 }
 
-// ════════════════════════════════════════════════
-// CSV PARSER
-// ════════════════════════════════════════════════
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
   return lines.slice(1).map(line => {
-    // handle quoted commas
     const cols = [];
     let cur = '', inQ = false;
     for (let c of line) {
@@ -396,15 +408,12 @@ function parseCSV(text) {
     const obj = {};
     headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/^"|"$/g, '').trim());
     return obj;
-  }).filter(r => r['Lead'] || r['Agent Display']); // skip truly empty rows
+  }).filter(r => r['Lead'] || r['Agent Display']);
 }
 
-// ════════════════════════════════════════════════
-// HELPERS
-// ════════════════════════════════════════════════
 const n   = v => parseInt(v) || 0;
 const pct = (a, b) => b > 0 ? (a / b * 100).toFixed(1) : '0.0';
-const fmt = v => v.toLocaleString();
+const fmt = v => (typeof v === 'number' ? v : parseInt(v)||0).toLocaleString();
 
 function convColor(c) {
   c = parseFloat(c);
@@ -427,31 +436,55 @@ function barRow(label, pctVal, color, valLabel) {
   </div>`;
 }
 
-// ════════════════════════════════════════════════
-// PARSE DATE LABEL from date_created
-// ════════════════════════════════════════════════
-function dayLabel(row) {
-  const d = row['date_created'] || row['Last'] || '';
-  if (!d) return 'Unknown';
-  const dt = new Date(d);
-  if (isNaN(dt)) return d;
-  return dt.toLocaleDateString('en-ZA', { weekday:'short', day:'numeric' });
+function monthLabel(m) {
+  if (!m) return '—';
+  const [y, mo] = m.split('-');
+  const names = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${names[parseInt(mo)]} ${y}`;
 }
 
-// ════════════════════════════════════════════════
-// MAIN RENDER
-// ════════════════════════════════════════════════
-function render(rows) {
+function trendArrow(curr, prev) {
+  if (prev === null || prev === undefined) return '<span class="trend-flat">—</span>';
+  const diff = curr - prev;
+  if (diff > 0) return `<span class="trend-up">▲ +${diff.toFixed(1)}</span>`;
+  if (diff < 0) return `<span class="trend-down">▼ ${diff.toFixed(1)}</span>`;
+  return '<span class="trend-flat">—</span>';
+}
 
-  // ── COLUMN MAP (normalise headers) ──
-  // Accepted header variants → canonical name
+// ── GLOBAL for month-agent filter ──
+let g_monthAgentData = {};
+let g_months = [];
+
+function renderMonthAgentTable(selectedMonth) {
+  const data = g_monthAgentData[selectedMonth] || {};
+  const agents = Object.entries(data)
+    .filter(([name]) => isValidAgent(name))
+    .map(([name, s]) => ({
+      name, ...s,
+      conv: parseFloat(pct(s.ts, s.leads))
+    }))
+    .sort((a, b) => b.conv - a.conv);
+
+  document.getElementById('mom-agent-tbody').innerHTML = agents.map((a, i) => `<tr>
+    <td class="num" style="color:var(--muted);">${i+1}</td>
+    <td class="name-cell">${a.name}</td>
+    <td class="num">${fmt(a.leads)}</td>
+    <td class="num" style="color:var(--green);">${fmt(a.ts)}</td>
+    <td class="num" style="color:${convColor(a.conv)};">${a.conv.toFixed(1)}%</td>
+    <td class="num" style="color:var(--new-conn);">${fmt(a.nc_ts)}</td>
+    <td class="num" style="color:var(--upgrade);">${fmt(a.upg_ts)}</td>
+  </tr>`).join('');
+}
+
+function render(rows) {
+  // ── COLUMN MAP ──
   const colMap = {
     'Lead':'Lead','lead':'Lead',
     'Contact':'Contact','contact':'Contact',
     'RPC':'RPC','rpc':'RPC',
     'Sale':'Sale','sale':'Sale',
     'Total Sales':'Total Sales','total_sales':'Total Sales','total sales':'Total Sales',
-    'Dialable Contacts':'Dialable Contacts','dialable_contacts':'Dialable Contacts','dialable contacts':'Dialable Contacts',
+    'Dialable Contacts':'Dialable Contacts','dialable_contacts':'Dialable Contacts',
     'connection_type':'connection_type','Connection Type':'connection_type','connection type':'connection_type',
     'Agent Display':'Agent Display','agent_display':'Agent Display','agent display':'Agent Display',
     'Week':'Week','week':'Week',
@@ -460,7 +493,6 @@ function render(rows) {
     'date_created':'date_created','Date Created':'date_created',
     'month_created':'month_created','Month Created':'month_created',
   };
-  // Re-key every row
   rows = rows.map(r => {
     const nr = {};
     Object.keys(r).forEach(k => { const c = colMap[k]; if(c) nr[c] = r[k]; else nr[k] = r[k]; });
@@ -468,189 +500,158 @@ function render(rows) {
   });
 
   // ── TOTALS ──
-  let totLeads=0, totContact=0, totRPC=0, totSale=0, totTS=0, totDial=0;
+  let totLeads=0,totContact=0,totRPC=0,totSale=0,totTS=0,totDial=0;
   rows.forEach(r => {
-    totLeads   += n(r['Lead']);
-    totContact += n(r['Contact']);
-    totRPC     += n(r['RPC']);
-    totSale    += n(r['Sale']);
-    totTS      += n(r['Total Sales']);
-    totDial    += n(r['Dialable Contacts']);
+    totLeads+=n(r['Lead']); totContact+=n(r['Contact']); totRPC+=n(r['RPC']);
+    totSale+=n(r['Sale']); totTS+=n(r['Total Sales']); totDial+=n(r['Dialable Contacts']);
   });
 
-  // ── CONNECTION TYPE AGGREGATION ──
+  // ── CONNECTION TYPE ──
   const byConn = {};
   rows.forEach(r => {
-    const ct = (r['connection_type'] || 'Unknown').trim();
-    if (!byConn[ct]) byConn[ct] = {leads:0,contact:0,rpc:0,sale:0,ts:0};
-    byConn[ct].leads   += n(r['Lead']);
-    byConn[ct].contact += n(r['Contact']);
-    byConn[ct].rpc     += n(r['RPC']);
-    byConn[ct].sale    += n(r['Sale']);
-    byConn[ct].ts      += n(r['Total Sales']);
+    const ct = (r['connection_type']||'Unknown').trim();
+    if (!byConn[ct]) byConn[ct]={leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byConn[ct].leads+=n(r['Lead']); byConn[ct].contact+=n(r['Contact']);
+    byConn[ct].rpc+=n(r['RPC']); byConn[ct].sale+=n(r['Sale']); byConn[ct].ts+=n(r['Total Sales']);
   });
+  const NC  = byConn['New_connection']||byConn['New Connection']||byConn['new_connection']||{leads:0,contact:0,rpc:0,sale:0,ts:0};
+  const UPG = byConn['Upgrade']||byConn['upgrade']||{leads:0,contact:0,rpc:0,sale:0,ts:0};
 
-  const NC  = byConn['New_connection'] || byConn['New Connection'] || byConn['new_connection'] || {leads:0,contact:0,rpc:0,sale:0,ts:0};
-  const UPG = byConn['Upgrade'] || byConn['upgrade'] || {leads:0,contact:0,rpc:0,sale:0,ts:0};
-
-  // ── WEEKLY AGGREGATION ──
+  // ── WEEKLY ──
   const byWeekConn = {};
   rows.forEach(r => {
-    const w  = (r['Week'] || '?').toString().trim();
-    const ct = (r['connection_type'] || '').includes('New') ? 'NC' : 'UPG';
-    const key = `${w}|${ct}`;
-    if (!byWeekConn[key]) byWeekConn[key] = {leads:0,contact:0,rpc:0,sale:0,ts:0};
-    byWeekConn[key].leads   += n(r['Lead']);
-    byWeekConn[key].contact += n(r['Contact']);
-    byWeekConn[key].rpc     += n(r['RPC']);
-    byWeekConn[key].sale    += n(r['Sale']);
-    byWeekConn[key].ts      += n(r['Total Sales']);
+    const w=(r['Week']||'?').toString().trim();
+    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
+    const key=`${w}|${ct}`;
+    if(!byWeekConn[key]) byWeekConn[key]={leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byWeekConn[key].leads+=n(r['Lead']); byWeekConn[key].contact+=n(r['Contact']);
+    byWeekConn[key].rpc+=n(r['RPC']); byWeekConn[key].sale+=n(r['Sale']); byWeekConn[key].ts+=n(r['Total Sales']);
   });
+  const weeks=[...new Set(rows.map(r=>(r['Week']||'').toString().trim()))].filter(Boolean).sort();
 
-  const weeks = [...new Set(rows.map(r => (r['Week']||'').toString().trim()))].filter(Boolean).sort();
+  // ── MONTHLY AGGREGATION ──
+  const byMonth = {};
+  const byMonthConn = {};
+  g_monthAgentData = {};
 
-  // ── DAILY AGGREGATION (by date_created) ──
-  const byDateConn = {};
   rows.forEach(r => {
-    const d = r['date_created'] || '';
-    if (!d) return;
+    const m = (r['month_created']||'').trim();
+    if (!m) return;
     const ct = (r['connection_type']||'').includes('New') ? 'NC' : 'UPG';
-    const key = `${d}|${ct}`;
-    if (!byDateConn[key]) byDateConn[key] = {date:d,type:ct,leads:0,contact:0,rpc:0,sale:0,ts:0};
-    byDateConn[key].leads   += n(r['Lead']);
-    byDateConn[key].contact += n(r['Contact']);
-    byDateConn[key].rpc     += n(r['RPC']);
-    byDateConn[key].sale    += n(r['Sale']);
-    byDateConn[key].ts      += n(r['Total Sales']);
+    const agent = (r['Agent Display']||'').trim();
+
+    if (!byMonth[m]) byMonth[m]={leads:0,contact:0,rpc:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
+    byMonth[m].leads+=n(r['Lead']); byMonth[m].contact+=n(r['Contact']);
+    byMonth[m].rpc+=n(r['RPC']); byMonth[m].ts+=n(r['Total Sales']);
+    if(ct==='NC'){byMonth[m].nc_leads+=n(r['Lead']);byMonth[m].nc_ts+=n(r['Total Sales']);}
+    else{byMonth[m].upg_leads+=n(r['Lead']);byMonth[m].upg_ts+=n(r['Total Sales']);}
+
+    const mKey=`${m}|${ct}`;
+    if(!byMonthConn[mKey]) byMonthConn[mKey]={leads:0,ts:0};
+    byMonthConn[mKey].leads+=n(r['Lead']); byMonthConn[mKey].ts+=n(r['Total Sales']);
+
+    // Per-month agent breakdown
+    if (isValidAgent(agent)) {
+      if (!g_monthAgentData[m]) g_monthAgentData[m]={};
+      if (!g_monthAgentData[m][agent]) g_monthAgentData[m][agent]={leads:0,ts:0,nc_ts:0,upg_ts:0};
+      g_monthAgentData[m][agent].leads+=n(r['Lead']);
+      g_monthAgentData[m][agent].ts+=n(r['Total Sales']);
+      if(ct==='NC') g_monthAgentData[m][agent].nc_ts+=n(r['Total Sales']);
+      else g_monthAgentData[m][agent].upg_ts+=n(r['Total Sales']);
+    }
   });
 
-  const dailyDates = [...new Set(Object.values(byDateConn).map(v => v.date))].sort();
+  g_months = Object.keys(byMonth).sort();
 
-  // ── AGENT AGGREGATION ──
-  const byAgent = {};
-  rows.forEach(r => {
-    const a  = (r['Agent Display'] || 'Unassigned').trim();
-    const ct = (r['connection_type']||'').includes('New') ? 'NC' : 'UPG';
-    if (!byAgent[a]) byAgent[a] = {leads:0,contact:0,rpc:0,sale:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
-    byAgent[a].leads   += n(r['Lead']);
-    byAgent[a].contact += n(r['Contact']);
-    byAgent[a].rpc     += n(r['RPC']);
-    byAgent[a].sale    += n(r['Sale']);
-    byAgent[a].ts      += n(r['Total Sales']);
-    if (ct==='NC')  { byAgent[a].nc_leads  += n(r['Lead']); byAgent[a].nc_ts  += n(r['Total Sales']); }
-    else            { byAgent[a].upg_leads += n(r['Lead']); byAgent[a].upg_ts += n(r['Total Sales']); }
+  // ── DAILY ──
+  const byDateConn={};
+  rows.forEach(r=>{
+    const d=r['date_created']||''; if(!d)return;
+    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
+    const key=`${d}|${ct}`;
+    if(!byDateConn[key]) byDateConn[key]={date:d,type:ct,leads:0,contact:0,rpc:0,sale:0,ts:0};
+    byDateConn[key].leads+=n(r['Lead']); byDateConn[key].contact+=n(r['Contact']);
+    byDateConn[key].rpc+=n(r['RPC']); byDateConn[key].sale+=n(r['Sale']); byDateConn[key].ts+=n(r['Total Sales']);
+  });
+  const dailyDates=[...new Set(Object.values(byDateConn).map(v=>v.date))].sort();
+
+  // ── AGENTS ──
+  const byAgent={};
+  rows.forEach(r=>{
+    const a=(r['Agent Display']||'').trim();
+    if(!isValidAgent(a)) return;
+    const ct=(r['connection_type']||'').includes('New')?'NC':'UPG';
+    if(!byAgent[a]) byAgent[a]={leads:0,contact:0,rpc:0,sale:0,ts:0,nc_leads:0,nc_ts:0,upg_leads:0,upg_ts:0};
+    byAgent[a].leads+=n(r['Lead']); byAgent[a].contact+=n(r['Contact']);
+    byAgent[a].rpc+=n(r['RPC']); byAgent[a].sale+=n(r['Sale']); byAgent[a].ts+=n(r['Total Sales']);
+    if(ct==='NC'){byAgent[a].nc_leads+=n(r['Lead']);byAgent[a].nc_ts+=n(r['Total Sales']);}
+    else{byAgent[a].upg_leads+=n(r['Lead']);byAgent[a].upg_ts+=n(r['Total Sales']);}
   });
 
-  const agentList = Object.entries(byAgent)
-    .filter(([name]) => name !== 'Unassigned' && name !== '\\N' && name !== '' && name !== 'N/A')
-    .map(([name, s]) => ({
-      name,
-      leads:s.leads, contact:s.contact, rpc:s.rpc, sale:s.sale, ts:s.ts,
-      cr:  parseFloat(pct(s.contact, s.leads)),
-      rr:  parseFloat(pct(s.rpc, s.contact)),
-      conv:parseFloat(pct(s.ts, s.leads)),
-      nc_leads:s.nc_leads, nc_ts:s.nc_ts,
-      upg_leads:s.upg_leads, upg_ts:s.upg_ts,
-      nc_conv:  parseFloat(pct(s.nc_ts, s.nc_leads)),
-      upg_conv: parseFloat(pct(s.upg_ts, s.upg_leads)),
-    }))
-    .sort((a,b) => b.conv - a.conv);
+  const agentList=Object.entries(byAgent).map(([name,s])=>({
+    name,leads:s.leads,contact:s.contact,rpc:s.rpc,sale:s.sale,ts:s.ts,
+    cr:parseFloat(pct(s.contact,s.leads)),rr:parseFloat(pct(s.rpc,s.contact)),
+    conv:parseFloat(pct(s.ts,s.leads)),
+    nc_leads:s.nc_leads,nc_ts:s.nc_ts,upg_leads:s.upg_leads,upg_ts:s.upg_ts,
+    nc_conv:parseFloat(pct(s.nc_ts,s.nc_leads)),upg_conv:parseFloat(pct(s.upg_ts,s.upg_leads)),
+  })).sort((a,b)=>b.conv-a.conv);
 
-  // ── DISPOSITION AGGREGATION ──
-  const byDisp = {};
-  rows.forEach(r => {
-    const d = (r['Disposition'] || 'Unknown').trim();
-    byDisp[d] = (byDisp[d]||0) + n(r['Lead']);
-  });
-  const byDispCat = {};
-  rows.forEach(r => {
-    const cat = (r['Contact Description'] || 'Other').trim();
-    byDispCat[cat] = (byDispCat[cat]||0) + n(r['Lead']);
-  });
+  // ── DISPOSITIONS ──
+  const byDisp={};
+  rows.forEach(r=>{const d=(r['Disposition']||'Unknown').trim();byDisp[d]=(byDisp[d]||0)+n(r['Lead']);});
+  const byDispCat={};
+  rows.forEach(r=>{const cat=(r['Contact Description']||'Other').trim();byDispCat[cat]=(byDispCat[cat]||0)+n(r['Lead']);});
+  const dispSorted=Object.entries(byDisp).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const cbCat=byDispCat['Callback']||0;
 
-  const dispSorted = Object.entries(byDisp).sort((a,b)=>b[1]-a[1]).slice(0,12);
-  const saleCat    = byDispCat['True Contact']  || byDispCat['Sale'] || totTS;
-  const cbCat      = byDispCat['Callback']      || 0;
-  const failCat    = byDispCat['Unsuccessful Contact'] || byDispCat['Unsuccessful'] || 0;
+  // ══════════════════════════════
+  // RENDER CAMPAIGN OVERVIEW
+  // ══════════════════════════════
+  document.getElementById('kpi-campaign').innerHTML=
+    kpiCard('Total Leads',fmt(totLeads),`Dialable: ${fmt(totDial)}`,'var(--red)')+
+    kpiCard('% Dialable',pct(totDial,totLeads)+'%',`${fmt(totDial)} of ${fmt(totLeads)} workable`,'var(--blue)')+
+    kpiCard('Successful Contact',fmt(totContact),`Contact Rate: ${pct(totContact,totLeads)}%`,'var(--blue)')+
+    kpiCard('True Contact (RPC)',fmt(totRPC),`RPC Rate: ${pct(totRPC,totContact)}%`,'var(--purple)')+
+    kpiCard('Total Sales',fmt(totTS),`Direct Sales: ${fmt(totSale)}`,'var(--green)')+
+    kpiCard('Conversion Rate',pct(totTS,totLeads)+'%','Sale vs Lead','var(--amber)');
 
-  // ════════════════════════════════════════════════
-  // RENDER — CAMPAIGN OVERVIEW
-  // ════════════════════════════════════════════════
-  document.getElementById('kpi-campaign').innerHTML =
-    kpiCard('Total Leads',        fmt(totLeads),    `Dialable: ${fmt(totDial)}`,                       'var(--red)')   +
-    kpiCard('% Dialable',         pct(totDial,totLeads)+'%', `${fmt(totDial)} of ${fmt(totLeads)} workable`, 'var(--blue)')  +
-    kpiCard('Successful Contact', fmt(totContact),  `Contact Rate: ${pct(totContact,totLeads)}%`,      'var(--blue)')  +
-    kpiCard('True Contact (RPC)', fmt(totRPC),      `RPC Rate: ${pct(totRPC,totContact)}%`,            'var(--purple)')+
-    kpiCard('MTD Sales',          fmt(totTS),       `Direct Sales: ${fmt(totSale)}`,                   'var(--green)') +
-    kpiCard('Conversion Rate',    pct(totTS,totLeads)+'%', `Sale vs Lead`,                             'var(--amber)');
-
-  // Conn split vol
-  const ncPctOfTotal  = pct(NC.leads, totLeads);
-  const upgPctOfTotal = pct(UPG.leads, totLeads);
-  document.getElementById('conn-split-vol').innerHTML = `
+  const ncP=pct(NC.leads,totLeads),upgP=pct(UPG.leads,totLeads);
+  document.getElementById('conn-split-vol').innerHTML=`
     <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
-      <span style="color:var(--new-conn);font-weight:600;">● New Connections</span>
-      <span class="num">${fmt(NC.leads)} leads</span>
-    </div>
+      <span style="color:var(--new-conn);font-weight:600;">● New Connections</span><span class="num">${fmt(NC.leads)} leads</span></div>
     <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:11px;">
-      <span style="color:var(--upgrade);font-weight:600;">● Upgrade</span>
-      <span class="num">${fmt(UPG.leads)} leads</span>
-    </div>
+      <span style="color:var(--upgrade);font-weight:600;">● Upgrade</span><span class="num">${fmt(UPG.leads)} leads</span></div>
     <div class="split-bar">
-      <div class="split-seg" style="width:${ncPctOfTotal}%;background:var(--new-conn);">NC ${ncPctOfTotal}%</div>
-      <div class="split-seg" style="width:${upgPctOfTotal}%;background:var(--upgrade);">UPG ${upgPctOfTotal}%</div>
-    </div>
-    <div class="split-legend" style="margin-top:8px;">
-      <span><span class="split-dot" style="background:var(--new-conn);"></span>New Connection</span>
-      <span><span class="split-dot" style="background:var(--upgrade);"></span>Upgrade</span>
+      <div class="split-seg" style="width:${ncP}%;background:var(--new-conn);">NC ${ncP}%</div>
+      <div class="split-seg" style="width:${upgP}%;background:var(--upgrade);">UPG ${upgP}%</div>
     </div>`;
 
-  document.getElementById('conn-split-table').innerHTML = `
-    <tr>
-      <td><span style="color:var(--new-conn);font-weight:600;">New Conn</span></td>
+  document.getElementById('conn-split-table').innerHTML=`
+    <tr><td><span style="color:var(--new-conn);font-weight:600;">New Conn</span></td>
       <td class="num">${fmt(NC.leads)}</td><td class="num">${fmt(NC.contact)}</td><td class="num">${fmt(NC.rpc)}</td>
-      <td class="num">${fmt(NC.ts)}</td>
-      <td><span style="color:var(--green);font-weight:700;font-family:'DM Mono',monospace;">${pct(NC.ts,NC.leads)}%</span></td>
-    </tr>
-    <tr>
-      <td><span style="color:var(--upgrade);font-weight:600;">Upgrade</span></td>
+      <td class="num">${fmt(NC.ts)}</td><td><span style="color:var(--green);font-weight:700;font-family:'DM Mono',monospace;">${pct(NC.ts,NC.leads)}%</span></td></tr>
+    <tr><td><span style="color:var(--upgrade);font-weight:600;">Upgrade</span></td>
       <td class="num">${fmt(UPG.leads)}</td><td class="num">${fmt(UPG.contact)}</td><td class="num">${fmt(UPG.rpc)}</td>
-      <td class="num">${fmt(UPG.ts)}</td>
-      <td><span style="color:var(--amber);font-weight:700;font-family:'DM Mono',monospace;">${pct(UPG.ts,UPG.leads)}%</span></td>
-    </tr>
-    <tr style="border-top:1px solid var(--border);font-weight:600;">
-      <td style="color:var(--text);">Total</td>
+      <td class="num">${fmt(UPG.ts)}</td><td><span style="color:var(--amber);font-weight:700;font-family:'DM Mono',monospace;">${pct(UPG.ts,UPG.leads)}%</span></td></tr>
+    <tr style="border-top:1px solid var(--border);font-weight:600;"><td>Total</td>
       <td class="num">${fmt(totLeads)}</td><td class="num">${fmt(totContact)}</td><td class="num">${fmt(totRPC)}</td>
-      <td class="num">${fmt(totTS)}</td>
-      <td style="font-family:'DM Mono',monospace;font-weight:700;">${pct(totTS,totLeads)}%</td>
-    </tr>`;
+      <td class="num">${fmt(totTS)}</td><td style="font-family:'DM Mono',monospace;font-weight:700;">${pct(totTS,totLeads)}%</td></tr>`;
 
-  // Perf bars
-  const ncCR  = parseFloat(pct(NC.contact,  NC.leads));
-  const upgCR = parseFloat(pct(UPG.contact, UPG.leads));
-  const ncRR  = parseFloat(pct(NC.rpc,  NC.contact));
-  const upgRR = parseFloat(pct(UPG.rpc, UPG.contact));
-  const ncCV  = parseFloat(pct(NC.ts,  NC.leads));
-  const upgCV = parseFloat(pct(UPG.ts, UPG.leads));
-  const maxCR = Math.max(ncCR, upgCR, 1);
-  const maxRR = Math.max(ncRR, upgRR, 1);
-  const maxCV = Math.max(ncCV, upgCV, 1);
-  document.getElementById('conn-perf-bars').innerHTML = `
+  const ncCR=parseFloat(pct(NC.contact,NC.leads)),upgCR=parseFloat(pct(UPG.contact,UPG.leads));
+  const ncRR=parseFloat(pct(NC.rpc,NC.contact)),upgRR=parseFloat(pct(UPG.rpc,UPG.contact));
+  const ncCV=parseFloat(pct(NC.ts,NC.leads)),upgCV=parseFloat(pct(UPG.ts,UPG.leads));
+  const mCR=Math.max(ncCR,upgCR,1),mRR=Math.max(ncRR,upgRR,1),mCV=Math.max(ncCV,upgCV,1);
+  document.getElementById('conn-perf-bars').innerHTML=`
     <div style="font-size:11px;color:var(--muted);margin-bottom:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Contact Rate</div>
-    ${barRow('New Connection', ncCR/maxCR*100,  'var(--new-conn)', ncCR+'%')}
-    ${barRow('Upgrade',        upgCR/maxCR*100, 'var(--upgrade)',  upgCR+'%')}
-    <div style="font-size:11px;color:var(--muted);margin:16px 0 9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">RPC Rate (of contacts)</div>
-    ${barRow('New Connection', ncRR/maxRR*100,  'var(--new-conn)', ncRR+'%')}
-    ${barRow('Upgrade',        upgRR/maxRR*100, 'var(--upgrade)',  upgRR+'%')}
-    <div style="font-size:11px;color:var(--muted);margin:16px 0 9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Sale vs Lead (Conversion)</div>
-    ${barRow('New Connection', ncCV/maxCV*100,  'var(--green)', ncCV+'%')}
-    ${barRow('Upgrade',        upgCV/maxCV*100, 'var(--amber)', upgCV+'%')}`;
+    ${barRow('New Connection',ncCR/mCR*100,'var(--new-conn)',ncCR+'%')}${barRow('Upgrade',upgCR/mCR*100,'var(--upgrade)',upgCR+'%')}
+    <div style="font-size:11px;color:var(--muted);margin:16px 0 9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">RPC Rate</div>
+    ${barRow('New Connection',ncRR/mRR*100,'var(--new-conn)',ncRR+'%')}${barRow('Upgrade',upgRR/mRR*100,'var(--upgrade)',upgRR+'%')}
+    <div style="font-size:11px;color:var(--muted);margin:16px 0 9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Conversion</div>
+    ${barRow('New Connection',ncCV/mCV*100,'var(--green)',ncCV+'%')}${barRow('Upgrade',upgCV/mCV*100,'var(--amber)',upgCV+'%')}`;
 
-  // Weekly blocks
-  function wkBlock(label, s) {
-    if (!s) return `<div class="week-block"><div class="wk-head">${label}</div><div style="color:var(--muted);font-size:11px;">No data</div></div>`;
-    return `<div class="week-block">
-      <div class="wk-head">${label}</div>
+  function wkBlock(label,s){
+    if(!s) return `<div class="week-block"><div class="wk-head">${label}</div><div style="color:var(--muted);font-size:11px;">No data</div></div>`;
+    return `<div class="week-block"><div class="wk-head">${label}</div>
       <div class="wk-row"><span class="wk-key">Leads</span><span class="wk-val">${fmt(s.leads)}</span></div>
       <div class="wk-row"><span class="wk-key">Contact</span><span class="wk-val">${fmt(s.contact)}</span></div>
       <div class="wk-row"><span class="wk-key">RPC</span><span class="wk-val">${fmt(s.rpc)}</span></div>
@@ -659,106 +660,191 @@ function render(rows) {
       <div class="wk-row"><span class="wk-key">Conv%</span><span class="wk-val" style="color:var(--amber);">${pct(s.ts,s.leads)}%</span></div>
     </div>`;
   }
-  let wkNcHtml='', wkUpgHtml='';
-  weeks.forEach(w => {
-    wkNcHtml  += wkBlock(`WEEK ${w} · NC`,  byWeekConn[`${w}|NC`]);
-    wkUpgHtml += wkBlock(`WEEK ${w} · UPG`, byWeekConn[`${w}|UPG`]);
-  });
-  document.getElementById('wk-nc').innerHTML  = wkNcHtml  || '<div style="color:var(--muted);font-size:12px;">No week data found</div>';
-  document.getElementById('wk-upg').innerHTML = wkUpgHtml || '<div style="color:var(--muted);font-size:12px;">No week data found</div>';
+  let wkNc='',wkUpg='';
+  weeks.forEach(w=>{wkNc+=wkBlock(`WEEK ${w} · NC`,byWeekConn[`${w}|NC`]);wkUpg+=wkBlock(`WEEK ${w} · UPG`,byWeekConn[`${w}|UPG`]);});
+  document.getElementById('wk-nc').innerHTML=wkNc||'<div style="color:var(--muted);font-size:12px;">No week data</div>';
+  document.getElementById('wk-upg').innerHTML=wkUpg||'<div style="color:var(--muted);font-size:12px;">No week data</div>';
 
-  // Dispositions
-  const maxDisp = dispSorted[0]?.[1] || 1;
-  document.getElementById('disp-bars').innerHTML = dispSorted.map(([name, count]) => {
-    const isGood = name.toLowerCase().includes('sale');
-    const isCb   = name.toLowerCase().includes('callback') || name.toLowerCase().includes('call back');
-    const col    = isGood ? 'var(--green)' : isCb ? 'var(--amber)' : 'var(--red)';
-    return barRow(name, count/maxDisp*100, col, count.toLocaleString());
+  const maxDisp=dispSorted[0]?.[1]||1;
+  document.getElementById('disp-bars').innerHTML=dispSorted.map(([name,count])=>{
+    const isGood=name.toLowerCase().includes('sale');
+    const isCb=name.toLowerCase().includes('callback')||name.toLowerCase().includes('call back');
+    return barRow(name,count/maxDisp*100,isGood?'var(--green)':isCb?'var(--amber)':'var(--red)',count.toLocaleString());
   }).join('');
 
-  document.getElementById('disp-summary').innerHTML = `
+  document.getElementById('disp-summary').innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
       <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:13px;">
         <div style="font-size:20px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace;">${fmt(totTS)}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">SALE outcomes</div>
-      </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">SALE outcomes</div></div>
       <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:13px;">
         <div style="font-size:20px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace;">${fmt(cbCat||byDisp['Callback']||byDisp['Call Back']||0)}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Callbacks</div>
-      </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Callbacks</div></div>
       <div style="background:rgba(226,0,26,0.08);border:1px solid rgba(226,0,26,0.2);border-radius:8px;padding:13px;">
-        <div style="font-size:20px;font-weight:700;color:var(--red);font-family:'DM Mono',monospace;">${fmt(totLeads - totContact)}</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Unsuccessful</div>
+        <div style="font-size:20px;font-weight:700;color:var(--red);font-family:'DM Mono',monospace;">${fmt(totLeads-totContact)}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Unsuccessful</div></div>
+    </div>`;
+  document.getElementById('disp-pills').innerHTML=dispSorted.slice(0,10).map(([name,count])=>
+    `<div class="disp-pill"><span class="disp-count">${fmt(count)}</span>${name}</div>`).join('');
+
+  // ══════════════════════════════
+  // RENDER MONTH ON MONTH
+  // ══════════════════════════════
+  const bestMonth = g_months.reduce((best,m)=>(!best||byMonth[m].ts>byMonth[best].ts)?m:best, null);
+  const bestConvMonth = g_months.reduce((best,m)=>{
+    const c=parseFloat(pct(byMonth[m].ts,byMonth[m].leads));
+    const bc=best?parseFloat(pct(byMonth[best].ts,byMonth[best].leads)):0;
+    return c>bc?m:best;
+  },null);
+  const totalMoMSales = g_months.reduce((s,m)=>s+byMonth[m].ts,0);
+  const avgMonthlySales = g_months.length ? Math.round(totalMoMSales/g_months.length) : 0;
+
+  document.getElementById('kpi-monthly').innerHTML=
+    kpiCard('Months Tracked', g_months.length, `${monthLabel(g_months[0])} → ${monthLabel(g_months[g_months.length-1])}`,'var(--blue)')+
+    kpiCard('Total Sales (All Months)', fmt(totalMoMSales), `Avg ${fmt(avgMonthlySales)}/month`,'var(--green)')+
+    kpiCard('Best Month — Sales', monthLabel(bestMonth), bestMonth?`${fmt(byMonth[bestMonth].ts)} sales`:'—','var(--amber)')+
+    kpiCard('Best Month — Conv%', monthLabel(bestConvMonth), bestConvMonth?`${pct(byMonth[bestConvMonth].ts,byMonth[bestConvMonth].leads)}% conv`:'—','var(--purple)');
+
+  // Monthly summary table
+  document.getElementById('mom-summary-tbody').innerHTML = g_months.map((m, i) => {
+    const s = byMonth[m];
+    const prev = i > 0 ? byMonth[g_months[i-1]] : null;
+    const conv = parseFloat(pct(s.ts, s.leads));
+    const prevConv = prev ? parseFloat(pct(prev.ts, prev.leads)) : null;
+    const salesDiff = prev ? s.ts - prev.ts : null;
+    const salesTrend = salesDiff === null ? '<span class="trend-flat">—</span>'
+      : salesDiff > 0 ? `<span class="trend-up">▲ +${fmt(salesDiff)}</span>`
+      : salesDiff < 0 ? `<span class="trend-down">▼ ${fmt(salesDiff)}</span>`
+      : '<span class="trend-flat">—</span>';
+    const isLatest = i === g_months.length - 1;
+    return `<tr class="${isLatest?'mom-highlight':''}">
+      <td class="name-cell">${monthLabel(m)}${isLatest?' <span style="font-size:10px;color:var(--amber);font-weight:600;">MTD</span>':''}</td>
+      <td class="num">${fmt(s.leads)}</td>
+      <td class="num">${fmt(s.contact)}</td>
+      <td class="num">${fmt(s.rpc)}</td>
+      <td class="num" style="color:var(--green);">${fmt(s.ts)}</td>
+      <td class="num">${pct(s.contact,s.leads)}%</td>
+      <td class="num">${pct(s.rpc,s.contact)}%</td>
+      <td class="num" style="color:${convColor(conv)};font-weight:700;">${conv.toFixed(1)}%</td>
+      <td>${salesTrend}</td>
+      <td>${trendArrow(conv, prevConv)}</td>
+    </tr>`;
+  }).join('');
+
+  // NC monthly
+  document.getElementById('mom-nc-tbody').innerHTML = g_months.map((m,i) => {
+    const s = byMonthConn[`${m}|NC`]||{leads:0,ts:0};
+    const prev = i>0 ? byMonthConn[`${g_months[i-1]}|NC`]||{leads:0,ts:0} : null;
+    const conv = parseFloat(pct(s.ts,s.leads));
+    const prevConv = prev ? parseFloat(pct(prev.ts,prev.leads)) : null;
+    return `<tr>
+      <td class="name-cell">${monthLabel(m)}</td>
+      <td class="num">${fmt(s.leads)}</td>
+      <td class="num" style="color:var(--new-conn);">${fmt(s.ts)}</td>
+      <td class="num" style="color:${convColor(conv)};">${conv.toFixed(1)}%</td>
+      <td>${trendArrow(conv,prevConv)}</td>
+    </tr>`;
+  }).join('');
+
+  // UPG monthly
+  document.getElementById('mom-upg-tbody').innerHTML = g_months.map((m,i) => {
+    const s = byMonthConn[`${m}|UPG`]||{leads:0,ts:0};
+    const prev = i>0 ? byMonthConn[`${g_months[i-1]}|UPG`]||{leads:0,ts:0} : null;
+    const conv = parseFloat(pct(s.ts,s.leads));
+    const prevConv = prev ? parseFloat(pct(prev.ts,prev.leads)) : null;
+    return `<tr>
+      <td class="name-cell">${monthLabel(m)}</td>
+      <td class="num">${fmt(s.leads)}</td>
+      <td class="num" style="color:var(--upgrade);">${fmt(s.ts)}</td>
+      <td class="num" style="color:${convColor(conv)};">${conv.toFixed(1)}%</td>
+      <td>${trendArrow(conv,prevConv)}</td>
+    </tr>`;
+  }).join('');
+
+  // Sales visual bars
+  const maxMomSales = Math.max(...g_months.map(m=>byMonth[m].ts), 1);
+  document.getElementById('mom-bars-visual').innerHTML = g_months.map(m => {
+    const s = byMonth[m];
+    const nc = byMonthConn[`${m}|NC`]||{ts:0};
+    const upg = byMonthConn[`${m}|UPG`]||{ts:0};
+    const barW = (s.ts/maxMomSales*100).toFixed(1);
+    const ncP = s.ts>0?(nc.ts/s.ts*100).toFixed(1):0;
+    const upgP = s.ts>0?(upg.ts/s.ts*100).toFixed(1):0;
+    return `<div class="daily-row">
+      <div class="daily-date" style="width:70px;">${monthLabel(m)}</div>
+      <div style="flex:1;padding-right:10px;">
+        <div class="daily-bar-outer" style="width:${barW}%">
+          <div class="daily-bar-nc" style="width:${ncP}%;"></div>
+          <div class="daily-bar-up" style="left:${ncP}%;width:${upgP}%;"></div>
+        </div>
+      </div>
+      <div class="daily-stats" style="width:240px;">
+        <span><b style="color:var(--bright);">${fmt(s.ts)}</b> total</span>
+        <span><b style="color:var(--new-conn);">${fmt(nc.ts)}</b> NC</span>
+        <span><b style="color:var(--upgrade);">${fmt(upg.ts)}</b> UPG</span>
       </div>
     </div>`;
+  }).join('');
 
-  document.getElementById('disp-pills').innerHTML = dispSorted.slice(0,10).map(([name,count]) =>
-    `<div class="disp-pill"><span class="disp-count">${fmt(count)}</span>${name}</div>`
-  ).join('');
+  // Month-agent filter buttons
+  const maSelector = document.getElementById('month-agent-selector');
+  maSelector.innerHTML = '';
+  g_months.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'month-filter-btn' + (i === g_months.length-1 ? ' active' : '');
+    btn.textContent = monthLabel(m);
+    btn.onclick = function() {
+      document.querySelectorAll('.month-filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMonthAgentTable(m);
+    };
+    maSelector.appendChild(btn);
+  });
+  renderMonthAgentTable(g_months[g_months.length-1]); // default to latest month
 
-  // ════════════════════════════════════════════════
-  // RENDER — DAILY VIEW
-  // ════════════════════════════════════════════════
-  const bestNcDay   = dailyDates.map(d => byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>b.ts-a.ts)[0];
-  const bestNcConv  = dailyDates.map(d => byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>parseFloat(pct(b.ts,b.leads))-parseFloat(pct(a.ts,a.leads)))[0];
-  const avgLeads    = dailyDates.length ? Math.round((NC.leads+UPG.leads)/dailyDates.length) : 0;
+  // ══════════════════════════════
+  // RENDER DAILY
+  // ══════════════════════════════
+  const bestNcDay=dailyDates.map(d=>byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>b.ts-a.ts)[0];
+  const bestNcConv=dailyDates.map(d=>byDateConn[`${d}|NC`]).filter(Boolean).sort((a,b)=>parseFloat(pct(b.ts,b.leads))-parseFloat(pct(a.ts,a.leads)))[0];
+  const avgLeads=dailyDates.length?Math.round((NC.leads+UPG.leads)/dailyDates.length):0;
+  document.getElementById('kpi-daily').innerHTML=
+    kpiCard('Days Tracked',dailyDates.length,'Active dialling days','var(--blue)')+
+    kpiCard('Avg Daily Leads',fmt(avgLeads),'NC + Upgrade combined','var(--purple)')+
+    kpiCard('Best Day – NC Sales',bestNcDay?new Date(bestNcDay.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}):'—',bestNcDay?`${fmt(bestNcDay.ts)} NC sales`:'—','var(--green)')+
+    kpiCard('Best NC Conv Day',bestNcConv?new Date(bestNcConv.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}):'—',bestNcConv?`${pct(bestNcConv.ts,bestNcConv.leads)}% conv`:'—','var(--amber)');
 
-  const bestNcDayLabel  = bestNcDay   ? new Date(bestNcDay.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}) : '—';
-  const bestNcConvLabel = bestNcConv  ? new Date(bestNcConv.date).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'}) : '—';
-
-  document.getElementById('kpi-daily').innerHTML =
-    kpiCard('Days Tracked',      dailyDates.length,    'Active dialling days',              'var(--blue)')  +
-    kpiCard('Avg Daily Leads',   fmt(avgLeads),         'NC + Upgrade combined',             'var(--purple)')+
-    kpiCard('Best Day – NC Sales', bestNcDayLabel,      bestNcDay ? `${fmt(bestNcDay.ts)} NC sales` : '—', 'var(--green)') +
-    kpiCard('Best NC Conv Day',  bestNcConvLabel, bestNcConv ? `${pct(bestNcConv.ts,bestNcConv.leads)}% sale vs lead` : '—', 'var(--amber)');
-
-  function dailyTableRows(type) {
-    let html='', tot={leads:0,contact:0,rpc:0,ts:0};
-    dailyDates.forEach(d => {
-      const s = byDateConn[`${d}|${type}`];
-      if (!s) return;
-      const lbl = new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
-      const cv  = pct(s.ts, s.leads);
-      const col = type==='NC' ? 'var(--new-conn)' : 'var(--upgrade)';
-      html += `<tr>
-        <td class="num">${lbl}</td>
-        <td class="num">${fmt(s.leads)}</td><td class="num">${fmt(s.contact)}</td><td class="num">${fmt(s.rpc)}</td>
-        <td class="num" style="color:var(--green);">${fmt(s.ts)}</td>
-        <td class="num" style="color:${convColor(cv)};">${cv}%</td>
-      </tr>`;
-      tot.leads+=s.leads; tot.contact+=s.contact; tot.rpc+=s.rpc; tot.ts+=s.ts;
+  function dailyTableRows(type){
+    let html='',tot={leads:0,contact:0,rpc:0,ts:0};
+    dailyDates.forEach(d=>{
+      const s=byDateConn[`${d}|${type}`]; if(!s)return;
+      const lbl=new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
+      const cv=pct(s.ts,s.leads);
+      html+=`<tr><td class="num">${lbl}</td><td class="num">${fmt(s.leads)}</td><td class="num">${fmt(s.contact)}</td><td class="num">${fmt(s.rpc)}</td>
+        <td class="num" style="color:var(--green);">${fmt(s.ts)}</td><td class="num" style="color:${convColor(cv)};">${cv}%</td></tr>`;
+      tot.leads+=s.leads;tot.contact+=s.contact;tot.rpc+=s.rpc;tot.ts+=s.ts;
     });
-    html += `<tr style="background:rgba(59,130,246,0.06);font-weight:600;">
-      <td>TOTAL</td>
+    html+=`<tr style="background:rgba(59,130,246,0.06);font-weight:600;"><td>TOTAL</td>
       <td class="num">${fmt(tot.leads)}</td><td class="num">${fmt(tot.contact)}</td><td class="num">${fmt(tot.rpc)}</td>
       <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${fmt(tot.ts)}</td>
-      <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${pct(tot.ts,tot.leads)}%</td>
-    </tr>`;
+      <td class="num" style="color:${type==='NC'?'var(--new-conn)':'var(--upgrade)'};">${pct(tot.ts,tot.leads)}%</td></tr>`;
     return html;
   }
-  document.getElementById('daily-upg-table').innerHTML = dailyTableRows('UPG');
-  document.getElementById('daily-nc-table').innerHTML  = dailyTableRows('NC');
+  document.getElementById('daily-upg-table').innerHTML=dailyTableRows('UPG');
+  document.getElementById('daily-nc-table').innerHTML=dailyTableRows('NC');
 
-  // Daily visual bars
-  const maxDailyVol = Math.max(...dailyDates.map(d => {
-    const nc  = byDateConn[`${d}|NC`]?.leads  || 0;
-    const upg = byDateConn[`${d}|UPG`]?.leads || 0;
-    return nc + upg;
-  }), 1);
-  document.getElementById('daily-visual').innerHTML = dailyDates.map(d => {
-    const nc   = byDateConn[`${d}|NC`]?.leads  || 0;
-    const upg  = byDateConn[`${d}|UPG`]?.leads || 0;
-    const tot  = nc + upg;
-    const lbl  = new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
-    const tW   = (tot / maxDailyVol * 100).toFixed(1);
-    const ncP  = tot > 0 ? (nc  / tot * 100).toFixed(1) : 0;
-    const upgP = tot > 0 ? (upg / tot * 100).toFixed(1) : 0;
+  const maxDV=Math.max(...dailyDates.map(d=>(byDateConn[`${d}|NC`]?.leads||0)+(byDateConn[`${d}|UPG`]?.leads||0)),1);
+  document.getElementById('daily-visual').innerHTML=dailyDates.map(d=>{
+    const nc=byDateConn[`${d}|NC`]?.leads||0,upg=byDateConn[`${d}|UPG`]?.leads||0,tot=nc+upg;
+    const lbl=new Date(d).toLocaleDateString('en-ZA',{weekday:'short',day:'numeric'});
+    const tW=(tot/maxDV*100).toFixed(1);
+    const ncP=tot>0?(nc/tot*100).toFixed(1):0,upgP=tot>0?(upg/tot*100).toFixed(1):0;
     return `<div class="daily-row">
       <div class="daily-date">${lbl}</div>
       <div style="flex:1;padding-right:10px;">
         <div class="daily-bar-outer" style="width:${tW}%">
-          <div class="daily-bar-nc"  style="width:${ncP}%;"></div>
-          <div class="daily-bar-up"  style="left:${ncP}%;width:${upgP}%;"></div>
+          <div class="daily-bar-nc" style="width:${ncP}%;"></div>
+          <div class="daily-bar-up" style="left:${ncP}%;width:${upgP}%;"></div>
         </div>
       </div>
       <div class="daily-stats">
@@ -769,29 +855,28 @@ function render(rows) {
     </div>`;
   }).join('');
 
-  // ════════════════════════════════════════════════
-  // RENDER — AGENT DASHBOARD
-  // ════════════════════════════════════════════════
-  const teamLeads   = agentList.reduce((s,a)=>s+a.leads,0);
-  const teamSales   = agentList.reduce((s,a)=>s+a.ts,0);
-  const teamContact = agentList.reduce((s,a)=>s+a.contact,0);
-  const top5  = agentList.slice(0,5);
-  const bot5  = agentList.slice(-5);
+  // ══════════════════════════════
+  // RENDER AGENTS
+  // ══════════════════════════════
+  const teamLeads=agentList.reduce((s,a)=>s+a.leads,0);
+  const teamSales=agentList.reduce((s,a)=>s+a.ts,0);
+  const teamContact=agentList.reduce((s,a)=>s+a.contact,0);
+  const top5=agentList.slice(0,5),bot5=agentList.slice(-5);
 
-  document.getElementById('kpi-agents').innerHTML =
-    kpiCard('Total Agents',       agentList.length,                  'Identified in data',                 'var(--green)') +
-    kpiCard('Team Total Sales',   fmt(teamSales),                    `${agentList.length} agents tracked`,  'var(--red)')   +
-    kpiCard('Team Conv Rate',     pct(teamSales,teamLeads)+'%',      `${fmt(teamSales)} sales / ${fmt(teamLeads)} leads`, 'var(--blue)') +
-    kpiCard('Team Contact Rate',  pct(teamContact,teamLeads)+'%',    `${fmt(teamContact)} / ${fmt(teamLeads)}`,           'var(--purple)') +
-    kpiCard('Top Agent Conv',     (agentList[0]?.conv||0)+'%',       agentList[0]?.name||'—',               'var(--amber)') +
-    kpiCard('Lowest Agent Conv',  (agentList[agentList.length-1]?.conv||0)+'%', agentList[agentList.length-1]?.name||'—', '#666');
+  document.getElementById('kpi-agents').innerHTML=
+    kpiCard('Total Agents',agentList.length,'Identified in data','var(--green)')+
+    kpiCard('Team Total Sales',fmt(teamSales),`${agentList.length} agents tracked`,'var(--red)')+
+    kpiCard('Team Conv Rate',pct(teamSales,teamLeads)+'%',`${fmt(teamSales)} sales / ${fmt(teamLeads)} leads`,'var(--blue)')+
+    kpiCard('Team Contact Rate',pct(teamContact,teamLeads)+'%',`${fmt(teamContact)} / ${fmt(teamLeads)}`,'var(--purple)')+
+    kpiCard('Top Agent Conv',(agentList[0]?.conv||0)+'%',agentList[0]?.name||'—','var(--amber)')+
+    kpiCard('Lowest Agent Conv',(agentList[agentList.length-1]?.conv||0)+'%',agentList[agentList.length-1]?.name||'—','#666');
 
-  function agentCard(a, i, isTop) {
-    const rankLabels = isTop ? ['r1','r2','r3','r-other','r-other'] : ['r-bot','r-bot','r-bot','r-bot','r-bot'];
-    const rankText   = isTop ? (i+1) : `B${i+1}`;
-    const col        = isTop ? 'var(--green)' : 'var(--red)';
+  function agentCard(a,i,isTop){
+    const rl=isTop?['r1','r2','r3','r-other','r-other']:['r-bot','r-bot','r-bot','r-bot','r-bot'];
+    const rt=isTop?(i+1):`B${i+1}`;
+    const col=isTop?'var(--green)':'var(--red)';
     return `<div class="agent-card ${isTop?'top':'bottom'}">
-      <div class="rank-badge ${rankLabels[i]}">${rankText}</div>
+      <div class="rank-badge ${rl[i]}">${rt}</div>
       <div style="flex:1">
         <div style="font-weight:600;color:var(--bright);font-size:13px;">${a.name}</div>
         <div style="font-size:11px;color:var(--muted);margin-top:2px;">${fmt(a.leads)} leads · ${fmt(a.contact)} contacts · ${fmt(a.ts)} sales</div>
@@ -802,244 +887,158 @@ function render(rows) {
       </div>
     </div>`;
   }
+  document.getElementById('top5-agents').innerHTML=top5.map((a,i)=>agentCard(a,i,true)).join('');
+  document.getElementById('bot5-agents').innerHTML=[...bot5].reverse().map((a,i)=>agentCard(a,i,false)).join('');
 
-  document.getElementById('top5-agents').innerHTML = top5.map((a,i) => agentCard(a,i,true)).join('');
-  document.getElementById('bot5-agents').innerHTML = [...bot5].reverse().map((a,i) => agentCard(a,i,false)).join('');
-
-  // Split table
-  document.getElementById('split-tbody').innerHTML = agentList.map(a => {
-    const ncC   = a.nc_conv.toFixed(1);
-    const upgC  = a.upg_conv.toFixed(1);
-    const strong = a.nc_conv > a.upg_conv
-      ? '<span style="color:var(--new-conn);font-weight:600;">New Connection</span>'
-      : a.upg_conv > a.nc_conv
-        ? '<span style="color:var(--upgrade);font-weight:600;">Upgrade</span>'
-        : '<span style="color:var(--muted);">Equal</span>';
-    return `<tr>
-      <td class="name-cell">${a.name}</td>
-      <td class="num">${fmt(a.nc_leads)}</td>
-      <td class="num">${fmt(a.nc_ts)}</td>
-      <td class="num" style="color:var(--green);">${ncC}%</td>
-      <td class="num">${fmt(a.upg_leads)}</td>
-      <td class="num">${fmt(a.upg_ts)}</td>
-      <td class="num" style="color:var(--amber);">${upgC}%</td>
-      <td>${strong}</td>
-    </tr>`;
+  document.getElementById('split-tbody').innerHTML=agentList.map(a=>{
+    const ncC=a.nc_conv.toFixed(1),upgC=a.upg_conv.toFixed(1);
+    const strong=a.nc_conv>a.upg_conv?'<span style="color:var(--new-conn);font-weight:600;">New Connection</span>':a.upg_conv>a.nc_conv?'<span style="color:var(--upgrade);font-weight:600;">Upgrade</span>':'<span style="color:var(--muted);">Equal</span>';
+    return `<tr><td class="name-cell">${a.name}</td><td class="num">${fmt(a.nc_leads)}</td><td class="num">${fmt(a.nc_ts)}</td>
+      <td class="num" style="color:var(--green);">${ncC}%</td><td class="num">${fmt(a.upg_leads)}</td><td class="num">${fmt(a.upg_ts)}</td>
+      <td class="num" style="color:var(--amber);">${upgC}%</td><td>${strong}</td></tr>`;
   }).join('');
 
-  // Full table
-  document.getElementById('full-agent-tbody').innerHTML = agentList.map((a,i) => {
-    const tier = i < 5
-      ? '<span style="color:var(--green);font-size:11px;font-weight:600;">▲ Top</span>'
-      : '<span style="color:var(--red);font-size:11px;font-weight:600;">▼ Low</span>';
-    return `<tr>
-      <td class="num" style="color:var(--muted);">${i+1}</td>
-      <td class="name-cell">${a.name}</td>
+  document.getElementById('full-agent-tbody').innerHTML=agentList.map((a,i)=>{
+    const tier=i<5?'<span style="color:var(--green);font-size:11px;font-weight:600;">▲ Top</span>':'<span style="color:var(--red);font-size:11px;font-weight:600;">▼ Low</span>';
+    return `<tr><td class="num" style="color:var(--muted);">${i+1}</td><td class="name-cell">${a.name}</td>
       <td class="num">${fmt(a.leads)}</td><td class="num">${fmt(a.contact)}</td><td class="num">${fmt(a.rpc)}</td>
       <td class="num">${fmt(a.sale)}</td><td class="num">${fmt(a.ts)}</td>
       <td class="num">${a.cr.toFixed(1)}%</td><td class="num">${a.rr.toFixed(1)}%</td>
-      <td class="num" style="color:${convColor(a.conv)};font-weight:700;">${a.conv.toFixed(1)}%</td>
-      <td>${tier}</td>
-    </tr>`;
+      <td class="num" style="color:${convColor(a.conv)};font-weight:700;">${a.conv.toFixed(1)}%</td><td>${tier}</td></tr>`;
   }).join('');
 
-
-  // ════════════════════════════════════════════════
-  // RENDER — DISPOSITION REPORT
-  // ════════════════════════════════════════════════
-
-  // Aggregate dispositions per agent
-  const agentDispMap = {}; // { agentName: { dispCode: count } }
-  rows.forEach(r => {
-    const a    = (r['Agent Display'] || '').trim();
-    const disp = (r['Disposition']   || 'Unknown').trim();
-    if (!a || a === '\\N' || a === '' || a === 'Unassigned' || a === 'N/A') return;
-    const lead = n(r['Lead']);
-    if (lead === 0) return;
-    if (!agentDispMap[a]) agentDispMap[a] = {};
-    agentDispMap[a][disp] = (agentDispMap[a][disp] || 0) + lead;
+  // ══════════════════════════════
+  // RENDER DISPOSITIONS
+  // ══════════════════════════════
+  const agentDispMap={};
+  rows.forEach(r=>{
+    const a=(r['Agent Display']||'').trim();
+    if(!isValidAgent(a)) return;
+    const disp=(r['Disposition']||'Unknown').trim();
+    const lead=n(r['Lead']); if(lead===0) return;
+    if(!agentDispMap[a]) agentDispMap[a]={};
+    agentDispMap[a][disp]=(agentDispMap[a][disp]||0)+lead;
   });
 
-  // Categorise dispositions
-  function categoriseDisp(disp) {
-    const d = disp.toLowerCase();
-    if (d.includes('sale') || d.includes('sold'))                                          return 'sale';
-    if (d.includes('callback') || d.includes('call back') || d.includes('interested later')) return 'callback';
-    if (d.includes('not interested'))                                                       return 'not_interested';
-    if (d.includes('voice mail') || d.includes('voicemail'))                               return 'voicemail';
-    if (d.includes('no answer'))                                                            return 'no_answer';
-    if (d.includes('third party') || d.includes('3rd party'))                              return 'third_party';
-    if (d.includes('hung up') || d.includes('hung-up') || d.includes('hungup'))           return 'hung_up';
+  function categoriseDisp(disp){
+    const d=disp.toLowerCase();
+    if(d.includes('sale')||d.includes('sold')) return 'sale';
+    if(d.includes('callback')||d.includes('call back')||d.includes('interested later')) return 'callback';
+    if(d.includes('not interested')) return 'not_interested';
+    if(d.includes('voice mail')||d.includes('voicemail')) return 'voicemail';
+    if(d.includes('no answer')) return 'no_answer';
+    if(d.includes('third party')||d.includes('3rd party')) return 'third_party';
+    if(d.includes('hung up')||d.includes('hung-up')||d.includes('hungup')) return 'hung_up';
     return 'other';
   }
-
-  const CAT_META = {
-    sale:         { label:'Sales',        color:'var(--green)',  bg:'rgba(34,197,94,0.15)'  },
-    callback:     { label:'Callbacks',    color:'var(--amber)',  bg:'rgba(245,158,11,0.15)' },
-    not_interested:{ label:'Not Interested', color:'var(--blue)', bg:'rgba(59,130,246,0.15)'},
-    voicemail:    { label:'Voicemail',    color:'var(--muted)',  bg:'rgba(90,90,114,0.2)'   },
-    no_answer:    { label:'No Answer',    color:'var(--muted)',  bg:'rgba(90,90,114,0.2)'   },
-    third_party:  { label:'3rd Party',    color:'var(--muted)',  bg:'rgba(90,90,114,0.2)'   },
-    hung_up:      { label:'Hung Up',      color:'var(--red)',    bg:'rgba(226,0,26,0.15)'   },
-    other:        { label:'Other',        color:'var(--border)', bg:'rgba(46,46,58,0.5)'    },
+  const CAT_META={
+    sale:{label:'Sales',color:'var(--green)',bg:'rgba(34,197,94,0.15)'},
+    callback:{label:'Callbacks',color:'var(--amber)',bg:'rgba(245,158,11,0.15)'},
+    not_interested:{label:'Not Interested',color:'var(--blue)',bg:'rgba(59,130,246,0.15)'},
+    voicemail:{label:'Voicemail',color:'var(--muted)',bg:'rgba(90,90,114,0.2)'},
+    no_answer:{label:'No Answer',color:'var(--muted)',bg:'rgba(90,90,114,0.2)'},
+    third_party:{label:'3rd Party',color:'var(--muted)',bg:'rgba(90,90,114,0.2)'},
+    hung_up:{label:'Hung Up',color:'var(--red)',bg:'rgba(226,0,26,0.15)'},
+    other:{label:'Other',color:'var(--border)',bg:'rgba(46,46,58,0.5)'},
   };
 
-  // Build per-agent category summary
-  const agentDispCats = {}; // { agentName: { cat: count } }
-  Object.entries(agentDispMap).forEach(([agent, disps]) => {
-    agentDispCats[agent] = { sale:0, callback:0, not_interested:0, voicemail:0, no_answer:0, third_party:0, hung_up:0, other:0 };
-    Object.entries(disps).forEach(([disp, count]) => {
-      const cat = categoriseDisp(disp);
-      agentDispCats[agent][cat] += count;
-    });
+  const agentDispCats={};
+  Object.entries(agentDispMap).forEach(([agent,disps])=>{
+    agentDispCats[agent]={sale:0,callback:0,not_interested:0,voicemail:0,no_answer:0,third_party:0,hung_up:0,other:0};
+    Object.entries(disps).forEach(([disp,count])=>{agentDispCats[agent][categoriseDisp(disp)]+=count;});
   });
 
-  // ── KPI for disposition tab ──
-  const totalUniq = Object.keys(agentDispMap).length;
-  const allDispCodes = new Set(rows.map(r => (r['Disposition']||'').trim()).filter(Boolean));
-  const mostCommonDisp = dispSorted[0] ? dispSorted[0][0] : '—';
-  document.getElementById('kpi-disp').innerHTML =
-    kpiCard('Agents with Data',   totalUniq,              'In disposition report',           'var(--blue)')   +
-    kpiCard('Unique Dispositions',allDispCodes.size,      'Across all agents',               'var(--purple)') +
-    kpiCard('Top Disposition',    mostCommonDisp.length > 18 ? mostCommonDisp.slice(0,16)+'…' : mostCommonDisp, `${fmt(dispSorted[0]?.[1]||0)} occurrences`, 'var(--amber)') +
-    kpiCard('Team Sales',         fmt(totTS),             'Via disposition flag',            'var(--green)');
+  const allDispCodes=new Set(rows.map(r=>(r['Disposition']||'').trim()).filter(Boolean));
+  document.getElementById('kpi-disp').innerHTML=
+    kpiCard('Agents with Data',Object.keys(agentDispMap).length,'In disposition report','var(--blue)')+
+    kpiCard('Unique Dispositions',allDispCodes.size,'Across all agents','var(--purple)')+
+    kpiCard('Top Disposition',dispSorted[0]?.[0]?.slice(0,18)||'—',`${fmt(dispSorted[0]?.[1]||0)} occurrences`,'var(--amber)')+
+    kpiCard('Team Sales',fmt(totTS),'Via disposition flag','var(--green)');
 
-  // ── Agent selector buttons ──
-  const selectorEl = document.getElementById('agent-selector');
-  selectorEl.innerHTML = '<button class="agent-filter-btn active" onclick="filterAgent(\'ALL\',this)">All Agents</button>';
-  agentList.forEach(a => {
-    const btn = document.createElement('button');
-    btn.className = 'agent-filter-btn';
-    btn.textContent = a.name.split(' ')[0]; // first name for brevity
-    btn.title = a.name;
-    btn.onclick = function(){ filterAgent(a.name, this); };
+  const selectorEl=document.getElementById('agent-selector');
+  selectorEl.innerHTML='<button class="agent-filter-btn active" onclick="filterAgent(\'ALL\',this)">All Agents</button>';
+  agentList.forEach(a=>{
+    const btn=document.createElement('button');
+    btn.className='agent-filter-btn'; btn.textContent=a.name.split(' ')[0]; btn.title=a.name;
+    btn.onclick=function(){filterAgent(a.name,this);};
     selectorEl.appendChild(btn);
   });
 
-  // ── Build all agent disposition blocks ──
-  const dispReportEl = document.getElementById('disp-report-all');
-  dispReportEl.innerHTML = agentList.map(a => {
-    const disps = agentDispMap[a.name] || {};
-    const cats  = agentDispCats[a.name] || {};
-    const totalLeads = Object.values(disps).reduce((s,v)=>s+v,0);
-    const dispEntries = Object.entries(disps).sort((x,y)=>y[1]-x[1]);
-    const maxCount = dispEntries[0]?.[1] || 1;
-
-    // Summary pills
-    const pillsHtml = Object.entries(CAT_META).map(([cat, meta]) => {
-      const count = cats[cat] || 0;
-      if (count === 0) return '';
+  document.getElementById('disp-report-all').innerHTML=agentList.map(a=>{
+    const disps=agentDispMap[a.name]||{},cats=agentDispCats[a.name]||{};
+    const totalLeads=Object.values(disps).reduce((s,v)=>s+v,0);
+    const dispEntries=Object.entries(disps).sort((x,y)=>y[1]-x[1]);
+    const maxCount=dispEntries[0]?.[1]||1;
+    const pillsHtml=Object.entries(CAT_META).map(([cat,meta])=>{
+      const count=cats[cat]||0; if(count===0)return '';
       return `<div class="disp-sum-pill" style="background:${meta.bg};color:${meta.color};">${meta.label}: <b>${fmt(count)}</b></div>`;
     }).join('');
-
-    // Full disposition bars
-    const barsHtml = dispEntries.map(([disp, count]) => {
-      const cat   = categoriseDisp(disp);
-      const meta  = CAT_META[cat];
-      const barPct = (count / maxCount * 100).toFixed(1);
-      const pctOfTotal = (count / totalLeads * 100).toFixed(1);
+    const barsHtml=dispEntries.map(([disp,count])=>{
+      const cat=categoriseDisp(disp),meta=CAT_META[cat];
       return `<div class="disp-category-bar">
         <div class="disp-cat-label" title="${disp}">${disp}</div>
-        <div class="disp-cat-track"><div class="disp-cat-fill" style="width:${barPct}%;background:${meta.color};opacity:0.8;"></div></div>
+        <div class="disp-cat-track"><div class="disp-cat-fill" style="width:${(count/maxCount*100).toFixed(1)}%;background:${meta.color};opacity:0.8;"></div></div>
         <div class="disp-cat-count">${fmt(count)}</div>
-        <div class="disp-cat-pct">${pctOfTotal}%</div>
+        <div class="disp-cat-pct">${(count/totalLeads*100).toFixed(1)}%</div>
       </div>`;
     }).join('');
-
-    const convC = convColor(a.conv);
-
     return `<div class="disp-agent-block" data-agent="${a.name}">
       <div class="disp-agent-header" onclick="toggleDispBlock(this)">
-        <div>
-          <div class="disp-agent-name">${a.name}</div>
-          <div class="disp-agent-meta">${fmt(totalLeads)} leads · ${dispEntries.length} disposition codes used</div>
-        </div>
+        <div><div class="disp-agent-name">${a.name}</div>
+          <div class="disp-agent-meta">${fmt(totalLeads)} leads · ${dispEntries.length} codes used</div></div>
         <div class="disp-agent-stats">
-          <div class="disp-stat">
-            <div class="val" style="color:var(--green);">${fmt(cats.sale||0)}</div>
-            <div class="lbl">Sales</div>
-          </div>
-          <div class="disp-stat">
-            <div class="val" style="color:var(--amber);">${fmt(cats.callback||0)}</div>
-            <div class="lbl">Callbacks</div>
-          </div>
-          <div class="disp-stat">
-            <div class="val" style="color:${convC};">${a.conv.toFixed(1)}%</div>
-            <div class="lbl">Conv Rate</div>
-          </div>
+          <div class="disp-stat"><div class="val" style="color:var(--green);">${fmt(cats.sale||0)}</div><div class="lbl">Sales</div></div>
+          <div class="disp-stat"><div class="val" style="color:var(--amber);">${fmt(cats.callback||0)}</div><div class="lbl">Callbacks</div></div>
+          <div class="disp-stat"><div class="val" style="color:${convColor(a.conv)};">${a.conv.toFixed(1)}%</div><div class="lbl">Conv Rate</div></div>
           <div class="disp-toggle">▼</div>
         </div>
       </div>
       <div class="disp-body collapsed">
         <div class="disp-summary-pills">${pillsHtml}</div>
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;padding:0 2px;">
-          <span>Disposition Code</span>
-          <span style="display:flex;gap:10px;"><span style="width:36px;text-align:right;">Count</span><span style="width:38px;text-align:right;">% Share</span></span>
+          <span>Disposition Code</span><span style="display:flex;gap:10px;"><span style="width:36px;text-align:right;">Count</span><span style="width:38px;text-align:right;">% Share</span></span>
         </div>
         ${barsHtml}
       </div>
     </div>`;
   }).join('');
 
-  // ── Disposition summary table in Agent tab ──
-  document.getElementById('agent-disp-summary-tbody').innerHTML = agentList.map(a => {
-    const cats = agentDispCats[a.name] || {};
-    const total = a.leads;
-    function catCell(cat, color) {
-      const v = cats[cat] || 0;
-      return `<td class="num" style="color:${color};">${v > 0 ? fmt(v) : '<span style=\'color:var(--border);\'>—</span>'}</td>`;
-    }
-    return `<tr>
-      <td class="name-cell">${a.name}</td>
-      ${catCell('sale','var(--green)')}
-      ${catCell('callback','var(--amber)')}
-      ${catCell('not_interested','var(--blue)')}
-      ${catCell('voicemail','var(--muted)')}
-      ${catCell('no_answer','var(--muted)')}
-      ${catCell('third_party','var(--muted)')}
-      ${catCell('hung_up','var(--red)')}
-      ${catCell('other','var(--muted)')}
-      <td class="num">${fmt(total)}</td>
-    </tr>`;
+  document.getElementById('agent-disp-summary-tbody').innerHTML=agentList.map(a=>{
+    const cats=agentDispCats[a.name]||{};
+    function catCell(cat,color){const v=cats[cat]||0;return `<td class="num" style="color:${color};">${v>0?fmt(v):'<span style="color:var(--border);">—</span>'}</td>`;}
+    return `<tr><td class="name-cell">${a.name}</td>
+      ${catCell('sale','var(--green)')}${catCell('callback','var(--amber)')}${catCell('not_interested','var(--blue)')}
+      ${catCell('voicemail','var(--muted)')}${catCell('no_answer','var(--muted)')}${catCell('third_party','var(--muted)')}
+      ${catCell('hung_up','var(--red)')}${catCell('other','var(--muted)')}
+      <td class="num">${fmt(a.leads)}</td></tr>`;
   }).join('');
 
-  // ── UPDATE STATUS ──
-  const now = new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  document.getElementById('last-updated').textContent = `Last loaded: ${now}`;
-  document.getElementById('footer-source').textContent = `Source: I50N/Voda_Dashboard · ${now}`;
+  const now=new Date().toLocaleString('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-updated').textContent=`Last loaded: ${now}`;
+  document.getElementById('footer-source').textContent=`Source: I50N/Voda_Dashboard · ${now}`;
 }
 
-// ════════════════════════════════════════════════
-// FETCH + LOAD
-// ════════════════════════════════════════════════
-async function loadData() {
-  const overlay = document.getElementById('loading-overlay');
-  const errBanner = document.getElementById('error-banner');
-  const reloadBtn = document.getElementById('reload-btn');
-
-  overlay.classList.remove('hidden');
-  errBanner.style.display = 'none';
-  reloadBtn.disabled = true;
-
-  try {
-    const res = await fetch(CSV_URL + '?t=' + Date.now()); // cache bust
-    if (!res.ok) throw new Error(`HTTP ${res.status} — Could not fetch CSV from GitHub. Check that the file exists at the configured path.`);
-    const text = await res.text();
-    if (!text.trim()) throw new Error('CSV file is empty.');
-    const rows = parseCSV(text);
-    if (!rows.length) throw new Error('CSV parsed but returned no rows. Check column headers match expected format.');
+async function loadData(){
+  const overlay=document.getElementById('loading-overlay');
+  const errBanner=document.getElementById('error-banner');
+  const reloadBtn=document.getElementById('reload-btn');
+  overlay.classList.remove('hidden'); errBanner.style.display='none'; reloadBtn.disabled=true;
+  try{
+    const res=await fetch(CSV_URL+'?t='+Date.now());
+    if(!res.ok) throw new Error(`HTTP ${res.status} — Could not fetch CSV.`);
+    const text=await res.text();
+    if(!text.trim()) throw new Error('CSV file is empty.');
+    const rows=parseCSV(text);
+    if(!rows.length) throw new Error('CSV parsed but returned no rows.');
     render(rows);
-  } catch (err) {
-    document.getElementById('error-msg').textContent = err.message;
-    errBanner.style.display = 'flex';
-    document.getElementById('last-updated').textContent = 'Failed to load data';
-  } finally {
-    overlay.classList.add('hidden');
-    reloadBtn.disabled = false;
+  }catch(err){
+    document.getElementById('error-msg').textContent=err.message;
+    errBanner.style.display='flex';
+    document.getElementById('last-updated').textContent='Failed to load data';
+  }finally{
+    overlay.classList.add('hidden'); reloadBtn.disabled=false;
   }
 }
-
-// Auto-load on open
 loadData();
 </script>
 </body>
